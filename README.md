@@ -1,8 +1,8 @@
-#### This is the main repository for the course "Team-Embedded - Solar Team".
+# This is the main repository for the course "Team-Embedded - Solar Team".
 
-## Try to create a branch instead of updating the master branch directly
+### Try to create a branch instead of updating the master branch directly
 
-# Github terminal command cheat sheet
+#### Github terminal command cheat sheet
 [Cheat sheet](https://education.github.com/git-cheat-sheet-education.pdf)
 
 * Add files to repository: __git add [file]__ 
