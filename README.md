@@ -2,6 +2,9 @@
 
 ### Try to create a branch instead of updating the master branch directly
 
+### Add other respositories by adding submodules
+
+
 #### Github terminal command cheat sheet
 [Cheat sheet](https://education.github.com/git-cheat-sheet-education.pdf)
 

@@ -1,0 +1,3 @@
+[submodule "weatherLogging"]
+	path = weatherLogging
+	url = https://github.com/erikkamph/weatherLogging.git

@@ -1,0 +1,90 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
+Add other respositories by adding submodules	README.md	/^### Add other respositories by adding submodules$/;"	S
+Checklist	weatherLogging/README.md	/^## Checklist$/;"	s
+Communication	weatherLogging/source/python/modules/sensorCommunication.py	/^class Communication:$/;"	c
+Feeling lazy?	weatherLogging/README.md	/^### Feeling lazy?$/;"	S
+FileCreation	weatherLogging/source/python/data_tests/FileCreation.py	/^class FileCreation(unittest.TestCase):$/;"	c
+Github terminal command cheat sheet	README.md	/^#### Github terminal command cheat sheet$/;"	t
+How to run?	weatherLogging/README.md	/^## How to run?$/;"	s
+LogFileTest	weatherLogging/source/python/data_tests/LogFileTest.py	/^class LogFileTest(unittest.TestCase):$/;"	c
+Logging system for energy-team	weatherLogging/README.md	/^# Logging system for energy-team$/;"	c
+Main repository for: Team-Embedded - Solar Team	README.md	/^# Main repository for: Team-Embedded - Solar Team $/;"	c
+Packages in requirements	weatherLogging/README.md	/^### Packages in requirements$/;"	S
+Parameters	weatherLogging/README.md	/^### Parameters$/;"	S
+Plotter	weatherLogging/source/python/modules/dataPlotter.py	/^class Plotter:$/;"	c
+Python and pip	weatherLogging/README.md	/^### Python and pip$/;"	S
+ReadTest	weatherLogging/source/python/data_tests/ReadTest.py	/^class ReadTest(unittest.TestCase):$/;"	c
+Structure	weatherLogging/README.md	/^## Structure$/;"	s
+TODO	weatherLogging/README.md	/^## TODO$/;"	s
+The script	weatherLogging/README.md	/^## The script$/;"	s
+Try to create a branch instead of updating the master branch directly	README.md	/^### Try to create a branch instead of updating the master branch directly$/;"	S
+Useful links	weatherLogging/README.md	/^## Useful links$/;"	s
+Version	weatherLogging/README.md	/^## Version$/;"	s
+Want to do everything by hand?	weatherLogging/README.md	/^### Want to do everything by hand?$/;"	S
+WriteTest	weatherLogging/source/python/data_tests/WriteTest.py	/^class WriteTest(unittest.TestCase):$/;"	c
+__init__	weatherLogging/source/python/modules/dataPlotter.py	/^    def __init__(self, arguments):$/;"	m	class:Plotter
+__init__	weatherLogging/source/python/modules/sensorCommunication.py	/^    def __init__(self, device, baudrate=9600, pltlen=100, units=None, colors=None):$/;"	m	class:Communication
+anim	weatherLogging/source/python/modules/dataPlotter.py	/^from matplotlib import animation as anim$/;"	x
+arguments	weatherLogging/source/python/main.py	/^    arguments = sys.argv[1:]  # We capture the program arguments given$/;"	v
+arguments	weatherLogging/source/python/modules/dataPlotter.py	/^    def arguments(self):$/;"	m	class:Plotter
+background_thread	weatherLogging/source/python/modules/sensorCommunication.py	/^    def background_thread(self):$/;"	m	class:Communication
+check_requirements	weatherLogging/source/run.sh	/^function check_requirements {$/;"	f
+close	weatherLogging/source/python/modules/sensorCommunication.py	/^    def close(self):$/;"	m	class:Communication
+columns	weatherLogging/source/python/data_tests/LogFileTest.py	/^    columns = None$/;"	v	class:LogFileTest
+create_dataframe	weatherLogging/source/python/modules/sensorCommunication.py	/^    def create_dataframe(self):$/;"	m	class:Communication
+create_files	weatherLogging/source/python/data_tests/FileCreation.py	/^    def create_files(self):$/;"	m	class:FileCreation
+csv_file_path	weatherLogging/source/python/data_tests/LogFileTest.py	/^    csv_file_path = None$/;"	v	class:LogFileTest
+csv_nr_rows	weatherLogging/source/python/data_tests/LogFileTest.py	/^    csv_nr_rows = None$/;"	v	class:LogFileTest
+delete_files	weatherLogging/source/python/data_tests/FileCreation.py	/^    def delete_files(self):$/;"	m	class:FileCreation
+delimiter	weatherLogging/source/python/data_tests/FileCreation.py	/^delimiter = "\\\\" if sys.platform == "win32" else "\/"  # OS Specific delimiter$/;"	v
+delimiter	weatherLogging/source/python/data_tests/ReadTest.py	/^delimiter = "\\\\" if sys.platform == "win32" else "\/"  # OS specific delimiter$/;"	v
+delimiter	weatherLogging/source/python/data_tests/WriteTest.py	/^delimiter = "\\\\" if sys.platform == "win32" else "\/"  # OS Specific delimiter$/;"	v
+delimiter	weatherLogging/source/python/main.py	/^delimiter = "\\\\" if sys.platform == "win32" else "\/"$/;"	v
+directories	weatherLogging/source/python/data_tests/FileCreation.py	/^directories = ["%sfigures" % delimiter, "%slogs" % delimiter]  # Directories used for logs and i/;"	v
+directories	weatherLogging/source/python/data_tests/ReadTest.py	/^directories = ["%sfigures" % delimiter, "%slogs" % delimiter]  # Directories used for logs and i/;"	v
+directories	weatherLogging/source/python/data_tests/WriteTest.py	/^directories = ["%sfigures" % delimiter, "%slogs" % delimiter]  # Directories used for logs and i/;"	v
+fileNames	weatherLogging/source/python/data_tests/FileCreation.py	/^fileNames = ["%stestFile.txt" % delimiter, "%slogFile.txt" % delimiter]  # Test files for creati/;"	v
+get_baudrate	weatherLogging/source/python/modules/dataPlotter.py	/^    def get_baudrate(self):$/;"	m	class:Plotter
+get_device	weatherLogging/source/python/modules/dataPlotter.py	/^    def get_device(self):$/;"	m	class:Plotter
+get_project_root	weatherLogging/source/python/main.py	/^def get_project_root():$/;"	f
+get_project_root	weatherLogging/source/python/modules/sensorCommunication.py	/^    def get_project_root(self):$/;"	m	class:Communication
+get_serial_data	weatherLogging/source/python/modules/sensorCommunication.py	/^    def get_serial_data(self, _, axs):$/;"	m	class:Communication
+log_dirs	weatherLogging/source/python/main.py	/^    log_dirs = ["%sfigures" % delimiter, "%slogs" % delimiter]  # Directories for logging$/;"	v
+main	weatherLogging/source/python/modules/dataPlotter.py	/^    def main(self):$/;"	m	class:Plotter
+make_overview	weatherLogging/source/python/modules/sensorCommunication.py	/^    def make_overview(self, dataframe, root, ts):$/;"	m	class:Communication
+overview_file_path	weatherLogging/source/python/data_tests/LogFileTest.py	/^    overview_file_path = None$/;"	v	class:LogFileTest
+pd	weatherLogging/source/python/data_tests/FileCreation.py	/^import pandas as pd$/;"	I
+pd	weatherLogging/source/python/data_tests/LogFileTest.py	/^import pandas as pd$/;"	I
+pd	weatherLogging/source/python/modules/sensorCommunication.py	/^import pandas as pd$/;"	I
+plt	weatherLogging/source/python/modules/dataPlotter.py	/^from matplotlib import pyplot as plt$/;"	x
+plt	weatherLogging/source/python/modules/sensorCommunication.py	/^from matplotlib import pyplot as plt$/;"	x
+program	weatherLogging/source/python/main.py	/^    program = Plotter(arguments)  # Send the arguments to the plotter for parsing$/;"	v
+read_serial_start	weatherLogging/source/python/modules/sensorCommunication.py	/^    def read_serial_start(self):$/;"	m	class:Communication
+root	weatherLogging/source/python/data_tests/FileCreation.py	/^root = os.getcwd().replace("%ssource%spython" % (delimiter, delimiter), "")  # Current Working D/;"	v
+root	weatherLogging/source/python/data_tests/ReadTest.py	/^root = os.getcwd().replace("%ssource%spython" % (delimiter, delimiter), "")  # Current working d/;"	v
+root	weatherLogging/source/python/data_tests/WriteTest.py	/^root = os.getcwd().replace("%ssource%spython" % (delimiter, delimiter), "")  # Current Working D/;"	v
+run_data_tests	weatherLogging/source/python/data_tests/TestRunner.py	/^def run_data_tests():$/;"	f
+serial_ports	weatherLogging/source/python/modules/autodetect_serial_port.py	/^def serial_ports():$/;"	f
+setUpAndRun	weatherLogging/source/python/data_tests/LogFileTest.py	/^def setUpAndRun(csvfile, nrrows, columns, overview):$/;"	f
+setup_serial	weatherLogging/source/python/modules/sensorCommunication.py	/^    def setup_serial(self):$/;"	m	class:Communication
+test_createFiles	weatherLogging/source/python/data_tests/FileCreation.py	/^    def test_createFiles(self):$/;"	m	class:FileCreation
+test_csvFile	weatherLogging/source/python/data_tests/LogFileTest.py	/^    def test_csvFile(self):$/;"	m	class:LogFileTest
+test_deleteFiles	weatherLogging/source/python/data_tests/FileCreation.py	/^    def test_deleteFiles(self):$/;"	m	class:FileCreation
+test_directoriesExist	weatherLogging/source/python/data_tests/ReadTest.py	/^    def test_directoriesExist(self):$/;"	m	class:ReadTest
+test_directoriesExist	weatherLogging/source/python/data_tests/WriteTest.py	/^    def test_directoriesExist(self):$/;"	m	class:WriteTest
+test_directoriesIsWritable	weatherLogging/source/python/data_tests/WriteTest.py	/^    def test_directoriesIsWritable(self):$/;"	m	class:WriteTest
+test_directoryReadAccess	weatherLogging/source/python/data_tests/ReadTest.py	/^    def test_directoryReadAccess(self):$/;"	m	class:ReadTest
+test_largeFile	weatherLogging/source/python/data_tests/FileCreation.py	/^    def test_largeFile(self):$/;"	m	class:FileCreation
+test_overviewFile	weatherLogging/source/python/data_tests/LogFileTest.py	/^    def test_overviewFile(self):$/;"	m	class:LogFileTest
+test_rootIsReadable	weatherLogging/source/python/data_tests/ReadTest.py	/^    def test_rootIsReadable(self):$/;"	m	class:ReadTest
+test_rootIsWritable	weatherLogging/source/python/data_tests/WriteTest.py	/^    def test_rootIsWritable(self):$/;"	m	class:WriteTest
+tests	weatherLogging/source/python/data_tests/TestRunner.py	/^tests = ["data_tests.WriteTest", "data_tests.ReadTest", "data_tests.FileCreation"]$/;"	v
+try_create	weatherLogging/source/python/main.py	/^def try_create(log_dirs):$/;"	f
+values	weatherLogging/source/python/main.py	/^    values = program.main()  # Start the main program and wait for four values$/;"	v
