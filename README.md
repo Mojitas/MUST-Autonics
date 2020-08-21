@@ -1,4 +1,4 @@
-# Main reposittory for: Team-Embedded - Solar Team 
+# Main repository for: Team-Embedded - Solar Team 
 
 ### Try to create a branch instead of updating the master branch directly
 
