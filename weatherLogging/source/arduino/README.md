@@ -1,1 +1,0 @@
-Here goes all the arduino things needed for this project/experiment to work.
