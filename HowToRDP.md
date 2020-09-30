@@ -1,11 +1,11 @@
 # Remote Desktop - How to connect?
-## First we make following assumptions:
-1. Remote computer is on and connected to internet.
-3. You know the IP-address of the wireless modem the computer is connected to e.g. 176.68.210.159 which is the external IPv4-address. It might have changed, if so see errors below for how to solve the problem.
+## First we make following assumption
+1. The computer is turned on
+2. The computer is connected to the internet
 
 ## What to do to connect?
 1. Open "Remote Desktop" (Swedish: Anslutning till fjärrskrivbord).
-2. Enter the public IP-address known.
+2. Enter following address: mdhsolarteam.ddns.net
 3. Make sure to select "Use another user" (Swedish: Annan användare) option found at the bottom of the window that popped up.
 4. Enter the username and password as found in a document called "BWSCComputer" in Teams.
 6. Hit enter or click on "connect".
