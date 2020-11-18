@@ -1,0 +1,506 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "MUST Battery schematics"
+Date "2020-11-18"
+Rev "1.2"
+Comp "Malardalen University Solar Team"
+Comment1 "Author: Mathias Strand, msd16007"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Switch:SW_DPDT_x2 SW3
+U 1 1 5FAC1B6E
+P 3100 1900
+F 0 "SW3" H 3100 1575 50  0000 C CNN
+F 1 "SW_DPDT_x2" H 3100 1666 50  0000 C CNN
+F 2 "" H 3100 1900 50  0001 C CNN
+F 3 "~" H 3100 1900 50  0001 C CNN
+	1    3100 1900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:Battery_Cell BT1
+U 1 1 5FAC31CD
+P 2000 2200
+F 0 "BT1" H 2118 2296 50  0000 L CNN
+F 1 "Battery_Cell" H 2118 2205 50  0000 L CNN
+F 2 "" V 2000 2260 50  0001 C CNN
+F 3 "~" V 2000 2260 50  0001 C CNN
+	1    2000 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Relay:DIPxx-1Axx-11x K1
+U 1 1 5FAC473E
+P 5250 1800
+F 0 "K1" V 5717 1800 50  0000 C CNN
+F 1 "DIPxx-1Axx-11x" V 5626 1800 50  0000 C CNN
+F 2 "Relay_THT:Relay_StandexMeder_DIP_LowProfile" H 5600 1750 50  0001 L CNN
+F 3 "https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf" H 5250 1800 50  0001 C CNN
+	1    5250 1800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5FAC7545
+P 5900 2550
+F 0 "R2" V 5693 2550 50  0000 C CNN
+F 1 "R" V 5800 2550 50  0000 C CNN
+F 2 "" V 5830 2550 50  0001 C CNN
+F 3 "~" H 5900 2550 50  0001 C CNN
+	1    5900 2550
+	0    1    1    0   
+$EndComp
+$Comp
+L Relay:DIPxx-1Axx-11x K3
+U 1 1 5FAC7BA1
+P 5250 3700
+F 0 "K3" V 5717 3700 50  0000 C CNN
+F 1 "DIPxx-1Axx-11x" V 5626 3700 50  0000 C CNN
+F 2 "Relay_THT:Relay_StandexMeder_DIP_LowProfile" H 5600 3650 50  0001 L CNN
+F 3 "https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf" H 5250 3700 50  0001 C CNN
+	1    5250 3700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Shunt R1
+U 1 1 5FAC96AA
+P 3400 2500
+F 0 "R1" V 3175 2500 50  0000 C CNN
+F 1 "R_Shunt" V 3266 2500 50  0000 C CNN
+F 2 "" V 3330 2500 50  0001 C CNN
+F 3 "~" H 3400 2500 50  0001 C CNN
+	1    3400 2500
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:Fuse F1
+U 1 1 5FAC9F50
+P 1600 2100
+F 0 "F1" H 1660 2146 50  0000 L CNN
+F 1 "Fuse" H 1660 2055 50  0000 L CNN
+F 2 "" V 1530 2100 50  0001 C CNN
+F 3 "~" H 1600 2100 50  0001 C CNN
+	1    1600 2100
+	1    0    0    -1  
+$EndComp
+Text Notes 3050 5000 0    79   ~ 16
+BMS
+$Comp
+L Device:Fuse F4
+U 1 1 5FAC2391
+P 3600 1600
+F 0 "F4" V 3403 1600 50  0000 C CNN
+F 1 "10A" V 3494 1600 50  0000 C CNN
+F 2 "" V 3530 1600 50  0001 C CNN
+F 3 "~" H 3600 1600 50  0001 C CNN
+	1    3600 1600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3350 1900 3350 1600
+Wire Wire Line
+	3750 1600 4150 1600
+Connection ~ 4150 1600
+Wire Wire Line
+	4150 1600 4950 1600
+Wire Wire Line
+	6050 2550 6050 1600
+Wire Wire Line
+	6050 1600 5550 1600
+$Comp
+L Converter_DCDC:ATA00BB36S-L U1
+U 1 1 5FAD0EF9
+P 1800 3100
+F 0 "U1" V 1754 2770 50  0000 R CNN
+F 1 "ATA00BB36S-L" V 1845 2770 50  0000 R CNN
+F 2 "Converter_DCDC:Converter_DCDC_Artesyn_ATA_SMD" H 1800 2750 50  0001 C CIN
+F 3 "https://www.artesyn.com/power/assets/ata_series_ds_01apr2015_79c25814fd.pdf" H 1800 2650 50  0001 C CNN
+	1    1800 3100
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	2000 2300 2000 2500
+Wire Wire Line
+	1600 2250 1600 2600
+Wire Wire Line
+	2000 2000 2900 2000
+Wire Wire Line
+	3350 1600 1600 1600
+Wire Wire Line
+	1600 1600 1600 1950
+Connection ~ 3350 1600
+Wire Wire Line
+	3350 1600 3450 1600
+Wire Wire Line
+	3350 1900 3300 1900
+Connection ~ 2000 2500
+Wire Wire Line
+	2000 2500 2000 2600
+Wire Wire Line
+	3600 2500 3600 3500
+Wire Wire Line
+	3600 3500 4950 3500
+$Comp
+L Connector:Conn_Coaxial_x2 J2
+U 1 1 5FAE7C6A
+P 7400 1850
+F 0 "J2" H 7500 1825 50  0000 L CNN
+F 1 "Conn_Coaxial_x2" H 7500 1734 50  0000 L CNN
+F 2 "" H 7400 1750 50  0001 C CNN
+F 3 " ~" H 7400 1750 50  0001 C CNN
+	1    7400 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_Coaxial J3
+U 1 1 5FAE8C21
+P 7400 2400
+F 0 "J3" H 7500 2375 50  0000 L CNN
+F 1 "Conn_Coaxial" H 7500 2284 50  0000 L CNN
+F 2 "" H 7400 2400 50  0001 C CNN
+F 3 " ~" H 7400 2400 50  0001 C CNN
+	1    7400 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 1600 7200 1600
+Wire Wire Line
+	7200 1600 7200 1750
+Connection ~ 6050 1600
+Wire Wire Line
+	7200 1750 7200 1950
+Connection ~ 7200 1750
+Wire Wire Line
+	2000 3600 2000 3800
+$Comp
+L Device:Fuse F2
+U 1 1 5FACBDCA
+P 2150 3800
+F 0 "F2" V 1953 3800 50  0000 C CNN
+F 1 "2A" V 2044 3800 50  0000 C CNN
+F 2 "" V 2080 3800 50  0001 C CNN
+F 3 "~" H 2150 3800 50  0001 C CNN
+	1    2150 3800
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1600 3600 1600 4550
+Wire Wire Line
+	5550 3500 6600 3500
+Wire Wire Line
+	6600 3500 6600 2150
+Wire Wire Line
+	6600 2150 7400 2150
+Wire Wire Line
+	7400 4200 7400 2600
+Wire Wire Line
+	7200 4550 7200 2400
+Wire Wire Line
+	2000 2500 2450 2500
+Wire Wire Line
+	4150 1600 4150 2550
+$Comp
+L Transistor_FET:2N7000 Q3
+U 1 1 5FAD6ABB
+P 4050 6450
+F 0 "Q3" V 4300 6500 50  0000 L CNN
+F 1 "2N7000" V 4300 6150 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 4250 6375 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 4050 6450 50  0001 L CNN
+	1    4050 6450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Transistor_FET:2N7000 Q1
+U 1 1 5FAD9182
+P 4050 5350
+F 0 "Q1" V 4300 5400 50  0000 L CNN
+F 1 "2N7000" V 4300 5050 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 4250 5275 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 4050 5350 50  0001 L CNN
+	1    4050 5350
+	0    -1   -1   0   
+$EndComp
+Wire Notes Line
+	4550 4800 4550 7150
+Wire Notes Line
+	4550 7150 1800 7150
+Wire Notes Line
+	1800 7150 1800 4800
+$Comp
+L Regulator_Linear:LT1084-3.3 U2
+U 1 1 5FAEAEF1
+P 2700 5100
+F 0 "U2" H 2700 5342 50  0000 C CNN
+F 1 "LT1084-3.3" H 2700 5251 50  0000 C CNN
+F 2 "" H 2700 5350 50  0001 C CIN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/1083ffe.pdf" H 2700 5100 50  0001 C CNN
+	1    2700 5100
+	0    1    1    0   
+$EndComp
+$Comp
+L Transistor_FET:2N7000 Q2
+U 1 1 5FAD87E5
+P 4050 5900
+F 0 "Q2" V 4300 5950 50  0000 L CNN
+F 1 "2N7000" V 4300 5600 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 4250 5825 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 4050 5900 50  0001 L CNN
+	1    4050 5900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 5FB57C37
+P 5550 3900
+F 0 "#PWR07" H 5550 3650 50  0001 C CNN
+F 1 "GND" H 5555 3727 50  0000 C CNN
+F 2 "" H 5550 3900 50  0001 C CNN
+F 3 "" H 5550 3900 50  0001 C CNN
+	1    5550 3900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 5250 3850 4550
+$Comp
+L power:GND #PWR05
+U 1 1 5FB5E005
+P 5550 2000
+F 0 "#PWR05" H 5550 1750 50  0001 C CNN
+F 1 "GND" H 5555 1827 50  0000 C CNN
+F 2 "" H 5550 2000 50  0001 C CNN
+F 3 "" H 5550 2000 50  0001 C CNN
+	1    5550 2000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4150 2550 4950 2550
+$Comp
+L power:GND #PWR06
+U 1 1 5FB5D6EC
+P 5550 2950
+F 0 "#PWR06" H 5550 2700 50  0001 C CNN
+F 1 "GND" H 5555 2777 50  0000 C CNN
+F 2 "" H 5550 2950 50  0001 C CNN
+F 3 "" H 5550 2950 50  0001 C CNN
+	1    5550 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5550 2550 5750 2550
+$Comp
+L Relay:DIPxx-1Axx-11x K2
+U 1 1 5FAC6202
+P 5250 2750
+F 0 "K2" V 5717 2750 50  0000 C CNN
+F 1 "DIPxx-1Axx-11x" V 5626 2750 50  0000 C CNN
+F 2 "Relay_THT:Relay_StandexMeder_DIP_LowProfile" H 5600 2700 50  0001 L CNN
+F 3 "https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf" H 5250 2750 50  0001 C CNN
+	1    5250 2750
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3350 6000 3350 5550
+Wire Wire Line
+	3350 5550 4050 5550
+Wire Wire Line
+	3300 6200 3550 6200
+Wire Wire Line
+	3550 6200 3550 6650
+Wire Wire Line
+	3550 6650 4050 6650
+Wire Wire Line
+	3850 5250 3850 5800
+Connection ~ 3850 5250
+Wire Wire Line
+	3850 5800 3850 6350
+Connection ~ 3850 5800
+Wire Wire Line
+	4300 5800 4250 5800
+Wire Wire Line
+	4250 6350 4300 6350
+Text GLabel 4950 3900 0    50   Input ~ 0
+K3
+Text GLabel 4950 2950 0    50   Input ~ 0
+K2
+Text GLabel 4950 2000 0    50   Input ~ 0
+K1
+Text GLabel 4300 5250 2    50   Input ~ 0
+K1
+Text GLabel 4300 5800 2    50   Input ~ 0
+K2
+Text GLabel 4300 6350 2    50   Input ~ 0
+K3
+$Comp
+L power:GND #PWR04
+U 1 1 5FBBFAAC
+P 2700 7000
+F 0 "#PWR04" H 2700 6750 50  0001 C CNN
+F 1 "GND" H 2850 7000 50  0000 C CNN
+F 2 "" H 2700 7000 50  0001 C CNN
+F 3 "" H 2700 7000 50  0001 C CNN
+	1    2700 7000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR02
+U 1 1 5FBC0118
+P 2400 5250
+F 0 "#PWR02" H 2400 5000 50  0001 C CNN
+F 1 "GND" H 2405 5077 50  0000 C CNN
+F 2 "" H 2400 5250 50  0001 C CNN
+F 3 "" H 2400 5250 50  0001 C CNN
+	1    2400 5250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2700 5400 2700 5600
+Wire Wire Line
+	2400 5100 2400 5250
+Connection ~ 3850 4550
+Wire Wire Line
+	3850 4550 7200 4550
+Wire Wire Line
+	2700 4800 2700 4550
+Connection ~ 2700 4550
+Wire Wire Line
+	2700 4550 3850 4550
+Wire Notes Line
+	1800 4800 4550 4800
+$Comp
+L MCU_Microchip_ATtiny:ATtiny804-SS U3
+U 1 1 5FBDF042
+P 2700 6300
+F 0 "U3" H 2700 7181 50  0000 C CNN
+F 1 "n-BMS" H 2700 6350 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 2700 6300 50  0001 C CIN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny804_1604-Data-Sheet-40002028A.pdf" H 2700 6300 50  0001 C CNN
+	1    2700 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3300 6100 4050 6100
+Wire Wire Line
+	3300 6000 3350 6000
+Wire Wire Line
+	2100 5900 1600 5900
+Wire Wire Line
+	1600 5900 1600 5450
+Wire Wire Line
+	2100 6000 1100 6000
+Wire Wire Line
+	1100 6000 1100 5450
+Wire Wire Line
+	3300 6600 3300 7300
+Wire Wire Line
+	3300 6500 3400 6500
+Wire Wire Line
+	3400 6500 3400 7300
+$Comp
+L Connector_Generic:Conn_01x02 J1
+U 1 1 5FBEE707
+P 3400 7500
+F 0 "J1" V 3272 7580 50  0000 L CNN
+F 1 "Conn_01x02" V 3363 7580 50  0000 L CNN
+F 2 "" H 3400 7500 50  0001 C CNN
+F 3 "~" H 3400 7500 50  0001 C CNN
+	1    3400 7500
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2450 4550 2700 4550
+Wire Wire Line
+	1600 4550 2150 4550
+$Comp
+L Device:Fuse F3
+U 1 1 5FACA6B1
+P 2300 4550
+F 0 "F3" V 2103 4550 50  0000 C CNN
+F 1 "20A" V 2194 4550 50  0000 C CNN
+F 2 "" V 2230 4550 50  0001 C CNN
+F 3 "~" H 2300 4550 50  0001 C CNN
+	1    2300 4550
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR03
+U 1 1 5FBF912C
+P 2450 2500
+F 0 "#PWR03" H 2450 2250 50  0001 C CNN
+F 1 "GND" H 2455 2327 50  0000 C CNN
+F 2 "" H 2450 2500 50  0001 C CNN
+F 3 "" H 2450 2500 50  0001 C CNN
+	1    2450 2500
+	1    0    0    -1  
+$EndComp
+Connection ~ 2450 2500
+Wire Wire Line
+	2450 2500 3200 2500
+Text Notes 1650 5900 0    50   ~ 0
+Discharge
+Text Notes 600  5000 0    50   ~ 0
+Only one can be on at a time
+$Comp
+L Switch:SW_SPST SW1
+U 1 1 5FC0EDE4
+P 1100 5250
+F 0 "SW1" V 1146 5162 50  0000 R CNN
+F 1 "SW_SPST" V 1055 5162 50  0000 R CNN
+F 2 "" H 1100 5250 50  0001 C CNN
+F 3 "~" H 1100 5250 50  0001 C CNN
+	1    1100 5250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Switch:SW_SPST SW2
+U 1 1 5FC123B6
+P 1600 5250
+F 0 "SW2" V 1646 5162 50  0000 R CNN
+F 1 "SW_SPST" V 1555 5162 50  0000 R CNN
+F 2 "" H 1600 5250 50  0001 C CNN
+F 3 "~" H 1600 5250 50  0001 C CNN
+	1    1600 5250
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1050 5050 1100 5050
+Connection ~ 1100 5050
+Wire Wire Line
+	1100 5050 1600 5050
+Text Notes 3100 7650 0    50   ~ 0
+CAN_H & CAN_L
+Text Notes 3450 7250 0    50   ~ 0
+CAN_L: brown
+Text Notes 2750 7250 0    50   ~ 0
+CAN_H: white
+Wire Wire Line
+	4300 5250 4250 5250
+Text Notes 550  700  0    79   ~ 0
+Based on the old schematics. This is not for manufacturing, only learning purposes
+Text Notes 2750 2150 0    50   ~ 0
+Main switch on battery
+Text GLabel 3500 2650 3    50   Input ~ 0
+V+
+Text GLabel 3300 2650 3    50   Input ~ 0
+V-
+Text GLabel 2100 6100 0    50   Input ~ 0
+V+
+Text GLabel 2100 6200 0    50   Input ~ 0
+V-
+Text GLabel 1050 5050 0    50   Input ~ 0
+Power_Sw
+Text GLabel 2300 3800 2    50   Input ~ 0
+Power_Sw
+Connection ~ 2000 3800
+Wire Wire Line
+	2000 4200 7400 4200
+Wire Wire Line
+	2000 3800 2000 4200
+$EndSCHEMATC
