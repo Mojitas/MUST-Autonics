@@ -440,7 +440,7 @@ CAN_H: white
 Wire Wire Line
 	4550 2050 4500 2050
 Text Notes 550  700  0    79   ~ 0
-Based on the old schematics. This is not for manufacturing, only learning purposes
+Based on the old schematics. This is not for manufacturing, only for learning purposes
 Text Notes 6450 1900 0    50   ~ 0
 Main switch on battery
 Text GLabel 7150 2850 0    50   Input ~ 0
