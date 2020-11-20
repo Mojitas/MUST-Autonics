@@ -1,1 +1,49 @@
-<mxfile host="app.diagrams.net" modified="2020-11-20T14:11:54.941Z" agent="5.0 (Windows)" version="13.10.0" etag="wVpeNSgKck-r0lYTVhpd" type="github"><diagram id="mOb9kf1dEFKgJrMuP9Ut">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2020-11-20T16:39:41.333Z" agent="5.0 (Windows)" etag="0TNvOXV7yhnVbNfndKk5" version="13.10.0" type="github">
+  <diagram id="mOb9kf1dEFKgJrMuP9Ut" name="Page-1">
+    <mxGraphModel dx="1422" dy="831" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-2" value="MCU" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="460" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-3" value="fuses" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="360" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-4" value="current sensor" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="390" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-5" value="current sensor" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="510" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-6" value="DC/DC 12-&amp;gt;5" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="360" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-7" value="diodes" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="360" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-9" value="switches" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="410" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-10" value="&lt;div&gt;temp&lt;/div&gt;&lt;div&gt;sensor&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="460" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-11" value="&lt;div&gt;isolated&lt;/div&gt;&lt;div&gt;DC/DC&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="410" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-12" value="&lt;div&gt;power&lt;/div&gt;&lt;div&gt;input&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="360" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-13" value="GND" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="640" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-14" value="12V channels" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="460" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-15" value="5V channels" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="410" width="80" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
