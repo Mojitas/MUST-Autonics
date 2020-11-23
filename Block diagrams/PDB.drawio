@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-11-23T13:59:28.093Z" agent="5.0 (Windows)" etag="wDAh0pnTMlhnOiQJo-Ad" version="13.10.1" type="github">
+<mxfile host="app.diagrams.net" modified="2020-11-23T14:00:33.273Z" agent="5.0 (Windows)" etag="oVotE-Fc8aoXkvRsnxk4" version="13.10.1" type="github">
   <diagram id="mOb9kf1dEFKgJrMuP9Ut" name="Page-1">
     <mxGraphModel dx="1038" dy="615" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -52,7 +52,7 @@
         <mxCell id="WhEAyp4Lanr-WaNayqxS-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="M4zJr3y5VQ9-pN1_80o7-10" target="M4zJr3y5VQ9-pN1_80o7-2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="M4zJr3y5VQ9-pN1_80o7-10" value="&lt;div&gt;temp&lt;/div&gt;&lt;div&gt;sensor&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="M4zJr3y5VQ9-pN1_80o7-10" value="&lt;div&gt;Temp&lt;/div&gt;&lt;div&gt;sensor&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="60" y="460" width="80" height="40" as="geometry" />
         </mxCell>
         <mxCell id="WhEAyp4Lanr-WaNayqxS-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="M4zJr3y5VQ9-pN1_80o7-11" target="M4zJr3y5VQ9-pN1_80o7-2">
