@@ -1,0 +1,118 @@
+<mxfile host="app.diagrams.net" modified="2020-11-24T08:26:15.106Z" agent="5.0 (Windows)" etag="-fXds3EXlECnN_cB-eZm" version="13.10.2" type="github">
+  <diagram id="ijZCFYs18B_aZDsjSj_O" name="Page-1">
+    <mxGraphModel dx="1038" dy="615" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-Cphney_6tKHDJOwfEio-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="130" y="40" width="540" height="550" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-2" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/product-categories/128/Steering-wheel.png;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="324.25" y="375.63" width="131.5" height="131.5" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-3" value="" style="shape=manualInput;whiteSpace=wrap;html=1;fillColor=#B3B3B3;" vertex="1" parent="1">
+          <mxGeometry x="240" y="155" width="150" height="83" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-4" value="" style="shape=manualInput;whiteSpace=wrap;html=1;direction=east;flipV=0;flipH=1;fillColor=#B3B3B3;" vertex="1" parent="1">
+          <mxGeometry x="390" y="155" width="150" height="83" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-5" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="457" y="180" width="55" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-6" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="270" y="180" width="55" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-7" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#B3B3B3;" vertex="1" parent="1">
+          <mxGeometry x="388" y="155.5" width="4" height="74.5" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-8" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/product-categories/128/Steering-wheel.png;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="325.5" y="139.75" width="131.5" height="131.5" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-9" value="Cut out&lt;br&gt;200x200" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="267.5" y="197.5" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-10" value="Cut out&lt;br&gt;200x200" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="454" y="197.5" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="-Cphney_6tKHDJOwfEio-10" target="-Cphney_6tKHDJOwfEio-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-12" value="&lt;font style=&quot;font-size: 24px&quot;&gt;Instrumental Panel&amp;nbsp;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="285" y="90" width="215" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-13" value="Two cut outs for modular fixture for instruments and switches. Example on size for the cut outs is 200x200 mm, which will allow installation of both screens and neccessary instruments." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="220" y="290" width="360" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="493" y="462.5" as="sourcePoint" />
+            <mxPoint x="493" y="462.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-15" value="" style="shape=manualInput;whiteSpace=wrap;html=1;fillColor=#B3B3B3;" vertex="1" parent="1">
+          <mxGeometry x="240" y="390" width="150" height="83" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-16" value="" style="shape=manualInput;whiteSpace=wrap;html=1;direction=east;flipV=0;flipH=1;fillColor=#B3B3B3;" vertex="1" parent="1">
+          <mxGeometry x="390" y="390" width="150" height="83" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-17" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="457" y="415" width="55" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-18" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="270" y="415" width="55" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-19" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#B3B3B3;" vertex="1" parent="1">
+          <mxGeometry x="388" y="390.5" width="4" height="74.5" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-20" value="Cut out&lt;br&gt;200x200" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="267.5" y="432.5" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-21" value="Cut out&lt;br&gt;200x200" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="454" y="432.5" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="-Cphney_6tKHDJOwfEio-21" target="-Cphney_6tKHDJOwfEio-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-23" value="" style="endArrow=none;html=1;fontSize=11;strokeWidth=6;fillColor=#0050ef;strokeColor=#001DBC;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="240" y="469.43" as="sourcePoint" />
+            <mxPoint x="530" y="469.43" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-24" value="Front" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="370" y="120" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-25" value="Back" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="368" y="360" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-26" value="Drivers left" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="550" y="440" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-27" value="Drivers right" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="180" y="440" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-28" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=11;fillColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="381.13" y="432.5" width="17.75" height="17.75" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-29" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="166" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-30" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="400" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-31" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="520" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-32" value="Cutout: 50x50" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="520" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-33" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#001DBC;" vertex="1" parent="1">
+          <mxGeometry x="150" y="560" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-Cphney_6tKHDJOwfEio-34" value="Cable channel" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="560" width="90" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
