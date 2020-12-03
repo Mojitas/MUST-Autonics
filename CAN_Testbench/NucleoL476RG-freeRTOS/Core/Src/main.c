@@ -39,11 +39,22 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 uint16_t raw;
-char msg[10];
+char msg[6];
+
+CAN_HandleTypeDef hcan1;
+CAN_TxHeaderTypeDef TxHeader;
+CAN_RxHeaderTypeDef RxHeader;
+uint32_t TxMailBox;
+char CanMsg[8] ={"Mathias\0"};
+char comMsg[50];
+uint16_t OwnID = 0x124, RemoteID = 0x123;
+uint32_t startTime = 0, stopTime = 0;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
+
+CAN_HandleTypeDef hcan1;
 
 UART_HandleTypeDef huart2;
 
@@ -84,13 +95,20 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_CAN1_Init(void);
 void StartDefaultTask(void *argument);
 void StartBlinkyTask01(void *argument);
 void StartBlinkyTask02(void *argument);
 void StartTaskReadAndPrint01(void *argument);
 
 /* USER CODE BEGIN PFP */
-
+void serialMsg(char msg[]);
+void serialClear(void);
+void HAL_CAN_RxFifo0FullCallBack(CAN_HandleTypeDef *hcan);
+void CAN_filterConfig(void);
+void CAN_Tx(char msg[]);
+void CAN_Rx(void);
+void delay(uint16_t delay);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -128,8 +146,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_ADC1_Init();
+  MX_CAN1_Init();
   /* USER CODE BEGIN 2 */
-
+  CAN_filterConfig();
+  HAL_CAN_Start(&hcan1);
+  HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -314,6 +335,43 @@ static void MX_ADC1_Init(void)
 }
 
 /**
+  * @brief CAN1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_CAN1_Init(void)
+{
+
+  /* USER CODE BEGIN CAN1_Init 0 */
+
+  /* USER CODE END CAN1_Init 0 */
+
+  /* USER CODE BEGIN CAN1_Init 1 */
+
+  /* USER CODE END CAN1_Init 1 */
+  hcan1.Instance = CAN1;
+  hcan1.Init.Prescaler = 16;
+  hcan1.Init.Mode = CAN_MODE_NORMAL;
+  hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
+  hcan1.Init.TimeSeg1 = CAN_BS1_3TQ;
+  hcan1.Init.TimeSeg2 = CAN_BS2_3TQ;
+  hcan1.Init.TimeTriggeredMode = DISABLE;
+  hcan1.Init.AutoBusOff = DISABLE;
+  hcan1.Init.AutoWakeUp = DISABLE;
+  hcan1.Init.AutoRetransmission = DISABLE;
+  hcan1.Init.ReceiveFifoLocked = DISABLE;
+  hcan1.Init.TransmitFifoPriority = DISABLE;
+  if (HAL_CAN_Init(&hcan1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN CAN1_Init 2 */
+
+  /* USER CODE END CAN1_Init 2 */
+
+}
+
+/**
   * @brief USART2 Initialization Function
   * @param None
   * @retval None
@@ -364,6 +422,9 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LD2_Pin|GPIO_PIN_10, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
@@ -371,6 +432,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PC0 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LD2_Pin PA10 */
   GPIO_InitStruct.Pin = LD2_Pin|GPIO_PIN_10;
@@ -383,6 +451,67 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+void serialMsg(char msg[]){
+	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+}
+
+void serialClear(void){
+	serialMsg("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+}
+
+void HAL_CAN_RxFifo0FullCallBack(CAN_HandleTypeDef *hcan){
+	if(hcan) return;
+}
+
+void CAN_Tx(char msg[]){
+
+	if(sizeof(*msg)<=8){
+		TxHeader.DLC = 8;
+		TxHeader.IDE = CAN_ID_STD;
+		TxHeader.RTR = CAN_RTR_DATA;
+		TxHeader.StdId = OwnID;
+
+		if(HAL_CAN_AddTxMessage(&hcan1, &TxHeader, (uint8_t*)msg, &TxMailBox) != HAL_OK) Error_Handler();
+
+		while(HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox));
+		//serialMsg("Message transmitted!\n\r");
+	}
+	else return;
+}
+
+void CAN_Rx(void){
+
+	uint8_t crx[8];
+	RxHeader.DLC = 8;
+	RxHeader.IDE = CAN_ID_STD;
+	RxHeader.RTR = CAN_RTR_DATA;
+	RxHeader.StdId = RemoteID;
+
+	if(HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, crx) != HAL_OK){
+		Error_Handler();
+		return;
+	}
+	HAL_Delay(1);
+	serialMsg("Received message: ");
+	serialMsg((char*)crx);
+	serialMsg("\n\r");
+
+}
+
+void CAN_filterConfig(void){
+	CAN_FilterTypeDef filterConfig;
+	filterConfig.FilterBank = 0;
+	filterConfig.FilterActivation = ENABLE;
+	filterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+	filterConfig.FilterIdHigh = 0x0000;
+	filterConfig.FilterIdLow = 0x0000;
+	filterConfig.FilterMaskIdHigh = 0x0000;
+	filterConfig.FilterMaskIdLow = 0x0000;
+	filterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
+	filterConfig.FilterScale = CAN_FILTERSCALE_16BIT;
+
+	HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -416,7 +545,7 @@ void StartBlinkyTask01(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+	//HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
     osDelay(500);
   }
   /* USER CODE END StartBlinkyTask01 */
@@ -435,7 +564,7 @@ void StartBlinkyTask02(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+	  //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 	  osDelay(600);
   }
   /* USER CODE END StartBlinkyTask02 */
@@ -454,6 +583,7 @@ void StartTaskReadAndPrint01(void *argument)
   /* Infinite loop */
   for(;;)
   {
+	  /*
 	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
 
 	  HAL_ADC_Start(&hadc1);
@@ -462,10 +592,12 @@ void StartTaskReadAndPrint01(void *argument)
 
 	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10,  GPIO_PIN_RESET);
 
-	  sprintf(msg, "%hu\r\n", raw);
-	  HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+	  sprintf(msg, "%hu\r\n", raw); //DON'T USE THIS!
+	  CAN_Tx(msg);
+	  //HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+	   * */
 
-	  HAL_Delay(1);
+	  HAL_Delay(10);
 	  osDelay(1);
   }
   /* USER CODE END StartTaskReadAndPrint01 */
