@@ -1,0 +1,10 @@
+12:24:37 **** Incremental Build of configuration Debug for project Nucleo-L476RG-ADC ****
+make -j16 all 
+arm-none-eabi-size   Nucleo-L476RG-ADC.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20232	    120	   1816	  22168	   5698	Nucleo-L476RG-ADC.elf
+Finished building: default.size.stdout
+ 
+
+12:24:38 Build Finished. 0 errors, 0 warnings. (took 309ms)
+
