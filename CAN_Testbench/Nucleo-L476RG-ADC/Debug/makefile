@@ -54,8 +54,8 @@ all: main-build
 main-build: Nucleo-L476RG-ADC.elf secondary-outputs
 
 # Tool invocations
-Nucleo-L476RG-ADC.elf: $(OBJS) $(USER_OBJS) C:\Users\filip\STM32CubeIDE\workspace_1.4.0\Nucleo-L476RG-ADC\STM32L476RGTX_FLASH.ld
-	arm-none-eabi-gcc -o "Nucleo-L476RG-ADC.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\filip\STM32CubeIDE\workspace_1.4.0\Nucleo-L476RG-ADC\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Nucleo-L476RG-ADC.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Nucleo-L476RG-ADC.elf: $(OBJS) $(USER_OBJS) C:\Users\filip\Documents\GitHub\Team-Embedded\CAN_Testbench\Nucleo-L476RG-ADC\STM32L476RGTX_FLASH.ld
+	arm-none-eabi-gcc -o "Nucleo-L476RG-ADC.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\filip\Documents\GitHub\Team-Embedded\CAN_Testbench\Nucleo-L476RG-ADC\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Nucleo-L476RG-ADC.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

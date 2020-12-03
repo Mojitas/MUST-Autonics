@@ -58,8 +58,8 @@ all: main-build
 main-build: NucleoL476RG-freeRTOS.elf secondary-outputs
 
 # Tool invocations
-NucleoL476RG-freeRTOS.elf: $(OBJS) $(USER_OBJS) C:\Users\filip\STM32CubeIDE\workspace_1.4.0\NucleoL476RG-freeRTOS\STM32L476RGTX_FLASH.ld
-	arm-none-eabi-gcc -o "NucleoL476RG-freeRTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\filip\STM32CubeIDE\workspace_1.4.0\NucleoL476RG-freeRTOS\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoL476RG-freeRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+NucleoL476RG-freeRTOS.elf: $(OBJS) $(USER_OBJS) C:\Users\filip\Documents\GitHub\Team-Embedded\CAN_Testbench\NucleoL476RG-freeRTOS\STM32L476RGTX_FLASH.ld
+	arm-none-eabi-gcc -o "NucleoL476RG-freeRTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\filip\Documents\GitHub\Team-Embedded\CAN_Testbench\NucleoL476RG-freeRTOS\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NucleoL476RG-freeRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
