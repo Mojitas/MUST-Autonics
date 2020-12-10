@@ -4,6 +4,7 @@
 | root (this)
     \| Diagram
 	\| Exported
+     | Logs
      | Hardware
      | Software
 ```
