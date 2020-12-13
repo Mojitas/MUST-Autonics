@@ -11,7 +11,8 @@
 
 # Diagrams
 ## Flow Chart Diagrams
-File: [Astah UML File](Diagrams/VehicleToVehicle.astah)
+File: [Astah UML File](Diagrams/VehicleToVehicle.asta)
+Required Software: Astah UML
 ### Follow Car
 ![Flow chart over communication in follow car](Diagrams/Exported/FollowCar.png)
 
