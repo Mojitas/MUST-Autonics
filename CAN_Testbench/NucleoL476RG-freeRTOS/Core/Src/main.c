@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 #include <stdio.h>
+#include "i2c-lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -35,6 +36,8 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define USING_LCD 1
+#define ADC_READ 0
+#define USING_UART 0
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -57,6 +60,8 @@ ADC_HandleTypeDef hadc1;
 
 CAN_HandleTypeDef hcan1;
 
+I2C_HandleTypeDef hi2c1;
+
 UART_HandleTypeDef huart2;
 
 /* Definitions for defaultTask */
@@ -73,18 +78,18 @@ const osThreadAttr_t blinkyTask01_attributes = {
   .priority = (osPriority_t) osPriorityBelowNormal,
   .stack_size = 128 * 4
 };
-/* Definitions for blinkyTask02 */
-osThreadId_t blinkyTask02Handle;
-const osThreadAttr_t blinkyTask02_attributes = {
-  .name = "blinkyTask02",
-  .priority = (osPriority_t) osPriorityBelowNormal,
-  .stack_size = 128 * 4
-};
 /* Definitions for ReadAndPrintTas */
 osThreadId_t ReadAndPrintTasHandle;
 const osThreadAttr_t ReadAndPrintTas_attributes = {
   .name = "ReadAndPrintTas",
   .priority = (osPriority_t) osPriorityAboveNormal,
+  .stack_size = 128 * 4
+};
+/* Definitions for updateLCD */
+osThreadId_t updateLCDHandle;
+const osThreadAttr_t updateLCD_attributes = {
+  .name = "updateLCD",
+  .priority = (osPriority_t) osPriorityBelowNormal,
   .stack_size = 128 * 4
 };
 /* USER CODE BEGIN PV */
@@ -97,10 +102,11 @@ static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_CAN1_Init(void);
+static void MX_I2C1_Init(void);
 void StartDefaultTask(void *argument);
 void StartBlinkyTask01(void *argument);
-void StartBlinkyTask02(void *argument);
 void StartTaskReadAndPrint01(void *argument);
+void StartTaskUpdateLCD(void *argument);
 
 /* USER CODE BEGIN PFP */
 void serialMsg(char msg[]);
@@ -148,7 +154,17 @@ int main(void)
   MX_USART2_UART_Init();
   MX_ADC1_Init();
   MX_CAN1_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
+  if(USING_LCD){
+	  lcd_init();
+
+	  lcd_send_string("LCD Init");
+
+	  HAL_Delay(3000);
+
+	  lcd_clear();
+  }
 
   /* USER CODE END 2 */
 
@@ -178,11 +194,11 @@ int main(void)
   /* creation of blinkyTask01 */
   blinkyTask01Handle = osThreadNew(StartBlinkyTask01, NULL, &blinkyTask01_attributes);
 
-  /* creation of blinkyTask02 */
-  blinkyTask02Handle = osThreadNew(StartBlinkyTask02, NULL, &blinkyTask02_attributes);
-
   /* creation of ReadAndPrintTas */
   ReadAndPrintTasHandle = osThreadNew(StartTaskReadAndPrint01, NULL, &ReadAndPrintTas_attributes);
+
+  /* creation of updateLCD */
+  updateLCDHandle = osThreadNew(StartTaskUpdateLCD, NULL, &updateLCD_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -247,8 +263,10 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_ADC;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_I2C1
+                              |RCC_PERIPHCLK_ADC;
   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
+  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
   PeriphClkInit.AdcClockSelection = RCC_ADCCLKSOURCE_PLLSAI1;
   PeriphClkInit.PLLSAI1.PLLSAI1Source = RCC_PLLSOURCE_HSI;
   PeriphClkInit.PLLSAI1.PLLSAI1M = 1;
@@ -392,6 +410,52 @@ static void MX_CAN1_Init(void)
 }
 
 /**
+  * @brief I2C1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C1_Init(void)
+{
+
+  /* USER CODE BEGIN I2C1_Init 0 */
+
+  /* USER CODE END I2C1_Init 0 */
+
+  /* USER CODE BEGIN I2C1_Init 1 */
+
+  /* USER CODE END I2C1_Init 1 */
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.Timing = 0x10909CEC;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Configure Analogue filter
+  */
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Configure Digital filter
+  */
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C1_Init 2 */
+
+  /* USER CODE END I2C1_Init 2 */
+
+}
+
+/**
   * @brief USART2 Initialization Function
   * @param None
   * @retval None
@@ -515,9 +579,13 @@ void CAN_Rx(void){
 		return;
 	}
 	HAL_Delay(1);
-	serialMsg("Received message: ");
-	serialMsg((char*)crx);
-	serialMsg("\n\r");
+	if(USING_UART){
+		serialMsg("Received message: ");
+		serialMsg((char*)crx);
+		serialMsg("\n\r");
+	}
+	if(USING_LCD)
+			strcpy(message, crx);
 
 }
 
@@ -574,25 +642,6 @@ void StartBlinkyTask01(void *argument)
   /* USER CODE END StartBlinkyTask01 */
 }
 
-/* USER CODE BEGIN Header_StartBlinkyTask02 */
-/**
-* @brief Function implementing the blinkyTask02 thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartBlinkyTask02 */
-void StartBlinkyTask02(void *argument)
-{
-  /* USER CODE BEGIN StartBlinkyTask02 */
-  /* Infinite loop */
-  for(;;)
-  {
-	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-	  osDelay(600);
-  }
-  /* USER CODE END StartBlinkyTask02 */
-}
-
 /* USER CODE BEGIN Header_StartTaskReadAndPrint01 */
 /**
 * @brief Function implementing the ReadAndPrintTas thread.
@@ -606,24 +655,50 @@ void StartTaskReadAndPrint01(void *argument)
   /* Infinite loop */
   for(;;)
   {
+	  if(ADC_READ){
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
 
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
+		  HAL_ADC_Start(&hadc1);
+		  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+		  raw = HAL_ADC_GetValue(&hadc1);
 
-	  HAL_ADC_Start(&hadc1);
-	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-	  raw = HAL_ADC_GetValue(&hadc1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10,  GPIO_PIN_RESET);
 
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10,  GPIO_PIN_RESET);
+		  sprintf(message, "%hu", raw);
+		  //CAN_Tx(message);
+		  //HAL_UART_Transmit(&huart2, (uint8_t*)message, strlen(message), HAL_MAX_DELAY);
 
-	  sprintf(message, "%hu", raw);
-	  //CAN_Tx(message);
-	  //HAL_UART_Transmit(&huart2, (uint8_t*)message, strlen(message), HAL_MAX_DELAY);
+		  HAL_Delay(1);
+	  }
 
-
-	  HAL_Delay(1);
 	  osDelay(100);
   }
   /* USER CODE END StartTaskReadAndPrint01 */
+}
+
+/* USER CODE BEGIN Header_StartTaskUpdateLCD */
+/**
+* @brief Function implementing the updateLCD thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTaskUpdateLCD */
+void StartTaskUpdateLCD(void *argument)
+{
+  /* USER CODE BEGIN StartTaskUpdateLCD */
+  /* Infinite loop */
+  for(;;)
+  {
+	  if(USING_LCD){
+		  lcd_clear();
+		  HAL_Delay(10);
+		  lcd_put_cur(0, 0);
+		  HAL_Delay(10);
+		  lcd_send_string(message);
+	  }
+	  osDelay(1000);
+  }
+  /* USER CODE END StartTaskUpdateLCD */
 }
 
  /**
