@@ -34,21 +34,22 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define USING_LCD 1
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 uint16_t raw;
-char msg[6];
+char message[10];
 
 CAN_HandleTypeDef hcan1;
 CAN_TxHeaderTypeDef TxHeader;
 CAN_RxHeaderTypeDef RxHeader;
-uint32_t TxMailBox;
-char CanMsg[8] ={"Mathias\0"};
-char comMsg[50];
-uint16_t OwnID = 0x124, RemoteID = 0x123;
-uint32_t startTime = 0, stopTime = 0;
+
+//char CanMsg[8] ={"Mathias\0"};
+//char comMsg[50];
+uint16_t OwnID = 0x124, RemoteID = 0x123; //Swap This when programming Receiver: 0x124 Sender:0x123
+//uint32_t startTime = 0, stopTime = 0;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -108,7 +109,7 @@ void HAL_CAN_RxFifo0FullCallBack(CAN_HandleTypeDef *hcan);
 void CAN_filterConfig(void);
 void CAN_Tx(char msg[]);
 void CAN_Rx(void);
-void delay(uint16_t delay);
+//void delay(uint16_t delay);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -148,9 +149,7 @@ int main(void)
   MX_ADC1_Init();
   MX_CAN1_Init();
   /* USER CODE BEGIN 2 */
-  CAN_filterConfig();
-  HAL_CAN_Start(&hcan1);
-  HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -353,8 +352,8 @@ static void MX_CAN1_Init(void)
   hcan1.Init.Prescaler = 16;
   hcan1.Init.Mode = CAN_MODE_NORMAL;
   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan1.Init.TimeSeg1 = CAN_BS1_3TQ;
-  hcan1.Init.TimeSeg2 = CAN_BS2_3TQ;
+  hcan1.Init.TimeSeg1 = CAN_BS1_2TQ;
+  hcan1.Init.TimeSeg2 = CAN_BS2_2TQ;
   hcan1.Init.TimeTriggeredMode = DISABLE;
   hcan1.Init.AutoBusOff = DISABLE;
   hcan1.Init.AutoWakeUp = DISABLE;
@@ -366,7 +365,28 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
+  CAN_FilterTypeDef sf;
+  sf.FilterBank = 0;
+  sf.FilterMode = CAN_FILTERMODE_IDMASK;
+  sf.FilterScale = CAN_FILTERSCALE_16BIT;
+  sf.FilterIdLow = 0xffff;
+  sf.FilterIdHigh = 0x1fff;
+  sf.FilterMaskIdLow = 0x0000;
+  sf.FilterMaskIdHigh = 0x0000;
+  sf.FilterFIFOAssignment = CAN_RX_FIFO0;
+  sf.SlaveStartFilterBank = 0;
+  sf.FilterActivation = ENABLE;
+  if (HAL_CAN_ConfigFilter(&hcan1, &sf) != HAL_OK) {
+      Error_Handler();
+  }
 
+  if (HAL_CAN_Start(&hcan1) != HAL_OK) {
+      Error_Handler();
+  }
+
+  if (HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING) != HAL_OK) {
+      Error_Handler();
+  }
   /* USER CODE END CAN1_Init 2 */
 
 }
@@ -459,9 +479,6 @@ void serialClear(void){
 	serialMsg("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 }
 
-void HAL_CAN_RxFifo0FullCallBack(CAN_HandleTypeDef *hcan){
-	if(hcan) return;
-}
 
 void CAN_Tx(char msg[]){
 
@@ -470,8 +487,13 @@ void CAN_Tx(char msg[]){
 		TxHeader.IDE = CAN_ID_STD;
 		TxHeader.RTR = CAN_RTR_DATA;
 		TxHeader.StdId = OwnID;
+		TxHeader.TransmitGlobalTime = DISABLE;
+		TxHeader.ExtId = 1;
+		uint32_t TxMailBox;
 
-		if(HAL_CAN_AddTxMessage(&hcan1, &TxHeader, (uint8_t*)msg, &TxMailBox) != HAL_OK) Error_Handler();
+		if(HAL_CAN_AddTxMessage(&hcan1, &TxHeader, (uint8_t*)msg, &TxMailBox) != HAL_OK) {
+			Error_Handler();
+		}
 
 		while(HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox));
 		//serialMsg("Message transmitted!\n\r");
@@ -486,6 +508,7 @@ void CAN_Rx(void){
 	RxHeader.IDE = CAN_ID_STD;
 	RxHeader.RTR = CAN_RTR_DATA;
 	RxHeader.StdId = RemoteID;
+
 
 	if(HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, crx) != HAL_OK){
 		Error_Handler();
@@ -545,7 +568,7 @@ void StartBlinkyTask01(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	//HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
     osDelay(500);
   }
   /* USER CODE END StartBlinkyTask01 */
@@ -564,7 +587,7 @@ void StartBlinkyTask02(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	  //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 	  osDelay(600);
   }
   /* USER CODE END StartBlinkyTask02 */
@@ -583,7 +606,7 @@ void StartTaskReadAndPrint01(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	  /*
+
 	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
 
 	  HAL_ADC_Start(&hadc1);
@@ -592,13 +615,13 @@ void StartTaskReadAndPrint01(void *argument)
 
 	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10,  GPIO_PIN_RESET);
 
-	  sprintf(msg, "%hu\r\n", raw); //DON'T USE THIS!
-	  CAN_Tx(msg);
-	  //HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-	   * */
+	  sprintf(message, "%hu", raw);
+	  //CAN_Tx(message);
+	  //HAL_UART_Transmit(&huart2, (uint8_t*)message, strlen(message), HAL_MAX_DELAY);
 
-	  HAL_Delay(10);
-	  osDelay(1);
+
+	  HAL_Delay(1);
+	  osDelay(100);
   }
   /* USER CODE END StartTaskReadAndPrint01 */
 }

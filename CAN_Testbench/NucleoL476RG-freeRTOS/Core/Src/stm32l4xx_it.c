@@ -42,16 +42,16 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-uint8_t msg[8];
+/*uint8_t msg[8];
 extern CAN_TxHeaderTypeDef TxHeader;
 extern CAN_RxHeaderTypeDef RxHeader;
 extern uint32_t TxMailBox;
-extern uint8_t state, a, r, retval;
+extern uint8_t state, a, r, retval;*/
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-extern void serialMsg(char msg[]);
+//extern void serialMsg(char msg[]);
 extern void CAN_Rx(void);
 /* USER CODE END PFP */
 
