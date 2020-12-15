@@ -58,7 +58,7 @@ class commands:
         return self.parser.parse(cmds)
 
     def add_commands(self):
-        self.parser.add_command("scatterplot", help="Print a scatter plot", default="scatter.png",
+        self.parser.add_command("scatter_plot", help="Print a scatter plot", default="scatter.png",
                                 requires_arg=False, store="scatter")
         self.parser.add_command("save", help="A location for where to save the file",
                                 requires_arg=True, store="save", default=os.getcwd() + "/plots/")

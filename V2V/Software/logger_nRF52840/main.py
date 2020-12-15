@@ -1,11 +1,12 @@
+import os
 import sys
+import configparser
 
-from modules.parser.arguments import arguments, print_help, print_version
-from modules.parser.commands import commands
-from modules.autodetect import autodetect
+from modules.logger.DataReader import DataReader
+from modules.argumentparsers.arguments import arguments, print_version, print_help, set_conf
+from modules.argumentparsers.commands import commands
 
-command_list = ["scatterplot", "save"]
-
+command_list = ["scatter_plot", "save"]
 
 if __name__ == "__main__":
     argp = arguments(False)
@@ -13,57 +14,27 @@ if __name__ == "__main__":
     cmdp = commands()
     cmds = cmdp.parse_commands(cmdx)
     args = cmdp.setargs(args, cmds)
-    print(args)
-    exit(0)
 
-    # if arguments.version:
-    #     print("%f" % version)
-    #     exit(0)
-    # elif '-h' in commands:
-    #     print_help(sys.argv[0])
-    #     exit(0)
-    #
-    # path = ""
-    # if arguments.device != 'auto':
-    #     if os.path.exists(arguments.device):
-    #         path = arguments.device
-    #     else:
-    #         print("Device does not exist!")
-    #         exit(0)
-    #
-    # baudrate = 115200
-    # if arguments.baudrate != baudrate:
-    #     if arguments.baudrate in accepted:
-    #         baudrate = arguments.baudrate
-    #     else:
-    #         print("Invalid baudrate!")
-    #
-    # verbosity = 0
-    # if arguments.verbose != verbosity:
-    #     verbosity = arguments.verbose
-    #
-    # if 'scatterplot' in commands:
-    #     arguments.scatterplot = True
-    #     commands.pop(commands.index('scatterplot'))
-    #
-    # print(commands)
-    # if 'save' in commands:
-    #     p = commands[commands.index('save') + 1]
-    #     if p not in command_list:
-    #         if not p.startswith("/"):
-    #             arguments.fpath = os.getenv("HOME") + "/" + p
-    #         else:
-    #             arguments.fpath = p
-    #
-    # print(arguments)
-    # ad = autodetect(sys.platform)
-    # results = ad.autodetect()
-    # dev = results[0]
-    # print("Using device: %s" % dev)
-    # reader = DataReader(dev, 115200)
-    # try:
-    #     while 1:
-    #         print(reader.read())
-    # except KeyboardInterrupt:
-    #     print("Got interrupted")
-    # reader.close()
+    if args.version:
+        print_version()
+        exit(0)
+    elif args.help:
+        print_help(sys.argv[0])
+        exit(0)
+
+    conf = configparser.ConfigParser(allow_no_value=True)
+    conf.read(os.getcwd() + "/configs/defaults.ini")
+    conf.set("DEFAULT", "log_location", os.getcwd() + "/logs/")
+    conf = set_conf(conf, args)
+    with open(os.getcwd() + "/configs/defaults.ini", "w") as f:
+        conf.write(f)
+
+    data = DataReader()
+
+    try:
+        data.setup_threads()
+    except KeyboardInterrupt:
+        print("Interrupted by keyboard")
+
+    with open(conf.defaults().get("log_location") + "datalog_test.txt", "w+") as log:
+        log.writelines(data.data)

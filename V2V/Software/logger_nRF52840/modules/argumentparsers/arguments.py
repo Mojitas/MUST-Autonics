@@ -1,7 +1,8 @@
 import argparse
+import configparser
 import sys
 
-accepted = [300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 31250, 38400, 57600, 115200]
+accepted = ['300', '600', '1200', '2400', '4800', '9600', '14400', '19200', '28800', '31250', '38400', '57600', '115200']
 version = 1.0
 
 
@@ -34,6 +35,20 @@ save path                               Saves the file at the specified path wit
 Authors:
 Erik Kamph, MDH Solar Team 2020
     """ % (arg, version, sys.maxsize))
+
+
+def set_conf(conf: configparser.ConfigParser, args):
+    conf.set("DEVICE", "baudrate", str(args.baudrate))
+    if args.device != "auto":
+        conf.set("DEVICE", "location", args.device)
+        conf.set("DEVICE", "auto_detect", str(False))
+    else:
+        conf.set("DEVICE", "location", "None")
+        conf.set("DEVICE", "auto_detect", str(True))
+    conf.set("DEFAULT", "scatter_name", args.scatter)
+    conf.set("DEFAULT", "plt_location", args.save)
+    conf.set("DEFAULT", "verbosity", str(args.verbose))
+    return conf
 
 
 class arguments:
