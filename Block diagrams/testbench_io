@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-12-16T10:00:49.628Z" agent="5.0 (X11)" etag="nYF2iFBs2KFCaLxpXB9B" version="14.0.1" type="github">
+<mxfile host="app.diagrams.net" modified="2020-12-16T10:03:56.871Z" agent="5.0 (X11)" etag="mDmghMP4EdyWqcJmJd_X" version="14.0.1" type="github">
   <diagram id="gTJ2B-f99vsyuF_vivrf" name="Page-1">
-    <mxGraphModel dx="1021" dy="619" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="723" dy="438" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -297,6 +297,18 @@
         </mxCell>
         <mxCell id="_krqjOud9GXak5Im0Ij4-319" value="&lt;b&gt;&lt;font style=&quot;font-size: 8px&quot;&gt;Battery warning&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="_krqjOud9GXak5Im0Ij4-320">
           <mxGeometry x="393.13" y="25" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_krqjOud9GXak5Im0Ij4-321" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn1.iconfinder.com/data/icons/nuvola2/48x48/actions/ledorange.png;rounded=1;shadow=0;sketch=0;strokeColor=#1A1A1A;strokeWidth=1;fillColor=#CCCCCC;" vertex="1" parent="_krqjOud9GXak5Im0Ij4-320">
+          <mxGeometry x="483.13" y="45" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_krqjOud9GXak5Im0Ij4-322" value="&lt;b&gt;&lt;font style=&quot;font-size: 8px&quot;&gt;DRL&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="_krqjOud9GXak5Im0Ij4-320">
+          <mxGeometry x="478.13" y="25" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_krqjOud9GXak5Im0Ij4-421" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn1.iconfinder.com/data/icons/nuvola2/48x48/actions/ledorange.png;rounded=1;shadow=0;sketch=0;strokeColor=#1A1A1A;strokeWidth=1;fillColor=#CCCCCC;" vertex="1" parent="_krqjOud9GXak5Im0Ij4-320">
+          <mxGeometry x="543.13" y="45" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_krqjOud9GXak5Im0Ij4-422" value="&lt;b&gt;&lt;font style=&quot;font-size: 8px&quot;&gt;Brake&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="_krqjOud9GXak5Im0Ij4-320">
+          <mxGeometry x="533.13" y="25" width="40" height="20" as="geometry" />
         </mxCell>
         <mxCell id="_krqjOud9GXak5Im0Ij4-287" value="" style="group" vertex="1" connectable="0" parent="1">
           <mxGeometry x="640" y="240" width="395.87" height="168" as="geometry" />
