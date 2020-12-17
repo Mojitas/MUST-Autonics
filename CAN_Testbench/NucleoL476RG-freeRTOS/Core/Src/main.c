@@ -35,6 +35,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+/*CONFIGURE FUNCTIONS HERE!
+ * */
+
 #define USING_LCD 1
 #define ADC_READ 0
 #define USING_UART 0
@@ -51,7 +55,7 @@ CAN_RxHeaderTypeDef RxHeader;
 
 //char CanMsg[8] ={"Mathias\0"};
 //char comMsg[50];
-uint16_t OwnID = 0x124, RemoteID = 0x123; //Swap This when programming Receiver: 0x124 Sender:0x123
+uint16_t OwnID = 0x124, RemoteID = 0x0; //Swap OwnID when programming. Receiver: 0x124 Sender:0x123 RemoteID has no impact in current implementation.
 //uint32_t startTime = 0, stopTime = 0;
 /* USER CODE END PM */
 
@@ -665,8 +669,9 @@ void StartTaskReadAndPrint01(void *argument)
 		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10,  GPIO_PIN_RESET);
 
 		  sprintf(message, "%hu", raw);
-		  //CAN_Tx(message);
-		  //HAL_UART_Transmit(&huart2, (uint8_t*)message, strlen(message), HAL_MAX_DELAY);
+		  CAN_Tx(message);
+		  if(USING_UART)
+			  HAL_UART_Transmit(&huart2, (uint8_t*)message, strlen(message), HAL_MAX_DELAY);
 
 		  HAL_Delay(1);
 	  }
