@@ -31,6 +31,7 @@ class DataReader(object):
         self.queue = queue.Queue()
         self.data = []
         self.x = -1
+        self.data_parser = None
 
     def try_connect(self):
         try:
@@ -70,7 +71,7 @@ class DataReader(object):
             continue
         while self.has_data():
             line = self.queue.get_nowait()
-
+            self.data_parser.write(line)
         return
 
     def get_data(self):
@@ -85,3 +86,6 @@ class DataReader(object):
 
     def has_data(self):
         return self.queue.qsize() > 0
+
+    def set_dp(self, dP):
+        self.data_parser = dP

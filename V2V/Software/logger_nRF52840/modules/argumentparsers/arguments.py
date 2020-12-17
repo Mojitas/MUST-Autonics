@@ -47,7 +47,9 @@ def set_conf(conf: configparser.ConfigParser, args):
         conf.set("DEVICE", "auto_detect", str(True))
     conf.set("DEFAULT", "scatter_name", args.scatter)
     conf.set("DEFAULT", "plt_location", args.save)
-    conf.set("DEFAULT", "verbosity", str(args.verbose))
+    if args.verbose is not None:
+        conf.set("DEFAULT", "verbosity", str(args.verbose))
+    print(conf.get("DEFAULT", "verbosity"))
     return conf
 
 
