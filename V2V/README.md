@@ -10,8 +10,13 @@
 ```
 
 # Diagrams
+## Requirements Mindmap
+File: [Mindmap](Diagrams/VehicleToVehicleMindmap.asta)<br>
+Required Sofware: Astah UML
+![External communication requirements mindmap](Diagrams/Exported/V2VRequirements.png)
+
 ## Flow Chart Diagrams
-File: [Astah UML File](Diagrams/VehicleToVehicle.asta)
+File: [Astah UML File](Diagrams/VehicleToVehicle.asta)<br>
 Required Software: Astah UML
 ### Follow Car
 ![Flow chart over communication in follow car](Diagrams/Exported/FollowCar.png)
