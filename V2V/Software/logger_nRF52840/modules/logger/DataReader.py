@@ -6,11 +6,13 @@ from time import sleep
 
 import serial
 import configparser
+
+from modules.logger.DataParser import DataParser
 from modules.logger.autodetect import autodetect
 from copy import deepcopy
 
 
-class DataReader:
+class DataReader(object):
     def __init__(self):
         self.auto = autodetect(sys.platform)
         self.settings = configparser.ConfigParser(allow_no_value=True)
@@ -51,6 +53,8 @@ class DataReader:
         self.thread.start()
         print("Thread is running!", flush=True)
         sleep(3)
+        self.thread_two = Thread(target=self.parse_thread)
+        self.thread_two.start()
 
     def data_thread(self):
         try:
@@ -59,14 +63,15 @@ class DataReader:
                 self.queue.put_nowait(local)
         except serial.SerialException:
             print("Device disconnected from serial port!", file=sys.stderr, flush=True)
-        exit(0)
+        return
 
     def parse_thread(self):
+        while not self.has_data():
+            continue
         while self.has_data():
             line = self.queue.get_nowait()
-            with open(self.settings.defaults().get("log_location") + "datalog.txt") as log:
-                log.write(line + "\n")
-        exit(0)
+
+        return
 
     def get_data(self):
         return deepcopy(self.data)

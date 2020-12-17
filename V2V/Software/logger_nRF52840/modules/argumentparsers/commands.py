@@ -1,7 +1,7 @@
 import os
 
 
-class cmdparse:
+class cmdparse(object):
     def __init__(self):
         self.commands = []
         self.cmdlist = []
@@ -49,7 +49,7 @@ class cmdparse:
                     else False
 
 
-class commands:
+class commands(object):
     def __init__(self):
         self.parser = cmdparse()
         self.add_commands()

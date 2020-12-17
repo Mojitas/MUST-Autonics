@@ -2,7 +2,7 @@ import glob
 import serial
 
 
-class autodetect:
+class autodetect(object):
     def __init__(self, platform):
         self.os = platform
         self.ports = self.get_ports()

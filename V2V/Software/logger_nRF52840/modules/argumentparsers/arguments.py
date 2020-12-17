@@ -51,7 +51,7 @@ def set_conf(conf: configparser.ConfigParser, args):
     return conf
 
 
-class arguments:
+class arguments(object):
     def __init__(self, add_help=True):
         self.parser = argparse.ArgumentParser(add_help=add_help)
         self.add_arguments()
