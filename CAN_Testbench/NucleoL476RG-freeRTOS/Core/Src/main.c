@@ -47,7 +47,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 uint16_t raw;
-char message[10];
+char message[8];
 
 CAN_HandleTypeDef hcan1;
 CAN_TxHeaderTypeDef TxHeader;
