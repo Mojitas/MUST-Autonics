@@ -46,7 +46,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 uint16_t raw;
-char message[16];
+char message[8];
 
 CAN_HandleTypeDef hcan1;
 CAN_TxHeaderTypeDef TxHeader;
@@ -92,7 +92,7 @@ osThreadId_t readTemperatureHandle;
 const osThreadAttr_t readTemperature_attributes = {
   .name = "readTemperature",
   .priority = (osPriority_t) osPriorityRealtime,
-  .stack_size = 128 * 4
+  .stack_size = 256 * 4
 };
 /* USER CODE BEGIN PV */
 
@@ -711,7 +711,8 @@ void StartTaskReadAndPrint01(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	  if(ADC_READ){
+	  if(ADC_READ)
+	  {
 		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
 
 		  HAL_ADC_Start(&hadc1);
@@ -758,12 +759,27 @@ void StartTaskReadTemperature(void *argument)
 	  fault[1] = Max31865_readTempC(&MaxHandles[1], &temperature[1]);
 	  fault[2] = Max31865_readTempC(&MaxHandles[2], &temperature[2]);
 
-	  //buffer_len = sprintf(message, "%.2f\r\n", temperature1);
-	  //if(USING_UART)
-		  //HAL_UART_Transmit(&huart2, (uint8_t*)message, buffer_len, 10);
+	  //sprintf(message, "T1%.1f", temperature[0]);
+	  //CAN_Tx(message);
+	  //sprintf(message, "T2%.1f", temperature[1]);
+	  //CAN_Tx(message);
+	  //sprintf(message, "T3%.1f", temperature[2]);
+	  //CAN_Tx(message);
 
-	  //Max31865_printFault(fault, faultString);
-	  //printTemp(&pt1, &huart2);
+	  if(USING_UART)
+	  {
+		  buffer_len = sprintf(usartBuffer, "T1:%.1f\r\n", temperature[0]);
+		  HAL_UART_Transmit(&huart2, (uint8_t*)usartBuffer, buffer_len, 100);
+
+		  buffer_len = sprintf(usartBuffer, "T2:%.1f\r\n", temperature[1]);
+		  HAL_UART_Transmit(&huart2, (uint8_t*)usartBuffer, buffer_len, 100);
+
+		  buffer_len = sprintf(usartBuffer, "T3:%.1f\r\n\r\n", temperature[2]);
+		  HAL_UART_Transmit(&huart2, (uint8_t*)usartBuffer, buffer_len, 100);
+		  HAL_Delay(1);
+
+	  }
+
 	  osDelay(1000);
   }
   /* USER CODE END StartTaskReadTemperature */
