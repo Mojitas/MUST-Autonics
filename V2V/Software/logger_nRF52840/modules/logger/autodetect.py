@@ -8,7 +8,7 @@ class autodetect(object):
         self.ports = self.get_ports()
 
     def autodetect(self):
-        if self.os not in ("darwin", "linux", "cygwin", "win"):
+        if self.os not in ("darwin", "linux", "cygwin", "win32"):
             raise EnvironmentError("Unsupported platform detected")
         else:
             result = []
@@ -23,6 +23,6 @@ class autodetect(object):
 
     def get_ports(self):
         return ['COM%s' % (i + 1) for i in range(256)] \
-            if self.os == "win" else glob.glob("/dev/ACM[0-9]*") \
+            if self.os == "win32" else glob.glob("/dev/ACM[0-9]*") \
             if self.os in ("linux", "cygwin") else glob.glob("/dev/tty.usbmodem*") \
             if self.os == "darwin" else None

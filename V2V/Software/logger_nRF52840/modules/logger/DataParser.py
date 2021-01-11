@@ -20,100 +20,87 @@ class DataParser(object):
         specified as follows: [Real Time Timestamp] <level> app: information
         Where information can be a lot of different types of strings, check the parser for more information.
         The parser and functions that are tied to it has to be private with other functions public.
-        """
-        self.name = name
-        self.file = file
-        self.buffer = []
-        self.verbosity = verbosity
-        self.lock = Lock()
 
-        self.hasName = True if self.name != "" else False
-        self.saveToFile = True if self.file != "" else False
-        self.leveldic = {"debug": self.__debug, "warning": self.__warning, "info": self.__info, "error": self.__error}
+        :param file: Take a file name including path where to save the log to
+        :param name: Take the name of the program and include it in the debug string
+        :param verbosity: The lower the level the more parsed it is going to be, the higher level means less parsing
+        """
+        self.__name = name
+        self.__file = file
+        self.__buffer = []
+        self.__verbose_level = verbosity
+        self.__lock = Lock()
 
     def __parse(self, to_parse: str):
-        parsed = ""
-        if self.verbosity == 3:
-            parsed = to_parse
-        else:
-            pattern = "\[([0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3},[0-9]{3})\] \<([A-Za-z]{,10})\> app: (.*)"
-            regex = re.compile(pattern)
-            result = re.findall(regex, to_parse)
-            parsed = {
-                "timestamp": result[0][0],
-                "type": result[0][1],
-                "msg": result[0][2]
-            }
-
-        if self.verbosity == 0:
-            parsed["msg"] = self.__parse_msg(parsed["msg"])
+        pattern = "\[([0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3},[0-9]{3})\] \<([A-Za-z]{,10})\> app: (.*)"
+        regex = re.compile(pattern)
+        result = re.findall(regex, to_parse)
+        parsed = {
+            "mcu_ts": result[0][0],
+            "msg_type": result[0][1],
+            "msg_contents": result[0][2]
+        }
+        parsed["msg_contents"] = self.__parse_msg(parsed["msg_contents"])
         return parsed
 
-    def __debug(self, message):
+    def write(self, message):
         formatted = self.__parse(message)
         pre_str = self.__get_start_msg()
-        self.__writeBuffer("%s,%s,%s\n" % ("DEBUG", pre_str, str(formatted)))
-
-    def __warning(self, message):
-        formatted = self.__parse(message)
-        pre_str = self.__get_start_msg()
-        self.__writeBuffer("%s,%s,%s\n" % ("WARNING", pre_str, str(formatted)))
-
-    def __info(self, message):
-        formatted = self.__parse(message)
-        pre_str = self.__get_start_msg()
-        self.__writeBuffer("%s,%s,%s\n" % ("INFO", pre_str, str(formatted)))
-
-    def __error(self, message):
-        formatted = self.__parse(message)
-        pre_str = self.__get_start_msg()
-        self.__writeBuffer("%s,%s,%s\n" % ("ERROR", pre_str, str(formatted)))
-
-    def write(self, message, level=None):
-        formatted = self.__parse(message)["type"]
-        func = self.leveldic[formatted if formatted != "" else level]
-        func(message=message)
+        return self.__put_together(formatted, pre_str)
 
     @staticmethod
     def __get_start_msg():
         ts = datetime.now()
-        return "%d/%d/%d,%d:%d:%d:%d" % (ts.year, ts.month, ts.day, ts.hour, ts.minute, ts.second, ts.microsecond)
-
-    def __parse_msg(self, param):
-        data = {"RSSI": 0, "PowerMode": 0, "Channel": 0, "": 0, "addr": "", "mode": "", "status": "", "error": ""}
-        if re.search("Output power .*", param):
-            pattern = "(([0-9]{0,}) dBm)"
-            regex = re.compile(pattern)
-            find = re.findall(regex, param)
-            data["PowerMode"] = find[0][0]
-        elif re.search("RSSI changed", param):
-            pattern = "(new: (-[0-9]{0,}),) (channel: ([0-9]{0,}))"
-            regex = re.compile(pattern)
-            find = re.findall(regex, param)
-            data["RSSI"] = find[0][1]
-            data["Channel"] = find[0][3]
-        elif re.search("Disconnected:", param):
-            pattern = "(Disconnected): (reason (0x[0-9A-Z][0-9A-Z]))"
-            regex = re.compile(pattern)
-            find = re.findall(regex, param)
-            if len(find) != 0:
-                data["status"] = find[0][0]
-                data["error"] = find[0][2]
-        elif re.search("(Starting scan|Connecting on)", param):
-            pattern = "(([0-9])Mbps|coded phy)"
-            regex = re.compile(pattern)
-            find = re.findall(regex, param)
-            data["status"] = "Connected"
-            data["mode"] = find[0][0]
-            data["error"] = "None"
-        # elif re.search("RTT")
+        data = {"date": "%d/%d/%d" % (ts.year, ts.month, ts.day), "time": "%d:%d:%d:%d" % (ts.hour, ts.minute, ts.second, ts.microsecond)}
         return data
 
-    def make_copy_of_data(self):
-        with self.lock:
-            t = deepcopy(self.buffer)
-        return t
+    def __parse_msg(self, param):
+        data = {"RSSI": 0, "PowerMode": 0, "Channel": 0, "addr": "", "mode": "", "status": "", "error": ""}
+        pattern = None
+        items = {}
+        if re.search("Output power .*", param):
+            pattern = "(([0-9]{0,}) dBm)"
+            items = {"PowerMode": (0, 0), "status": "Disconnected"}
+        elif re.search("RSSI changed", param):
+            pattern = "(new: (-[0-9]{0,}),) (channel: ([0-9]{0,}))"
+            items = {"RSSI": (0, 1), "Channel": (0, 3), "status": "Connected"}
+        elif re.search("Disconnected:", param):
+            pattern = "(Disconnected): (reason (0x[0-9A-Z][0-9A-Z]))"
+            items = {"status": (0, 0), "error": (0, 2)}
+        elif re.search("(Starting scan|Connecting on)", param):
+            pattern = "(([0-9])Mbps|coded phy)"
+            items = {"status": "Connected" if not re.search("Starting scan", param) else "Disconnected",
+                     "mode": (0, 0), "error": "None"}
+        elif re.search("Received ADV report,", param):
+            pattern = "(RSSI (-[0-9]+)), (phy: (1 Mbps|coded))"
+            items = {"status": "Disconnected", "mode": (0, 3), "RSSI": (0, 1)}
+        elif re.search("addr", param):
+            pattern = "addr (([0-9A-Za-z]+:?){0,6})"
+            items = {"addr": (0, 0), "status": "Disconnected"}
+        else:
+            pattern = None
+
+        if pattern is None:
+            return data
+
+        regex = re.compile(pattern)
+        find = regex.findall(param)
+        if self.__verbose_level == 3:
+            print(find)
+        for i in items.keys():
+            data[i] = items[i] if type(items[i]) == str else find[items[i][0]][items[i][1]]
+        return data
 
     def __writeBuffer(self, param):
-        with self.lock:
-            self.buffer.append(param)
+        with self.__lock:
+            self.__buffer.append(param)
+        return param.keys(), self.__buffer
+
+    def __put_together(self, formatted, pre_str):
+        total = {k: formatted["msg_contents"][k] for k in formatted["msg_contents"]}
+        for k in formatted.keys():
+            if k != "msg_contents":
+                total[k] = formatted[k]
+        for k in pre_str.keys():
+            total[k] = pre_str[k]
+        return self.__writeBuffer(total)

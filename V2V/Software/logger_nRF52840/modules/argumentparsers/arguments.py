@@ -7,10 +7,18 @@ version = 1.0
 
 
 def print_version():
+    """
+    Prints the version number.
+    """
     print("Version: %f" % version)
 
 
 def print_help(arg):
+    """
+    Prints the help
+    :param arg: The 0th argument from the commandline, meaning the absolute path to the program.
+    :return: None
+    """
     print("""Usage: python %s [optional arguments] [commands] [optional commands]
 Version: %f
 
@@ -38,6 +46,13 @@ Erik Kamph, MDH Solar Team 2020
 
 
 def set_conf(conf: configparser.ConfigParser, args):
+    """
+
+    :param conf: The configuration parser to which we will write options from the flags that were sent to this program
+    :param args: The flags that were supplied to the program.
+    :return: An updated configuration parser with the new settings that differ from
+             the defaults in the configuration file located in .../logger_nRF52840/configs/defaults.ini
+    """
     conf.set("DEVICE", "baudrate", str(args.baudrate))
     if args.device != "auto":
         conf.set("DEVICE", "location", args.device)
@@ -49,7 +64,6 @@ def set_conf(conf: configparser.ConfigParser, args):
     conf.set("DEFAULT", "plt_location", args.save)
     if args.verbose is not None:
         conf.set("DEFAULT", "verbosity", str(args.verbose))
-    print(conf.get("DEFAULT", "verbosity"))
     return conf
 
 
