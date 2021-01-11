@@ -1,1 +1,0 @@
-[00:00:00.481,475] <info> app: Received ADV report, RSSI -67, phy: coded
