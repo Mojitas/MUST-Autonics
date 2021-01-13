@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 2
+Sheet 2 3
 Title ""
 Date ""
 Rev ""
@@ -13,33 +13,363 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	4250 4600 4300 4600
+Wire Wire Line
+	3950 4700 4000 4700
+Wire Wire Line
+	7900 1100 7800 1100
+Wire Wire Line
+	5150 5700 5100 5700
+Text HLabel 3950 4700 0    50   Input ~ 0
+SDA
+Text HLabel 4250 4600 0    50   Input ~ 0
+SCL
+Text GLabel 7900 1100 2    50   Input ~ 0
+VDD_MCU
+Text GLabel 5150 5700 2    50   Input ~ 0
+GND_MCU
 $Comp
-L Solarteam:LCD_backpack U?
-U 1 1 60E600B8
-P 5250 3500
-AR Path="/60E600B8" Ref="U?"  Part="1" 
-AR Path="/60E58F6E/60E600B8" Ref="U?"  Part="1" 
-F 0 "U?" H 5200 3500 50  0000 L CNN
-F 1 "LCD_backpack" H 5000 3800 50  0000 L CNN
-F 2 "" H 5250 3300 50  0001 C CNN
-F 3 "" H 5250 3300 50  0001 C CNN
-	1    5250 3500
+L Interface_Expansion:PCF8574 U3
+U 1 1 5FFA3852
+P 5050 5000
+F 0 "U3" H 5050 5881 50  0000 C CNN
+F 1 "PCF8574" H 5050 5790 50  0000 C CNN
+F 2 "" H 5050 5000 50  0001 C CNN
+F 3 "http://www.nxp.com/documents/data_sheet/PCF8574_PCF8574A.pdf" H 5050 5000 50  0001 C CNN
+	1    5050 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_POT_Small RV5
+U 1 1 5FFA5A57
+P 3650 3600
+F 0 "RV5" H 3850 3500 50  0000 R CNN
+F 1 "R_POT_Small" V 3550 3850 50  0000 R CNN
+F 2 "" H 3650 3600 50  0001 C CNN
+F 3 "~" H 3650 3600 50  0001 C CNN
+	1    3650 3600
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:C_Small C1
+U 1 1 5FFA6715
+P 5100 5800
+F 0 "C1" H 5192 5846 50  0000 L CNN
+F 1 "C_Small" H 5192 5755 50  0000 L CNN
+F 2 "" H 5100 5800 50  0001 C CNN
+F 3 "~" H 5100 5800 50  0001 C CNN
+	1    5100 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP1
+U 1 1 5FFA6E9E
+P 2750 5500
+F 0 "JP1" V 2600 5500 50  0000 L CNN
+F 1 "SolderJumper_2_Open" H 2350 5400 50  0000 L CNN
+F 2 "" H 2750 5500 50  0001 C CNN
+F 3 "~" H 2750 5500 50  0001 C CNN
+	1    2750 5500
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2750 5350 2750 4900
+Wire Wire Line
+	2750 4900 4550 4900
+Wire Wire Line
+	3350 5350 3350 5100
+$Comp
+L Device:LED D7
+U 1 1 5FFAD858
+P 2400 4350
+F 0 "D7" V 2439 4232 50  0000 R CNN
+F 1 "LED" V 2348 4232 50  0000 R CNN
+F 2 "" H 2400 4350 50  0001 C CNN
+F 3 "~" H 2400 4350 50  0001 C CNN
+	1    2400 4350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2400 4750 2400 4500
+$Comp
+L Device:R_Small R17
+U 1 1 5FFAECA6
+P 4000 4200
+F 0 "R17" H 4059 4246 50  0000 L CNN
+F 1 "R_Small" V 3900 4050 50  0000 L CNN
+F 2 "" H 4000 4200 50  0001 C CNN
+F 3 "~" H 4000 4200 50  0001 C CNN
+	1    4000 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R13
+U 1 1 5FFB07E1
+P 2400 4850
+F 0 "R13" H 2459 4896 50  0000 L CNN
+F 1 "R_Small" V 2300 4700 50  0000 L CNN
+F 2 "" H 2400 4850 50  0001 C CNN
+F 3 "~" H 2400 4850 50  0001 C CNN
+	1    2400 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R16
+U 1 1 5FFB41AB
+P 3350 4200
+F 0 "R16" H 3409 4246 50  0000 L CNN
+F 1 "R_Small" V 3250 4050 50  0000 L CNN
+F 2 "" H 3350 4200 50  0001 C CNN
+F 3 "~" H 3350 4200 50  0001 C CNN
+	1    3350 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R15
+U 1 1 5FFB443F
+P 3050 4200
+F 0 "R15" H 3109 4246 50  0000 L CNN
+F 1 "R_Small" V 2950 4050 50  0000 L CNN
+F 2 "" H 3050 4200 50  0001 C CNN
+F 3 "~" H 3050 4200 50  0001 C CNN
+	1    3050 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R14
+U 1 1 5FFB48E7
+P 2750 4200
+F 0 "R14" H 2809 4246 50  0000 L CNN
+F 1 "R_Small" V 2650 4050 50  0000 L CNN
+F 2 "" H 2750 4200 50  0001 C CNN
+F 3 "~" H 2750 4200 50  0001 C CNN
+	1    2750 4200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4800 3300 4900 3300
+	2750 4900 2750 4300
+Connection ~ 2750 4900
 Wire Wire Line
-	4800 3400 4900 3400
+	3050 4300 3050 5000
+Connection ~ 3050 5000
 Wire Wire Line
-	4800 3600 4900 3600
+	3050 5000 4550 5000
 Wire Wire Line
-	4800 3700 4900 3700
-Text HLabel 4800 3400 0    50   Input ~ 0
-SDA
-Text HLabel 4800 3300 0    50   Input ~ 0
-SCL
-Text GLabel 4800 3600 0    50   Input ~ 0
+	3350 4300 3350 5100
+Connection ~ 3350 5100
+Wire Wire Line
+	3350 5100 4550 5100
+$Comp
+L Device:R_Small R18
+U 1 1 5FFBFA89
+P 4300 4200
+F 0 "R18" H 4359 4246 50  0000 L CNN
+F 1 "R_Small" V 4200 4050 50  0000 L CNN
+F 2 "" H 4300 4200 50  0001 C CNN
+F 3 "~" H 4300 4200 50  0001 C CNN
+	1    4300 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 4300 4000 4700
+Wire Wire Line
+	4000 4700 4550 4700
+Wire Wire Line
+	4300 4300 4300 4600
+Wire Wire Line
+	4300 4600 4550 4600
+Wire Wire Line
+	2400 3900 2400 4200
+$Comp
+L Jumper:SolderJumper_2_Open JP2
+U 1 1 5FFC1E4E
+P 3050 5500
+F 0 "JP2" V 2900 5500 50  0000 L CNN
+F 1 "SolderJumper_2_Open" H 2650 5400 50  0000 L CNN
+F 2 "" H 3050 5500 50  0001 C CNN
+F 3 "~" H 3050 5500 50  0001 C CNN
+	1    3050 5500
+	0    1    1    0   
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP3
+U 1 1 5FFC226D
+P 3350 5500
+F 0 "JP3" V 3200 5500 50  0000 L CNN
+F 1 "SolderJumper_2_Open" H 2950 5400 50  0000 L CNN
+F 2 "" H 3350 5500 50  0001 C CNN
+F 3 "~" H 3350 5500 50  0001 C CNN
+	1    3350 5500
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3050 5000 3050 5350
+Wire Wire Line
+	2400 4950 2400 5650
+Wire Wire Line
+	2400 5650 2750 5650
+Connection ~ 2750 5650
+Wire Wire Line
+	2750 5650 3050 5650
+Connection ~ 3050 5650
+Wire Wire Line
+	3050 5650 3350 5650
+Connection ~ 3350 5650
+Wire Wire Line
+	3350 5650 3600 5650
+Wire Wire Line
+	3650 3350 3650 3500
+Text GLabel 2400 3900 1    50   Input ~ 0
 VDD_MCU
-Text GLabel 4800 3700 0    50   Input ~ 0
+Text GLabel 3600 5650 3    50   Input ~ 0
 GND_MCU
+Text GLabel 3650 3350 2    50   Input ~ 0
+GND_MCU
+Wire Wire Line
+	5050 3900 5050 4300
+Connection ~ 4000 4700
+Connection ~ 4300 4600
+Connection ~ 5100 5700
+Wire Wire Line
+	5100 5700 5050 5700
+Text GLabel 5100 6050 2    50   Input ~ 0
+VDD_MCU
+Wire Wire Line
+	5100 6050 5100 5900
+$Comp
+L Transistor_BJT:2N3904 Q6
+U 1 1 60006EA0
+P 6500 3000
+F 0 "Q6" H 6690 3046 50  0000 L CNN
+F 1 "2N3904" H 6690 2955 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 6700 2925 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/2N3903-D.PDF" H 6500 3000 50  0001 L CNN
+	1    6500 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R19
+U 1 1 60007DA4
+P 6150 4050
+F 0 "R19" H 6209 4096 50  0000 L CNN
+F 1 "R_Small" V 6050 3900 50  0000 L CNN
+F 2 "" H 6150 4050 50  0001 C CNN
+F 3 "~" H 6150 4050 50  0001 C CNN
+	1    6150 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5550 5300 7350 5300
+Wire Wire Line
+	7350 5200 5550 5200
+Wire Wire Line
+	5550 5100 7350 5100
+Wire Wire Line
+	7350 5000 5550 5000
+Wire Wire Line
+	6150 3950 6150 3900
+Wire Wire Line
+	6150 3900 5050 3900
+Connection ~ 5050 3900
+Wire Wire Line
+	5550 4900 6150 4900
+Wire Wire Line
+	6150 4200 6300 4200
+Wire Wire Line
+	6150 4150 6150 4200
+Connection ~ 6150 4200
+Wire Wire Line
+	6150 4200 6150 4900
+Wire Wire Line
+	6300 3000 6300 4200
+Wire Wire Line
+	5550 4600 7150 4600
+Wire Wire Line
+	6950 4700 6950 4300
+Wire Wire Line
+	6950 4300 7350 4300
+Wire Wire Line
+	5550 4700 6950 4700
+Wire Wire Line
+	5550 4800 6750 4800
+$Comp
+L Display_Character:HY1602E DS1
+U 1 1 60052C13
+P 7750 4700
+F 0 "DS1" H 7750 5681 50  0000 C CNN
+F 1 "HY1602E" H 7750 5590 50  0000 C CNN
+F 2 "Display:HY1602E" H 7750 3800 50  0001 C CIN
+F 3 "http://www.icbank.com/data/ICBShop/board/HY1602E.pdf" H 7950 4800 50  0001 C CNN
+	1    7750 4700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 4800 6750 4100
+Wire Wire Line
+	6750 4100 7350 4100
+Wire Wire Line
+	7150 4600 7150 4400
+Wire Wire Line
+	7150 4400 7350 4400
+Text Label 8300 4100 0    50   ~ 0
+pot_brightness
+Wire Wire Line
+	8300 4100 8150 4100
+Text Label 3950 3600 0    50   ~ 0
+pot_brightness
+Wire Wire Line
+	3950 3600 3750 3600
+Text Label 6600 2650 0    50   ~ 0
+LED_(+)
+Wire Wire Line
+	6600 2650 6600 2800
+Text Label 8300 4800 0    50   ~ 0
+LED_(-)
+Wire Wire Line
+	8300 4800 8150 4800
+Text Label 8300 4700 0    50   ~ 0
+LED_(+)
+Wire Wire Line
+	8300 4700 8150 4700
+Wire Wire Line
+	2400 3900 2750 3900
+Wire Wire Line
+	2750 3900 2750 4100
+Connection ~ 2750 3900
+Wire Wire Line
+	2750 3900 3050 3900
+Wire Wire Line
+	3050 3900 3050 4100
+Connection ~ 3050 3900
+Wire Wire Line
+	3050 3900 3350 3900
+Wire Wire Line
+	3350 3900 3350 4100
+Connection ~ 3350 3900
+Wire Wire Line
+	4000 3900 4000 4100
+Connection ~ 4000 3900
+Wire Wire Line
+	4000 3900 4300 3900
+Wire Wire Line
+	4300 3900 4300 4100
+Connection ~ 4300 3900
+Wire Wire Line
+	4300 3900 5050 3900
+Wire Wire Line
+	3350 3900 3650 3900
+Wire Wire Line
+	3650 3900 3650 3700
+Connection ~ 3650 3900
+Wire Wire Line
+	3650 3900 4000 3900
+Text GLabel 7750 5700 2    50   Input ~ 0
+GND_MCU
+Wire Wire Line
+	7750 5700 7750 5500
+Text GLabel 6600 3400 2    50   Input ~ 0
+GND_MCU
+Wire Wire Line
+	6600 3400 6600 3200
 $EndSCHEMATC
