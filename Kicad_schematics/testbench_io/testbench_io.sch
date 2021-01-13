@@ -1068,21 +1068,21 @@ Wire Wire Line
 Wire Wire Line
 	3300 6900 3500 6900
 Wire Wire Line
-	3300 6000 6000 6000
+	3300 6000 5950 6000
 Wire Wire Line
-	3300 6300 6000 6300
+	3300 6300 5950 6300
 Wire Wire Line
-	3300 5900 6000 5900
+	3300 5900 5950 5900
 Wire Wire Line
-	3300 6100 6000 6100
+	3300 6100 5950 6100
 $Sheet
-S 6000 5800 700  550 
+S 5950 5800 700  550 
 U 6001478F
 F0 "Solar_lights" 50
 F1 "Solar_lights.sch" 50
-F2 "Brake_acti" I L 6000 6100 50 
-F3 "Left_acti" I L 6000 5900 50 
-F4 "Right_acti" I L 6000 6300 50 
-F5 "Front_acti" I L 6000 6000 50 
+F2 "Brake_acti" I L 5950 6100 50 
+F3 "Left_acti" I L 5950 5900 50 
+F4 "Right_acti" I L 5950 6300 50 
+F5 "Front_acti" I L 5950 6000 50 
 $EndSheet
 $EndSCHEMATC
