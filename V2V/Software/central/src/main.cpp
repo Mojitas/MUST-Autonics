@@ -16,7 +16,6 @@ using namespace std::literals::chrono_literals;
 DigitalOut _led1(LED1);
 DigitalOut _led2(LED2);
 DigitalOut _led3(LED3);
-DigitalOut _led4(LED4);
 
 events::EventQueue event_queue;
 
@@ -122,7 +121,7 @@ private:
     }
 
     printf("\r\nAdvertising started! (type: 0x%x, interval: [%ld : %ld]ms)\r\n",
-        advparams.getType(), advparams.getMinPrimaryInterval().valueInMs(),
+        advparams.getType().value(), advparams.getMinPrimaryInterval().valueInMs(),
         advparams.getMaxPrimaryInterval().valueInMs());
 
     if (_gap.isFeatureSupported(ble::controller_supported_features_t::LE_EXTENDED_ADVERTISING)) {
@@ -145,7 +144,7 @@ private:
       }
 
       printf("\r\nAdvertising started! (type: 0x%x, interval: [%ld : %ld]ms)\r\n",
-          extadvparams.getType(), extadvparams.getMinPrimaryInterval().valueInMs(),
+          extadvparams.getType().value(), extadvparams.getMinPrimaryInterval().valueInMs(),
           extadvparams.getMaxPrimaryInterval().valueInMs());
     }
 
@@ -433,7 +432,7 @@ static void print_mac_address(Gap& gap)
 static void print_information(Gap& gap)
 {
 	time_t timex = time(NULL);
-  printf("Time: %ld", timex);
+  printf("Time: %lld", timex);
 	printf("Solar Team External Communication");
   printf("Device Name: %s", DEVICE_NAME);
 	print_mac_address(gap);
