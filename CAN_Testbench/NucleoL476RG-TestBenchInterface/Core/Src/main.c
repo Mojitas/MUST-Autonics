@@ -40,7 +40,6 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-CAN_HandleTypeDef hcan1;
 CAN_TxHeaderTypeDef TxHeader;
 CAN_RxHeaderTypeDef RxHeader;
 uint16_t OwnID = 0x124;
@@ -359,9 +358,7 @@ void CAN_Tx(char msg[]){
     //Throw ERROR "CAN Packet size to large"
     if(DEBUG_MODE){
       serialMsg("CAN Packet size to large. Packet size ");
-      char size[2];
-      sprintf(&size, "%i", (int8_t)sizeof(*msg));
-      serialMsg(size);
+      serialMsg((char*)sizeof(*msg));
       serialMsg(" Bytes.\n\r");
     }
   }
@@ -369,21 +366,21 @@ void CAN_Tx(char msg[]){
 
 void CAN_Rx(void){
 
-	uint8_t crx[8];
+	uint8_t receivedData[8];
 	RxHeader.DLC = 8;             //Specifies the length of the frame that will be received.
 	RxHeader.IDE = CAN_ID_STD;    //Specifies the type of identifier for the message that will be received.
 	RxHeader.RTR = CAN_RTR_DATA;  //Specifies the type of frame for the message that will be received.
 	RxHeader.StdId = 0x0;         //Specifies the standard identifier. Has no use when receiving. 
 
 //Receive the messsage
-	if(HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, crx) != HAL_OK){
+	if(HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, receivedData) != HAL_OK){
 		Error_Handler();
 		return;
 	}
 	HAL_Delay(1);
   if(DEBUG_MODE){
 		serialMsg("Received message: ");
-		serialMsg((char*)crx);
+		serialMsg((char*)receivedData);
 		serialMsg("\n\r");
   }
 }
