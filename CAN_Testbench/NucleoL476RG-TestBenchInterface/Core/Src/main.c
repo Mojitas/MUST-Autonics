@@ -23,7 +23,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
+#include <stdio.h>
+#include "i2c-lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -33,11 +35,16 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define DEBUG_MODE 1
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+CAN_HandleTypeDef hcan1;
+CAN_TxHeaderTypeDef TxHeader;
+CAN_RxHeaderTypeDef RxHeader;
+uint16_t OwnID = 0x124;
+char message[8];
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -64,7 +71,11 @@ static void MX_CAN1_Init(void);
 void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
-
+void serialMsg(char msg[]);
+void HAL_CAN_RxFifo0FullCallBack(CAN_HandleTypeDef *hcan);
+void CAN_filterConfig(void);
+void CAN_Tx(char msg[]);
+void CAN_Rx(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -238,7 +249,7 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
-
+  CAN_filterConfig(void)
   /* USER CODE END CAN1_Init 2 */
 
 }
@@ -321,6 +332,76 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+//Send message on USART2 (USB 115200)
+void serialMsg(char msg[]){
+	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+}
+
+void CAN_Tx(char msg[]){
+
+	if(sizeof(*msg)<=8){
+		TxHeader.DLC = 8;                         //Specifies the length of the frame that will be transmitted.
+		TxHeader.IDE = CAN_ID_STD;                //Specifies the type of identifier for the message that will be transmitted.
+		TxHeader.RTR = CAN_RTR_DATA;              //Specifies the type of frame for the message that will be transmitted.
+		TxHeader.StdId = OwnID;                   //Specifies the standard identifier.
+		TxHeader.TransmitGlobalTime = DISABLE;    
+		TxHeader.ExtId = 1;                       //Specifies the extended identifier. 
+		uint32_t TxMailBox;                       //Outgoing mail box
+
+		if(HAL_CAN_AddTxMessage(&hcan1, &TxHeader, (uint8_t*)msg, &TxMailBox) != HAL_OK) {
+			Error_Handler();
+		}
+
+		while(HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox));//Wait for message to be sent. 
+		//serialMsg("Message transmitted!\n\r");//Debug
+	}
+	else{
+    //Throw ERROR "CAN Packet size to large"
+    if(DEBUG_MODE){
+      serialMsg("CAN Packet size to large. Packet size ");
+      char size[2];
+      sprintf(&size, "%i", (int8_t)sizeof(*msg));
+      serialMsg(size);
+      serialMsg(" Bytes.\n\r");
+    }
+  }
+}
+
+void CAN_Rx(void){
+
+	uint8_t crx[8];
+	RxHeader.DLC = 8;             //Specifies the length of the frame that will be received.
+	RxHeader.IDE = CAN_ID_STD;    //Specifies the type of identifier for the message that will be received.
+	RxHeader.RTR = CAN_RTR_DATA;  //Specifies the type of frame for the message that will be received.
+	RxHeader.StdId = 0x0;         //Specifies the standard identifier. Has no use when receiving. 
+
+//Receive the messsage
+	if(HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, crx) != HAL_OK){
+		Error_Handler();
+		return;
+	}
+	HAL_Delay(1);
+  if(DEBUG_MODE){
+		serialMsg("Received message: ");
+		serialMsg((char*)crx);
+		serialMsg("\n\r");
+  }
+}
+
+void CAN_filterConfig(void){
+	CAN_FilterTypeDef filterConfig;
+	filterConfig.FilterBank = 0;                              //Specifies the filter bank which will be initialized.
+	filterConfig.FilterActivation = ENABLE;                   //Enable or disable the filter.
+	filterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;     //Specifies the FIFO (0 or 1U) which will be assigned to the filter.
+	filterConfig.FilterIdHigh = 0x0000;                       //Specifies the filter identification number. 
+	filterConfig.FilterIdLow = 0x0000;                        //Specifies the filter identification number. 
+	filterConfig.FilterMaskIdHigh = 0x0000;                   //Specifies the filter mask number or identification number, according to the mode.
+	filterConfig.FilterMaskIdLow = 0x0000;                    //Specifies the filter mask number or identification number, according to the mode.
+	filterConfig.FilterMode = CAN_FILTERMODE_IDMASK;          //Specifies the filter mode to be initialized.
+	filterConfig.FilterScale = CAN_FILTERSCALE_16BIT;         //Specifies the filter scale.
+
+	HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
