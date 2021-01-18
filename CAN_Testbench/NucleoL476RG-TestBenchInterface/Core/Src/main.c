@@ -51,10 +51,24 @@ CAN_HandleTypeDef hcan1;
 
 UART_HandleTypeDef huart2;
 
-/* Definitions for defaultTask */
-osThreadId_t defaultTaskHandle;
-const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
+/* Definitions for readSensors */
+osThreadId_t readSensorsHandle;
+const osThreadAttr_t readSensors_attributes = {
+  .name = "readSensors",
+  .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 128 * 4
+};
+/* Definitions for updateLCD */
+osThreadId_t updateLCDHandle;
+const osThreadAttr_t updateLCD_attributes = {
+  .name = "updateLCD",
+  .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 128 * 4
+};
+/* Definitions for readSwitchesAnd */
+osThreadId_t readSwitchesAndHandle;
+const osThreadAttr_t readSwitchesAnd_attributes = {
+  .name = "readSwitchesAnd",
   .priority = (osPriority_t) osPriorityNormal,
   .stack_size = 128 * 4
 };
@@ -67,7 +81,9 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_CAN1_Init(void);
-void StartDefaultTask(void *argument);
+void StartReadSensors(void *argument);
+void StartUpdateLCD(void *argument);
+void StartReadSwitchesAndUpdateLEDs(void *argument);
 
 /* USER CODE BEGIN PFP */
 void serialMsg(char msg[]);
@@ -136,8 +152,14 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  /* creation of readSensors */
+  readSensorsHandle = osThreadNew(StartReadSensors, NULL, &readSensors_attributes);
+
+  /* creation of updateLCD */
+  updateLCDHandle = osThreadNew(StartUpdateLCD, NULL, &updateLCD_attributes);
+
+  /* creation of readSwitchesAnd */
+  readSwitchesAndHandle = osThreadNew(StartReadSwitchesAndUpdateLEDs, NULL, &readSwitchesAnd_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -401,14 +423,14 @@ void CAN_filterConfig(void){
 }
 /* USER CODE END 4 */
 
-/* USER CODE BEGIN Header_StartDefaultTask */
+/* USER CODE BEGIN Header_StartReadSensors */
 /**
-  * @brief  Function implementing the defaultTask thread.
+  * @brief  Function implementing the readSensors thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
+/* USER CODE END Header_StartReadSensors */
+void StartReadSensors(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
@@ -417,6 +439,42 @@ void StartDefaultTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_StartUpdateLCD */
+/**
+* @brief Function implementing the updateLCD thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartUpdateLCD */
+void StartUpdateLCD(void *argument)
+{
+  /* USER CODE BEGIN StartUpdateLCD */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartUpdateLCD */
+}
+
+/* USER CODE BEGIN Header_StartReadSwitchesAndUpdateLEDs */
+/**
+* @brief Function implementing the readSwitchesAnd thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartReadSwitchesAndUpdateLEDs */
+void StartReadSwitchesAndUpdateLEDs(void *argument)
+{
+  /* USER CODE BEGIN StartReadSwitchesAndUpdateLEDs */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartReadSwitchesAndUpdateLEDs */
 }
 
  /**
