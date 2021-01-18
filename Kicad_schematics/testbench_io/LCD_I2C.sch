@@ -31,7 +31,7 @@ U 1 1 5FFA3852
 P 5050 5000
 F 0 "U201" H 5050 5881 50  0000 C CNN
 F 1 "PCF8574AN" H 5050 5790 50  0000 C CNN
-F 2 "" H 5050 5000 50  0001 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm" H 5050 5000 50  0001 C CNN
 F 3 "http://www.nxp.com/documents/data_sheet/PCF8574_PCF8574A.pdf" H 5050 5000 50  0001 C CNN
 	1    5050 5000
 	1    0    0    -1  
@@ -42,7 +42,7 @@ U 1 1 5FFA5A57
 P 3650 3600
 F 0 "RV201" H 3900 3500 50  0000 R CNN
 F 1 "10k" V 3550 3650 50  0000 R CNN
-F 2 "" H 3650 3600 50  0001 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3386P_Vertical" H 3650 3600 50  0001 C CNN
 F 3 "~" H 3650 3600 50  0001 C CNN
 	1    3650 3600
 	1    0    0    1   
@@ -53,7 +53,7 @@ U 1 1 5FFA6715
 P 5100 5800
 F 0 "C201" H 5192 5846 50  0000 L CNN
 F 1 "100n" H 5192 5755 50  0000 L CNN
-F 2 "" H 5100 5800 50  0001 C CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 5100 5800 50  0001 C CNN
 F 3 "~" H 5100 5800 50  0001 C CNN
 	1    5100 5800
 	1    0    0    -1  
@@ -64,7 +64,7 @@ U 1 1 5FFA6E9E
 P 2750 5500
 F 0 "JP201" V 2950 5500 50  0000 L CNN
 F 1 "SolderJumper_2_Open" H 2050 5400 50  0000 L CNN
-F 2 "" H 2750 5500 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 2750 5500 50  0001 C CNN
 F 3 "~" H 2750 5500 50  0001 C CNN
 	1    2750 5500
 	0    1    1    0   
@@ -94,7 +94,7 @@ U 1 1 5FFAECA6
 P 4000 4200
 F 0 "R205" H 4059 4246 50  0000 L CNN
 F 1 "4.7" V 3900 4050 50  0000 L CNN
-F 2 "" H 4000 4200 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 4000 4200 50  0001 C CNN
 F 3 "~" H 4000 4200 50  0001 C CNN
 	1    4000 4200
 	1    0    0    -1  
@@ -105,7 +105,7 @@ U 1 1 5FFB07E1
 P 2400 4850
 F 0 "R201" V 2300 4850 50  0000 L CNN
 F 1 "1k" V 2300 4700 50  0000 L CNN
-F 2 "" H 2400 4850 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 2400 4850 50  0001 C CNN
 F 3 "~" H 2400 4850 50  0001 C CNN
 	1    2400 4850
 	1    0    0    -1  
@@ -116,7 +116,7 @@ U 1 1 5FFB443F
 P 3050 4200
 F 0 "R203" H 3109 4246 50  0000 L CNN
 F 1 "10k" V 2950 4050 50  0000 L CNN
-F 2 "" H 3050 4200 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 3050 4200 50  0001 C CNN
 F 3 "~" H 3050 4200 50  0001 C CNN
 	1    3050 4200
 	1    0    0    -1  
@@ -127,7 +127,7 @@ U 1 1 5FFB48E7
 P 2750 4200
 F 0 "R202" H 2809 4246 50  0000 L CNN
 F 1 "10k" V 2650 4050 50  0000 L CNN
-F 2 "" H 2750 4200 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 2750 4200 50  0001 C CNN
 F 3 "~" H 2750 4200 50  0001 C CNN
 	1    2750 4200
 	1    0    0    -1  
@@ -151,7 +151,7 @@ U 1 1 5FFBFA89
 P 4300 4200
 F 0 "R206" H 4359 4246 50  0000 L CNN
 F 1 "4.7" V 4200 4050 50  0000 L CNN
-F 2 "" H 4300 4200 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 4300 4200 50  0001 C CNN
 F 3 "~" H 4300 4200 50  0001 C CNN
 	1    4300 4200
 	1    0    0    -1  
@@ -172,7 +172,7 @@ U 1 1 5FFC1E4E
 P 3050 5500
 F 0 "JP202" V 3250 5500 50  0000 L CNN
 F 1 "SolderJumper_2_Open" H 2400 5400 50  0000 L CNN
-F 2 "" H 3050 5500 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 3050 5500 50  0001 C CNN
 F 3 "~" H 3050 5500 50  0001 C CNN
 	1    3050 5500
 	0    1    1    0   
@@ -183,7 +183,7 @@ U 1 1 5FFC226D
 P 3350 5500
 F 0 "JP203" V 3550 5500 50  0000 L CNN
 F 1 "SolderJumper_2_Open" H 2650 5400 50  0000 L CNN
-F 2 "" H 3350 5500 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 3350 5500 50  0001 C CNN
 F 3 "~" H 3350 5500 50  0001 C CNN
 	1    3350 5500
 	0    1    1    0   
@@ -216,23 +216,12 @@ Wire Wire Line
 Wire Wire Line
 	5100 6050 5100 5900
 $Comp
-L Transistor_BJT:2N3904 Q201
-U 1 1 60006EA0
-P 6700 3100
-F 0 "Q201" H 6890 3146 50  0000 L CNN
-F 1 "2N3904" H 6890 3055 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-92_Inline" H 6900 3025 50  0001 L CIN
-F 3 "https://www.onsemi.com/pub/Collateral/2N3903-D.PDF" H 6700 3100 50  0001 L CNN
-	1    6700 3100
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R_Small R207
 U 1 1 60007DA4
 P 6150 4050
 F 0 "R207" H 6209 4096 50  0000 L CNN
 F 1 "4.7" V 6050 3900 50  0000 L CNN
-F 2 "" H 6150 4050 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 6150 4050 50  0001 C CNN
 F 3 "~" H 6150 4050 50  0001 C CNN
 	1    6150 4050
 	1    0    0    -1  
@@ -252,32 +241,30 @@ Wire Wire Line
 $Comp
 L Display_Character:HY1602E DS201
 U 1 1 60052C13
-P 7750 4700
-F 0 "DS201" H 7750 5681 50  0000 C CNN
-F 1 "HY1602E" H 7750 5590 50  0000 C CNN
-F 2 "Display:HY1602E" H 7750 3800 50  0001 C CIN
-F 3 "http://www.icbank.com/data/ICBShop/board/HY1602E.pdf" H 7950 4800 50  0001 C CNN
-	1    7750 4700
+P 8500 4750
+F 0 "DS201" H 8500 5731 50  0000 C CNN
+F 1 "HY1602E" H 8500 5640 50  0000 C CNN
+F 2 "Display:WC1602A" H 8500 3850 50  0001 C CIN
+F 3 "http://www.icbank.com/data/ICBShop/board/HY1602E.pdf" H 8700 4850 50  0001 C CNN
+	1    8500 4750
 	1    0    0    -1  
 $EndComp
-Text Label 8300 4100 0    50   ~ 0
+Text Label 9050 4150 0    50   ~ 0
 pot_brightness
 Wire Wire Line
-	8300 4100 8150 4100
+	9050 4150 8900 4150
 Text Label 3950 3600 0    50   ~ 0
 pot_brightness
 Wire Wire Line
 	3950 3600 3750 3600
-Wire Wire Line
-	6800 2750 6800 2900
-Text Label 8300 4800 0    50   ~ 0
+Text Label 9050 4850 0    50   ~ 0
 LED_(-)
 Wire Wire Line
-	8300 4800 8150 4800
-Text Label 8300 4700 0    50   ~ 0
+	9050 4850 8900 4850
+Text Label 9050 4750 0    50   ~ 0
 LED_(+)
 Wire Wire Line
-	8300 4700 8150 4700
+	9050 4750 8900 4750
 Wire Wire Line
 	2400 3900 2650 3900
 Wire Wire Line
@@ -310,32 +297,24 @@ Wire Wire Line
 Connection ~ 3650 3900
 Wire Wire Line
 	3650 3900 4000 3900
-Text GLabel 7750 5700 2    50   Input ~ 0
+Text GLabel 8500 5750 2    50   Input ~ 0
 GND_MCU
 Wire Wire Line
-	7750 5700 7750 5500
+	8500 5750 8500 5550
 NoConn ~ 4550 5400
-NoConn ~ 7350 4600
-NoConn ~ 7350 4700
-NoConn ~ 7350 4800
-NoConn ~ 7350 4900
+NoConn ~ 8100 4650
+NoConn ~ 8100 4750
+NoConn ~ 8100 4850
+NoConn ~ 8100 4950
 Wire Wire Line
-	7950 3900 7750 3900
-Text Label 6800 2750 0    50   ~ 0
-LED_(-)
-Wire Wire Line
-	6150 4200 6500 4200
-Text GLabel 6800 3450 2    50   Input ~ 0
-GND_MCU
-Wire Wire Line
-	6800 3450 6800 3300
-Text Label 7850 2950 2    50   ~ 0
+	8700 3950 8500 3950
+Text Label 8900 3400 0    50   ~ 0
 LED_(+)
 Text GLabel 2400 3900 1    50   Input ~ 0
 MCU_5V
 Text GLabel 5100 6050 2    50   Input ~ 0
 MCU_5V
-Text GLabel 7950 3900 2    50   Input ~ 0
+Text GLabel 8700 3950 2    50   Input ~ 0
 MCU_5V
 $Comp
 L power:PWR_FLAG #FLG0103
@@ -351,41 +330,28 @@ $EndComp
 Connection ~ 2650 3900
 Wire Wire Line
 	2650 3900 2750 3900
-$Comp
-L Connector_Generic:Conn_01x02 J201
-U 1 1 603F5B07
-P 8050 2950
-F 0 "J201" H 8130 2942 50  0000 L CNN
-F 1 "Conn_01x02" H 8130 2851 50  0000 L CNN
-F 2 "" H 8050 2950 50  0001 C CNN
-F 3 "~" H 8050 2950 50  0001 C CNN
-	1    8050 2950
-	1    0    0    -1  
-$EndComp
-Text GLabel 7850 3050 0    50   Input ~ 0
+Text GLabel 8100 3400 0    50   Input ~ 0
 MCU_5V
-Wire Wire Line
-	6500 3100 6500 4200
-Text Label 7250 4400 2    50   ~ 0
+Text Label 8000 4450 2    50   ~ 0
 RS
 Wire Wire Line
-	7250 4400 7350 4400
+	8000 4450 8100 4450
 Text Label 5650 4600 0    50   ~ 0
 RS
 Wire Wire Line
 	5650 4600 5550 4600
-Text Label 7250 4300 2    50   ~ 0
+Text Label 8000 4350 2    50   ~ 0
 RW
 Wire Wire Line
-	7250 4300 7350 4300
+	8000 4350 8100 4350
 Text Label 5650 4700 0    50   ~ 0
 RW
 Wire Wire Line
 	5650 4700 5550 4700
-Text Label 7250 4100 2    50   ~ 0
+Text Label 8000 4150 2    50   ~ 0
 E
 Wire Wire Line
-	7250 4100 7350 4100
+	8000 4150 8100 4150
 Text Label 5650 4800 0    50   ~ 0
 E
 Wire Wire Line
@@ -406,31 +372,67 @@ Wire Wire Line
 	5550 5200 5650 5200
 Wire Wire Line
 	5550 5300 5650 5300
-Text Label 7250 5000 2    50   ~ 0
+Text Label 8000 5050 2    50   ~ 0
 DB4
-Text Label 7250 5100 2    50   ~ 0
+Text Label 8000 5150 2    50   ~ 0
 DB5
-Text Label 7250 5200 2    50   ~ 0
+Text Label 8000 5250 2    50   ~ 0
 DB6
-Text Label 7250 5300 2    50   ~ 0
+Text Label 8000 5350 2    50   ~ 0
 DB7
 Wire Wire Line
-	7250 5000 7350 5000
+	8000 5050 8100 5050
 Wire Wire Line
-	7250 5100 7350 5100
+	8000 5150 8100 5150
 Wire Wire Line
-	7250 5200 7350 5200
+	8000 5250 8100 5250
 Wire Wire Line
-	7250 5300 7350 5300
+	8000 5350 8100 5350
 $Comp
 L Device:R_Small R204
 U 1 1 5FFB41AB
 P 3350 4200
 F 0 "R204" H 3409 4246 50  0000 L CNN
 F 1 "10k" V 3250 4050 50  0000 L CNN
-F 2 "" H 3350 4200 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 3350 4200 50  0001 C CNN
 F 3 "~" H 3350 4200 50  0001 C CNN
 	1    3350 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_DIP_x01 SW1
+U 1 1 600B20D2
+P 8500 3400
+F 0 "SW1" H 8500 3667 50  0000 C CNN
+F 1 "SW_DIP_x01" H 8500 3576 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 8500 3400 50  0001 C CNN
+F 3 "~" H 8500 3400 50  0001 C CNN
+	1    8500 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8200 3400 8100 3400
+Wire Wire Line
+	8900 3400 8800 3400
+Wire Wire Line
+	6150 4200 6500 4200
+Wire Wire Line
+	6800 4550 6800 4400
+Text GLabel 6800 4550 2    50   Input ~ 0
+GND_MCU
+Text Label 6800 3850 0    50   ~ 0
+LED_(-)
+Wire Wire Line
+	6800 3850 6800 4000
+$Comp
+L Transistor_BJT:2N3904 Q201
+U 1 1 60006EA0
+P 6700 4200
+F 0 "Q201" H 6890 4246 50  0000 L CNN
+F 1 "2N3904" H 6890 4155 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 6900 4125 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/2N3903-D.PDF" H 6700 4200 50  0001 L CNN
+	1    6700 4200
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
