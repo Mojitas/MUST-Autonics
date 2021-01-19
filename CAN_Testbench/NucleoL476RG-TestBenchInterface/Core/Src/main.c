@@ -507,7 +507,14 @@ uint16_t GetRandomuint16(void){
 }
 
 void UpdateLCD(void){
-  
+  //update LCDArray here
+  /*
+  Speed
+  Battery level
+  Temperatures
+  Power drain
+  Battery Voltages
+  */
 }
 
 void DrawLCD(void){
