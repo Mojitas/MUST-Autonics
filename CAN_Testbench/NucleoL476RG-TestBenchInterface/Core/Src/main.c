@@ -38,7 +38,7 @@ typedef struct {
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DEBUG_MODE 1
+#define DEBUG_MODE 1 //When running in debug mode the nucleo sends some debug data on USART
 #define SAMPLERATE 1
 /* USER CODE END PD */
 
@@ -489,6 +489,7 @@ void ReadSensorValues(){
   uint16_t value2 = GetRandomuint16();
   uint16_t value3 = GetRandomuint16();
 }
+
 uint16_t GetRandomuint16(){
   return (uint16_t)rand() % 4096;
 }
