@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "i2c-lcd.h"
 /* USER CODE END Includes */
 
@@ -502,7 +503,7 @@ void ReadSensorValues(void){
 }
 
 uint16_t GetRandomuint16(void){
-  return (uint16_t)rand() % 4096;
+  return (uint16_t) rand() % 4096;
 }
 
 void UpdateLCD(void){
