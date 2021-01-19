@@ -19,7 +19,7 @@ U 1 1 5FF2E5E7
 P 2200 5400
 F 0 "U101" H 2200 7581 50  0000 C CNN
 F 1 "NUCLEO64-F476RG" H 2200 7490 50  0000 C CNN
-F 2 "Solar_team:MODULE_NUCLEO-F446RE" H 2750 3500 50  0001 L CNN
+F 2 "Solar_team:MODULE_NUCLEO-F476RG" H 2750 3500 50  0001 L CNN
 F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/data_brief/DM00105918.pdf" H 1300 4000 50  0001 C CNN
 	1    2200 5400
 	1    0    0    -1  
@@ -576,17 +576,6 @@ F 2 "Resistor_SMD:R_0603_1608Metric" H 7250 1700 50  0001 C CNN
 F 3 "~" H 7250 1700 50  0001 C CNN
 	1    7250 1700
 	0    1    1    0   
-$EndComp
-$Comp
-L Transistor_FET:BUK9M42-60EX Q101
-U 1 1 603A338F
-P 7400 1450
-F 0 "Q101" H 7300 1600 50  0000 L CNN
-F 1 "BUK9M42-60EX" V 7700 1250 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 7600 1375 50  0001 L CIN
-F 3 "https://assets.nexperia.com/documents/data-sheet/BUK9M42-60E.pdf" V 7400 1450 50  0001 L CNN
-	1    7400 1450
-	1    0    0    -1  
 $EndComp
 Wire Notes Line
 	4300 1900 6800 1900
@@ -1183,6 +1172,17 @@ F 1 "Conn_01x02" H 5980 6501 50  0000 L CNN
 F 2 "Connector_JST:JST_XH_S2B-XH-A-1_1x02_P2.50mm_Horizontal" H 5900 6600 50  0001 C CNN
 F 3 "~" H 5900 6600 50  0001 C CNN
 	1    5900 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:IPD50R380CE Q?
+U 1 1 60108F48
+P 7400 1450
+F 0 "Q?" H 7605 1496 50  0000 L CNN
+F 1 "IPD50R380CE" H 7605 1405 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 7600 1375 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 7400 1450 50  0001 L CNN
+	1    7400 1450
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

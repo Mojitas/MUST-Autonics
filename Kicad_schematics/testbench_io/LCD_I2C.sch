@@ -238,17 +238,6 @@ Wire Wire Line
 Connection ~ 6150 4200
 Wire Wire Line
 	6150 4200 6150 4900
-$Comp
-L Display_Character:HY1602E DS201
-U 1 1 60052C13
-P 8500 4750
-F 0 "DS201" H 8500 5731 50  0000 C CNN
-F 1 "HY1602E" H 8500 5640 50  0000 C CNN
-F 2 "Display:WC1602A" H 8500 3850 50  0001 C CIN
-F 3 "http://www.icbank.com/data/ICBShop/board/HY1602E.pdf" H 8700 4850 50  0001 C CNN
-	1    8500 4750
-	1    0    0    -1  
-$EndComp
 Text Label 9050 4150 0    50   ~ 0
 pot_brightness
 Wire Wire Line
@@ -257,14 +246,14 @@ Text Label 3950 3600 0    50   ~ 0
 pot_brightness
 Wire Wire Line
 	3950 3600 3750 3600
-Text Label 9050 4850 0    50   ~ 0
+Text Label 9050 4550 0    50   ~ 0
 LED_(-)
 Wire Wire Line
-	9050 4850 8900 4850
-Text Label 9050 4750 0    50   ~ 0
+	9050 4550 8900 4550
+Text Label 9050 4450 0    50   ~ 0
 LED_(+)
 Wire Wire Line
-	9050 4750 8900 4750
+	9050 4450 8900 4450
 Wire Wire Line
 	2400 3900 2650 3900
 Wire Wire Line
@@ -308,7 +297,7 @@ NoConn ~ 8100 4850
 NoConn ~ 8100 4950
 Wire Wire Line
 	8700 3950 8500 3950
-Text Label 8900 3400 0    50   ~ 0
+Text Label 9050 3400 0    50   ~ 0
 LED_(+)
 Text GLabel 2400 3900 1    50   Input ~ 0
 MCU_5V
@@ -332,18 +321,18 @@ Wire Wire Line
 	2650 3900 2750 3900
 Text GLabel 8100 3400 0    50   Input ~ 0
 MCU_5V
-Text Label 8000 4450 2    50   ~ 0
+Text Label 8000 4350 2    50   ~ 0
 RS
 Wire Wire Line
-	8000 4450 8100 4450
+	8000 4350 8100 4350
 Text Label 5650 4600 0    50   ~ 0
 RS
 Wire Wire Line
 	5650 4600 5550 4600
-Text Label 8000 4350 2    50   ~ 0
+Text Label 8000 4250 2    50   ~ 0
 RW
 Wire Wire Line
-	8000 4350 8100 4350
+	8000 4250 8100 4250
 Text Label 5650 4700 0    50   ~ 0
 RW
 Wire Wire Line
@@ -413,11 +402,7 @@ $EndComp
 Wire Wire Line
 	8200 3400 8100 3400
 Wire Wire Line
-	8900 3400 8800 3400
-Wire Wire Line
 	6150 4200 6500 4200
-Wire Wire Line
-	6800 4550 6800 4400
 Text GLabel 6800 4550 2    50   Input ~ 0
 GND_MCU
 Text Label 6800 3850 0    50   ~ 0
@@ -435,4 +420,19 @@ F 3 "https://www.onsemi.com/pub/Collateral/2N3903-D.PDF" H 6700 4200 50  0001 L 
 	1    6700 4200
 	1    0    0    -1  
 $EndComp
+$Comp
+L Display_Character:WC1602A DS201
+U 1 1 6007F52E
+P 8500 4750
+F 0 "DS201" H 8500 5731 50  0000 C CNN
+F 1 "WC1602A" H 8500 5640 50  0000 C CNN
+F 2 "Display:WC1602A" H 8500 3850 50  0001 C CIN
+F 3 "http://www.wincomlcd.com/pdf/WC1602A-SFYLYHTC06.pdf" H 9200 4750 50  0001 C CNN
+	1    8500 4750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6800 4400 6800 4550
+Wire Wire Line
+	8800 3400 9050 3400
 $EndSCHEMATC

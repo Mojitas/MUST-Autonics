@@ -43,19 +43,6 @@ F 3 "~" H 6500 4300 50  0001 C CNN
 	1    6500 4300
 	0    1    1    0   
 $EndComp
-$Comp
-L Transistor_FET:BUK9M42-60EX Q?
-U 1 1 60041E12
-P 6650 4050
-AR Path="/60041E12" Ref="Q?"  Part="1" 
-AR Path="/6001478F/60041E12" Ref="Q304"  Part="1" 
-F 0 "Q304" H 6550 4200 50  0000 L CNN
-F 1 "BUK9M42-60EX" V 6950 3850 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 6850 3975 50  0001 L CIN
-F 3 "https://assets.nexperia.com/documents/data-sheet/BUK9M42-60E.pdf" V 6650 4050 50  0001 L CNN
-	1    6650 4050
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5950 3850 5950 3750
 Text Label 5950 3750 1    50   ~ 0
@@ -85,19 +72,6 @@ F 2 "Resistor_SMD:R_0603_1608Metric" H 5700 4300 50  0001 C CNN
 F 3 "~" H 5700 4300 50  0001 C CNN
 	1    5700 4300
 	0    1    1    0   
-$EndComp
-$Comp
-L Transistor_FET:BUK9M42-60EX Q?
-U 1 1 60041E28
-P 5850 4050
-AR Path="/60041E28" Ref="Q?"  Part="1" 
-AR Path="/6001478F/60041E28" Ref="Q303"  Part="1" 
-F 0 "Q303" H 5750 4200 50  0000 L CNN
-F 1 "BUK9M42-60EX" V 6150 3850 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 6050 3975 50  0001 L CIN
-F 3 "https://assets.nexperia.com/documents/data-sheet/BUK9M42-60E.pdf" V 5850 4050 50  0001 L CNN
-	1    5850 4050
-	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	5150 3850 5150 3750
@@ -129,19 +103,6 @@ F 3 "~" H 4900 4300 50  0001 C CNN
 	1    4900 4300
 	0    1    1    0   
 $EndComp
-$Comp
-L Transistor_FET:BUK9M42-60EX Q?
-U 1 1 60041E3E
-P 5050 4050
-AR Path="/60041E3E" Ref="Q?"  Part="1" 
-AR Path="/6001478F/60041E3E" Ref="Q302"  Part="1" 
-F 0 "Q302" H 4950 4200 50  0000 L CNN
-F 1 "BUK9M42-60EX" V 5350 3850 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 5250 3975 50  0001 L CIN
-F 3 "https://assets.nexperia.com/documents/data-sheet/BUK9M42-60E.pdf" V 5050 4050 50  0001 L CNN
-	1    5050 4050
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	4350 3850 4350 3750
 Text Label 4350 3750 1    50   ~ 0
@@ -171,19 +132,6 @@ F 2 "Resistor_SMD:R_0603_1608Metric" H 4100 4300 50  0001 C CNN
 F 3 "~" H 4100 4300 50  0001 C CNN
 	1    4100 4300
 	0    1    1    0   
-$EndComp
-$Comp
-L Transistor_FET:BUK9M42-60EX Q?
-U 1 1 60041E54
-P 4250 4050
-AR Path="/60041E54" Ref="Q?"  Part="1" 
-AR Path="/6001478F/60041E54" Ref="Q301"  Part="1" 
-F 0 "Q301" H 4150 4200 50  0000 L CNN
-F 1 "BUK9M42-60EX" V 4550 3850 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 4450 3975 50  0001 L CIN
-F 3 "https://assets.nexperia.com/documents/data-sheet/BUK9M42-60E.pdf" V 4250 4050 50  0001 L CNN
-	1    4250 4050
-	1    0    0    -1  
 $EndComp
 Text HLabel 4000 4050 1    50   Input ~ 0
 Brake_acti
@@ -220,4 +168,48 @@ Wire Wire Line
 	7600 4100 7700 4100
 Wire Wire Line
 	7600 4200 7700 4200
+$Comp
+L Transistor_FET:IPD50R380CE Q301
+U 1 1 600FBD09
+P 4250 4050
+F 0 "Q301" H 4455 4096 50  0000 L CNN
+F 1 "IPD50R380CE" H 4455 4005 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 4450 3975 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 4250 4050 50  0001 L CNN
+	1    4250 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:IPD50R380CE Q302
+U 1 1 600FF05E
+P 5050 4050
+F 0 "Q302" H 5255 4096 50  0000 L CNN
+F 1 "IPD50R380CE" H 5255 4005 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 5250 3975 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 5050 4050 50  0001 L CNN
+	1    5050 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:IPD50R380CE Q303
+U 1 1 600FF654
+P 5850 4050
+F 0 "Q303" H 6055 4096 50  0000 L CNN
+F 1 "IPD50R380CE" H 6055 4005 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 6050 3975 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 5850 4050 50  0001 L CNN
+	1    5850 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:IPD50R380CE Q304
+U 1 1 600FFC56
+P 6650 4050
+F 0 "Q304" H 6855 4096 50  0000 L CNN
+F 1 "IPD50R380CE" H 6855 4005 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 6850 3975 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 6650 4050 50  0001 L CNN
+	1    6650 4050
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

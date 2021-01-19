@@ -1,4 +1,4 @@
-19000811164780903
+19000811481754903
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -76776,26 +76776,26 @@ CJMCU_2551
 6
 6
 Solar_team
-MODULE_NUCLEO-F446RE
+MODULE_NUCLEO-F476RG
 
 
 0
 76
-76
+73
 Solar_team
 MTS-102-A2
 
 
 0
-0
-0
+2
+2
 Solar_team
 SPST-NO_12mm^2
 
 
 0
-0
-0
+4
+2
 Symbol
 CE-Logo_8.5x6mm_SilkScreen
 CE marking
