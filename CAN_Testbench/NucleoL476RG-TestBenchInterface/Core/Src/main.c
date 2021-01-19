@@ -332,7 +332,7 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
-  CAN_filterConfig(void)
+  CAN_filterConfig();
   /* USER CODE END CAN1_Init 2 */
 
 }
