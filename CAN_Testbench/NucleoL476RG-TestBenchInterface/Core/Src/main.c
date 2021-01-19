@@ -30,12 +30,16 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+typedef struct {
+  GPIO_TypeDef* GPIOx;
+  uint16_t GPIO_Pin;
+} sensor;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define DEBUG_MODE 1
+#define SAMPLERATE 1
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -47,28 +51,16 @@ char message[8];
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef hadc1;
+
 CAN_HandleTypeDef hcan1;
 
 UART_HandleTypeDef huart2;
 
-/* Definitions for readSensors */
-osThreadId_t readSensorsHandle;
-const osThreadAttr_t readSensors_attributes = {
-  .name = "readSensors",
-  .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 128 * 4
-};
-/* Definitions for updateLCD */
-osThreadId_t updateLCDHandle;
-const osThreadAttr_t updateLCD_attributes = {
-  .name = "updateLCD",
-  .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 128 * 4
-};
-/* Definitions for readSwitchesAnd */
-osThreadId_t readSwitchesAndHandle;
-const osThreadAttr_t readSwitchesAnd_attributes = {
-  .name = "readSwitchesAnd",
+/* Definitions for defaultTask */
+osThreadId_t defaultTaskHandle;
+const osThreadAttr_t defaultTask_attributes = {
+  .name = "defaultTask",
   .priority = (osPriority_t) osPriorityNormal,
   .stack_size = 128 * 4
 };
@@ -81,9 +73,8 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_CAN1_Init(void);
-void StartReadSensors(void *argument);
-void StartUpdateLCD(void *argument);
-void StartReadSwitchesAndUpdateLEDs(void *argument);
+static void MX_ADC1_Init(void);
+void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 void serialMsg(char msg[]);
@@ -91,6 +82,10 @@ void HAL_CAN_RxFifo0FullCallBack(CAN_HandleTypeDef *hcan);
 void CAN_filterConfig(void);
 void CAN_Tx(char msg[]);
 void CAN_Rx(void);
+
+void ReadSensorValues();
+
+uint16_t GetRandomuint16();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -128,6 +123,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_CAN1_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -152,14 +148,8 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of readSensors */
-  readSensorsHandle = osThreadNew(StartReadSensors, NULL, &readSensors_attributes);
-
-  /* creation of updateLCD */
-  updateLCDHandle = osThreadNew(StartUpdateLCD, NULL, &updateLCD_attributes);
-
-  /* creation of readSwitchesAnd */
-  readSwitchesAndHandle = osThreadNew(StartReadSwitchesAndUpdateLEDs, NULL, &readSwitchesAnd_attributes);
+  /* creation of defaultTask */
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -224,8 +214,16 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_ADC;
   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
+  PeriphClkInit.AdcClockSelection = RCC_ADCCLKSOURCE_PLLSAI1;
+  PeriphClkInit.PLLSAI1.PLLSAI1Source = RCC_PLLSOURCE_HSI;
+  PeriphClkInit.PLLSAI1.PLLSAI1M = 1;
+  PeriphClkInit.PLLSAI1.PLLSAI1N = 8;
+  PeriphClkInit.PLLSAI1.PLLSAI1P = RCC_PLLP_DIV7;
+  PeriphClkInit.PLLSAI1.PLLSAI1Q = RCC_PLLQ_DIV2;
+  PeriphClkInit.PLLSAI1.PLLSAI1R = RCC_PLLR_DIV2;
+  PeriphClkInit.PLLSAI1.PLLSAI1ClockOut = RCC_PLLSAI1_ADC1CLK;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -236,6 +234,70 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief ADC1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_ADC1_Init(void)
+{
+
+  /* USER CODE BEGIN ADC1_Init 0 */
+
+  /* USER CODE END ADC1_Init 0 */
+
+  ADC_MultiModeTypeDef multimode = {0};
+  ADC_ChannelConfTypeDef sConfig = {0};
+
+  /* USER CODE BEGIN ADC1_Init 1 */
+
+  /* USER CODE END ADC1_Init 1 */
+  /** Common config
+  */
+  hadc1.Instance = ADC1;
+  hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+  hadc1.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+  hadc1.Init.LowPowerAutoWait = DISABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.NbrOfConversion = 1;
+  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+  hadc1.Init.DMAContinuousRequests = DISABLE;
+  hadc1.Init.Overrun = ADC_OVR_DATA_PRESERVED;
+  hadc1.Init.OversamplingMode = DISABLE;
+  if (HAL_ADC_Init(&hadc1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Configure the ADC multi-mode
+  */
+  multimode.Mode = ADC_MODE_INDEPENDENT;
+  if (HAL_ADCEx_MultiModeConfigChannel(&hadc1, &multimode) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Configure Regular Channel
+  */
+  sConfig.Channel = ADC_CHANNEL_5;
+  sConfig.Rank = ADC_REGULAR_RANK_1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
+  sConfig.SingleDiff = ADC_SINGLE_ENDED;
+  sConfig.OffsetNumber = ADC_OFFSET_NONE;
+  sConfig.Offset = 0;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN ADC1_Init 2 */
+
+  /* USER CODE END ADC1_Init 2 */
+
 }
 
 /**
@@ -421,16 +483,26 @@ void CAN_filterConfig(void){
 
 	HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
 }
+
+void ReadSensorValues(){
+  uint16_t value1 = GetRandomuint16();
+  uint16_t value2 = GetRandomuint16();
+  uint16_t value3 = GetRandomuint16();
+}
+uint16_t GetRandomuint16(){
+  return (uint16_t)rand() % 4096;
+}
+
 /* USER CODE END 4 */
 
-/* USER CODE BEGIN Header_StartReadSensors */
+/* USER CODE BEGIN Header_StartDefaultTask */
 /**
-  * @brief  Function implementing the readSensors thread.
+  * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_StartReadSensors */
-void StartReadSensors(void *argument)
+/* USER CODE END Header_StartDefaultTask */
+void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
@@ -439,42 +511,6 @@ void StartReadSensors(void *argument)
     osDelay(1);
   }
   /* USER CODE END 5 */
-}
-
-/* USER CODE BEGIN Header_StartUpdateLCD */
-/**
-* @brief Function implementing the updateLCD thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartUpdateLCD */
-void StartUpdateLCD(void *argument)
-{
-  /* USER CODE BEGIN StartUpdateLCD */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END StartUpdateLCD */
-}
-
-/* USER CODE BEGIN Header_StartReadSwitchesAndUpdateLEDs */
-/**
-* @brief Function implementing the readSwitchesAnd thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartReadSwitchesAndUpdateLEDs */
-void StartReadSwitchesAndUpdateLEDs(void *argument)
-{
-  /* USER CODE BEGIN StartReadSwitchesAndUpdateLEDs */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END StartReadSwitchesAndUpdateLEDs */
 }
 
  /**
