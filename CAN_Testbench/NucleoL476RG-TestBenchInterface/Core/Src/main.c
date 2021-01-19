@@ -83,7 +83,9 @@ void CAN_filterConfig(void);
 void CAN_Tx(char msg[]);
 void CAN_Rx(void);
 
-void ReadSensorValues();
+void ReadSensorValues(void);
+void UpdateLCD(void);
+void DrawLCD(void);
 
 uint16_t GetRandomuint16();
 /* USER CODE END PFP */
@@ -484,14 +486,21 @@ void CAN_filterConfig(void){
 	HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
 }
 
-void ReadSensorValues(){
+void ReadSensorValues(void){
   uint16_t value1 = GetRandomuint16();
   uint16_t value2 = GetRandomuint16();
   uint16_t value3 = GetRandomuint16();
 }
 
-uint16_t GetRandomuint16(){
+uint16_t GetRandomuint16(void){
   return (uint16_t)rand() % 4096;
+}
+
+void UpdateLCD(void){
+
+}
+void DrawLCD(void){
+  
 }
 
 /* USER CODE END 4 */
