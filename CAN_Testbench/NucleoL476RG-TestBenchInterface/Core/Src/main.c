@@ -48,6 +48,7 @@ CAN_TxHeaderTypeDef TxHeader;
 CAN_RxHeaderTypeDef RxHeader;
 uint16_t OwnID = 0x124;
 char message[8];
+char LCDArray[16][2];
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -127,7 +128,15 @@ int main(void)
   MX_CAN1_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-
+  //Init LCD array
+  for (uint8_t i = 0; i < 16; i++)
+  {
+    for (uint8_t j = 0; j < 2; j++)
+    {
+      LCDArray[i][j] = ' ';
+    }
+  }
+  
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -497,10 +506,21 @@ uint16_t GetRandomuint16(void){
 }
 
 void UpdateLCD(void){
-
-}
-void DrawLCD(void){
   
+}
+
+void DrawLCD(void){
+  lcd_clear();
+    for (uint8_t i = 0; i < 16; i++)
+    {
+      for (uint8_t j = 0; j < 2; j++)
+      {
+        HAL_Delay(10);
+        lcd_put_cur(i, j);
+        HAL_Delay(10);
+        lcd_send_data(LCDArray[i][j]);
+      }
+    }
 }
 
 /* USER CODE END 4 */
