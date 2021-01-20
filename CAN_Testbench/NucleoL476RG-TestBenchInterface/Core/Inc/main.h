@@ -58,14 +58,34 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define B1_Pin GPIO_PIN_13
-#define B1_GPIO_Port GPIOC
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
 #define USART_RX_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
+#define ButtonLCDMenuSelect_Pin GPIO_PIN_13
+#define ButtonLCDMenuSelect_GPIO_Port GPIOB
+#define ButtonLCDMenuSelect_EXTI_IRQn EXTI15_10_IRQn
+#define ButtonLCDMenuDown_Pin GPIO_PIN_14
+#define ButtonLCDMenuDown_GPIO_Port GPIOB
+#define ButtonLCDMenuDown_EXTI_IRQn EXTI15_10_IRQn
+#define ButtonLCDMenuUp_Pin GPIO_PIN_15
+#define ButtonLCDMenuUp_GPIO_Port GPIOB
+#define ButtonLCDMenuUp_EXTI_IRQn EXTI15_10_IRQn
+#define ButtonCruiseControll_Pin GPIO_PIN_6
+#define ButtonCruiseControll_GPIO_Port GPIOC
+#define ButtonCruiseControll_EXTI_IRQn EXTI9_5_IRQn
+#define SafeStateLED_Pin GPIO_PIN_7
+#define SafeStateLED_GPIO_Port GPIOC
+#define BrakeLED_Pin GPIO_PIN_8
+#define BrakeLED_GPIO_Port GPIOC
+#define BlinkLeftLED_Pin GPIO_PIN_9
+#define BlinkLeftLED_GPIO_Port GPIOC
+#define BlinkRightLED_Pin GPIO_PIN_8
+#define BlinkRightLED_GPIO_Port GPIOA
+#define DRLLED_Pin GPIO_PIN_9
+#define DRLLED_GPIO_Port GPIOA
 #define HazardLED_Pin GPIO_PIN_10
 #define HazardLED_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
