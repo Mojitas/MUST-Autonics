@@ -1,4 +1,0 @@
-(sym_lib_table
-  (lib (name Solar_team_library)(type Legacy)(uri ${KIPRJMOD}/Solar_team_library.lib)(options "")(descr ""))
-  (lib (name Battery-schematics-rescue)(type Legacy)(uri ${KIPRJMOD}/Battery-schematics-rescue.lib)(options "")(descr ""))
-)
