@@ -51,29 +51,27 @@ CAN_HandleTypeDef hcan1;
 
 UART_HandleTypeDef huart2;
 
-/* Definitions for readSensors */
-osThreadId_t readSensorsHandle;
-const osThreadAttr_t readSensors_attributes = {
-  .name = "readSensors",
-  .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 128 * 4
-};
-/* Definitions for updateLCD */
-osThreadId_t updateLCDHandle;
-const osThreadAttr_t updateLCD_attributes = {
-  .name = "updateLCD",
-  .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 128 * 4
-};
-/* Definitions for readSwitchesAnd */
-osThreadId_t readSwitchesAndHandle;
-const osThreadAttr_t readSwitchesAnd_attributes = {
-  .name = "readSwitchesAnd",
+/* Definitions for defaultTask */
+osThreadId_t defaultTaskHandle;
+const osThreadAttr_t defaultTask_attributes = {
+  .name = "defaultTask",
   .priority = (osPriority_t) osPriorityNormal,
   .stack_size = 128 * 4
 };
 /* USER CODE BEGIN PV */
+osThreadId_t taskHandle_transmit, taskHandle_receive;
 
+osThreadAttr_t task__transmit_attributes = {
+.name = "transmitTask",
+.priority = (osPriority_t) osPriorityNormal,
+.stack_size = 128 * 4
+};
+
+osThreadAttr_t task__receive_attributes = {
+  .name = "receiveTask",
+  .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 128 * 4
+};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -81,16 +79,17 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_CAN1_Init(void);
-void StartReadSensors(void *argument);
-void StartUpdateLCD(void *argument);
-void StartReadSwitchesAndUpdateLEDs(void *argument);
+void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
+
 void serialMsg(char msg[]);
 void HAL_CAN_RxFifo0FullCallBack(CAN_HandleTypeDef *hcan);
 void CAN_filterConfig(void);
 void CAN_Tx(char msg[]);
 void CAN_Rx(void);
+void thread_transmit(void);
+void thread_receive(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -152,17 +151,14 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of readSensors */
-  readSensorsHandle = osThreadNew(StartReadSensors, NULL, &readSensors_attributes);
-
-  /* creation of updateLCD */
-  updateLCDHandle = osThreadNew(StartUpdateLCD, NULL, &updateLCD_attributes);
-
-  /* creation of readSwitchesAnd */
-  readSwitchesAndHandle = osThreadNew(StartReadSwitchesAndUpdateLEDs, NULL, &readSwitchesAnd_attributes);
+  /* creation of defaultTask */
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+
+  osThreadNew(thread_transmit, NULL, &defaultTask_attributes);
+  osThreadNew(thread_receive, NULL, &defaultTask_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -254,11 +250,11 @@ static void MX_CAN1_Init(void)
 
   /* USER CODE END CAN1_Init 1 */
   hcan1.Instance = CAN1;
-  hcan1.Init.Prescaler = 16;
+  hcan1.Init.Prescaler = 53;
   hcan1.Init.Mode = CAN_MODE_NORMAL;
   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan1.Init.TimeSeg1 = CAN_BS1_3TQ;
-  hcan1.Init.TimeSeg2 = CAN_BS2_3TQ;
+  hcan1.Init.TimeSeg1 = CAN_BS1_1TQ;
+  hcan1.Init.TimeSeg2 = CAN_BS2_1TQ;
   hcan1.Init.TimeTriggeredMode = DISABLE;
   hcan1.Init.AutoBusOff = DISABLE;
   hcan1.Init.AutoWakeUp = DISABLE;
@@ -270,7 +266,7 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
-  CAN_filterConfig(void)
+  //CAN_filterConfig();
   /* USER CODE END CAN1_Init 2 */
 
 }
@@ -353,6 +349,50 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+
+void thread_transmit(void){
+	//periodically send CAN messages, also some UART
+	while(HAL_CAN_Start(&hcan1)!=HAL_OK){}
+
+	TickType_t pxLastWaketime = xTaskGetTickCount();
+	TickType_t xTimeIncrement = 1000;
+
+	int iter = 0;
+	char someString[] = "Iter i";
+
+
+	for( ;; ){
+		someString[5] = iter+48;
+
+		serialMsg(someString);
+		serialMsg("\n\r");
+
+		CAN_Tx(someString);
+
+		if(iter==9)
+			iter = 0;
+		else
+			iter++;
+
+		vTaskDelayUntil(&pxLastWaketime, xTimeIncrement);
+	}
+}
+
+void thread_receive(void){
+	//check received CAN messages.
+	//If received, UART message and send ACK
+	TickType_t pxLastWaketime = xTaskGetTickCount();
+	TickType_t xTimeIncrement = 500;
+	//char someString[] = "Received ";
+
+
+	for( ;; ){
+		CAN_Rx();
+		vTaskDelayUntil(&pxLastWaketime, xTimeIncrement);
+	}
+}
+
+
 //Send message on USART2 (USB 115200)
 void serialMsg(char msg[]){
 	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
@@ -369,17 +409,23 @@ void CAN_Tx(char msg[]){
 		TxHeader.ExtId = 1;                       //Specifies the extended identifier. 
 		uint32_t TxMailBox;                       //Outgoing mail box
 
+
 		if(HAL_CAN_AddTxMessage(&hcan1, &TxHeader, (uint8_t*)msg, &TxMailBox) != HAL_OK) {
 			Error_Handler();
 		}
 
+//		if(HAL_CAN_IsSleepActive(&hcan1))
+//			HAL_CAN_WakeUp(&hcan1);
+
 		while(HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox));//Wait for message to be sent. 
 		//serialMsg("Message transmitted!\n\r");//Debug
+
 	}
 	else{
-    //Throw ERROR "CAN Packet size to large"
+    //Throw ERROR "CAN Packet size too large"
+	serialMsg("CAN Packet size too large");
     if(DEBUG_MODE){
-      serialMsg("CAN Packet size to large. Packet size ");
+      serialMsg("CAN Packet size too large. Packet size ");
       serialMsg((char*)sizeof(*msg));
       serialMsg(" Bytes.\n\r");
     }
@@ -396,14 +442,21 @@ void CAN_Rx(void){
 
 //Receive the messsage
 	if(HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, receivedData) != HAL_OK){
-		Error_Handler();
+		//Error_Handler();
 		return;
 	}
+	else {
+
 	HAL_Delay(1);
+	serialMsg("Rx: ");
+	serialMsg((char*)receivedData);
+	serialMsg("\n\r");
+	}
+
   if(DEBUG_MODE){
-		serialMsg("Received message: ");
-		serialMsg((char*)receivedData);
-		serialMsg("\n\r");
+		//serialMsg("Received message: ");
+		//serialMsg((char*)receivedData);
+		//serialMsg("\n\r");
   }
 }
 
@@ -423,58 +476,23 @@ void CAN_filterConfig(void){
 }
 /* USER CODE END 4 */
 
-/* USER CODE BEGIN Header_StartReadSensors */
+/* USER CODE BEGIN Header_StartDefaultTask */
 /**
-  * @brief  Function implementing the readSensors thread.
+  * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_StartReadSensors */
-void StartReadSensors(void *argument)
+/* USER CODE END Header_StartDefaultTask */
+void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
-  /* Infinite loop */
+	serialMsg("DefaultTask started\n\r");
+	/* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	  osDelay(100);
   }
   /* USER CODE END 5 */
-}
-
-/* USER CODE BEGIN Header_StartUpdateLCD */
-/**
-* @brief Function implementing the updateLCD thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartUpdateLCD */
-void StartUpdateLCD(void *argument)
-{
-  /* USER CODE BEGIN StartUpdateLCD */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END StartUpdateLCD */
-}
-
-/* USER CODE BEGIN Header_StartReadSwitchesAndUpdateLEDs */
-/**
-* @brief Function implementing the readSwitchesAnd thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartReadSwitchesAndUpdateLEDs */
-void StartReadSwitchesAndUpdateLEDs(void *argument)
-{
-  /* USER CODE BEGIN StartReadSwitchesAndUpdateLEDs */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END StartReadSwitchesAndUpdateLEDs */
 }
 
  /**
