@@ -75,6 +75,9 @@ CAN_HandleTypeDef hcan1;
 
 I2C_HandleTypeDef hi2c1;
 
+TIM_HandleTypeDef htim16;
+TIM_HandleTypeDef htim17;
+
 UART_HandleTypeDef huart2;
 
 /* Definitions for defaultTask */
@@ -95,6 +98,8 @@ static void MX_USART2_UART_Init(void);
 static void MX_CAN1_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_I2C1_Init(void);
+static void MX_TIM16_Init(void);
+static void MX_TIM17_Init(void);
 void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
@@ -117,6 +122,7 @@ void ButtonLCDMenuUp(void);
 void ButtonLCDMenuDown(void);
 void ButtonLCDMenuSelect(void);
 
+//LED Toggle
 void ToggleHazzardLED();
 void ToggleDRLLED();
 void ToggleBlinkRightLED();
@@ -128,7 +134,11 @@ void ToggleForwardReverseLED();
 void TogglePowerEcoLED();
 void ToggleOnOffLED();
 
-void SwitchStateChanged(int8_t switchId, GPIO_PinState newState)
+//LED Set
+void SetDRLLED(GPIO_PinState pinState);
+
+
+void SwitchStateChanged(int8_t switchId, GPIO_PinState newState);
 
 /* USER CODE END PFP */
 
@@ -169,6 +179,8 @@ int main(void)
 	MX_CAN1_Init();
 	MX_ADC1_Init();
 	MX_I2C1_Init();
+	MX_TIM16_Init();
+	MX_TIM17_Init();
 	/* USER CODE BEGIN 2 */
 	//Init LCD array
 	for (int i = 0; i < 16; i++)
@@ -446,6 +458,70 @@ static void MX_I2C1_Init(void)
 }
 
 /**
+ * @brief TIM16 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_TIM16_Init(void)
+{
+
+	/* USER CODE BEGIN TIM16_Init 0 */
+
+	/* USER CODE END TIM16_Init 0 */
+
+	/* USER CODE BEGIN TIM16_Init 1 */
+
+	/* USER CODE END TIM16_Init 1 */
+	htim16.Instance = TIM16;
+	htim16.Init.Prescaler = 8000-1;
+	htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim16.Init.Period = 10000-1;
+	htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	htim16.Init.RepetitionCounter = 0;
+	htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	if (HAL_TIM_Base_Init(&htim16) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	/* USER CODE BEGIN TIM16_Init 2 */
+
+	/* USER CODE END TIM16_Init 2 */
+
+}
+
+/**
+ * @brief TIM17 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_TIM17_Init(void)
+{
+
+	/* USER CODE BEGIN TIM17_Init 0 */
+
+	/* USER CODE END TIM17_Init 0 */
+
+	/* USER CODE BEGIN TIM17_Init 1 */
+
+	/* USER CODE END TIM17_Init 1 */
+	htim17.Instance = TIM17;
+	htim17.Init.Prescaler = 8000-1;
+	htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim17.Init.Period = 10000-1;
+	htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	htim17.Init.RepetitionCounter = 0;
+	htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	if (HAL_TIM_Base_Init(&htim17) != HAL_OK)
+	{
+		Error_Handler();
+	}
+	/* USER CODE BEGIN TIM17_Init 2 */
+
+	/* USER CODE END TIM17_Init 2 */
+
+}
+
+/**
  * @brief USART2 Initialization Function
  * @param None
  * @retval None
@@ -695,7 +771,7 @@ void ReadSwitchStates(){
 	SwitchStates[5] = HAL_GPIO_ReadPin(SwitchSafeState_GPIO_Port, SwitchSafeState_Pin);
 	SwitchStates[6] = HAL_GPIO_ReadPin(SwitchForwardReverse_GPIO_Port, SwitchForwardReverse_Pin);
 	SwitchStates[7] = HAL_GPIO_ReadPin(SwitchPowerEco_GPIO_Port, SwitchPowerEco_Pin);
-		for (int8_t i = 0; i < NUMBER_OF_SWITCHES; i++)
+	for (int8_t i = 0; i < NUMBER_OF_SWITCHES; i++)
 	{
 		if(PreviousSwitchStates[i] != SwitchStates[i]){
 			SwitchStateChanged(i, SwitchStates[i]);
@@ -705,30 +781,38 @@ void ReadSwitchStates(){
 
 void SwitchStateChanged(int8_t switchId, GPIO_PinState newState){
 	switch(switchId){
-		case 0:		//DRL
+	case 0:		//DRL
+		SetDRLLED(newState);
+		break;
+	case 1:		//BlinkLeft
+		if(newState == GPIO_PIN_SET)
+			HAL_TIM_Base_Start_IT(&htim17);
+		else
+			HAL_TIM_Base_Stop_IT(&htim17);
+			HAL_GPIO_WritePin(BlinkLeftLED_GPIO_Port, BlinkLeftLED_Pin, GPIO_PIN_RESET);
+		break;
+	case 2:		//BlinkRight
+		if(newState == GPIO_PIN_SET)
+			HAL_TIM_Base_Start_IT(&htim16);
+		else
+			HAL_TIM_Base_Stop_IT(&htim16);
+			HAL_GPIO_WritePin(BlinkRightLED_GPIO_Port, BlinkRightLED_Pin, GPIO_PIN_RESET);
+		break;
+	case 3:		//HazardLights
 
-			break;
-		case 1:		//BlinkLeft
-		
-			break;
-		case 2:		//BlinkRight
+		break;
+	case 4:		//MC
 
-			break;
-		case 3:		//HazardLights
+		break;
+	case 5:		//SafeState
 
-			break;
-		case 4:		//MC
+		break;
+	case 6:		//ForwardReverse
 
-			break;
-		case 5:		//SafeState
+		break;
+	case 7:		//PowerEco
 
-			break;
-		case 6:		//ForwardReverse
-
-			break;
-		case 7:		//PowerEco
-
-			break;
+		break;
 	}
 }
 
@@ -751,6 +835,13 @@ void ButtonLCDMenuDown(){
 void ButtonLCDMenuSelect(){
 
 }
+//Set
+void SetDRLLED(GPIO_PinState pinState){
+	HAL_GPIO_WritePin(DRLLED_GPIO_Port, DRLLED_Pin, pinState);
+}
+
+
+//Toggle
 void ToggleHazzardLED(){
 	HAL_GPIO_TogglePin(HazardLED_GPIO_Port, HazardLED_Pin);
 }
