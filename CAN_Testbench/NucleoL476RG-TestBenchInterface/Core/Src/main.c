@@ -41,6 +41,8 @@ typedef struct {
 /* USER CODE BEGIN PD */
 #define DEBUG_MODE 1 //When running in debug mode the nucleo sends some debug data on USART
 #define SAMPLERATE 1
+
+#define NUMBER_OF_SWITCHES 8
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -48,13 +50,21 @@ typedef struct {
 CAN_TxHeaderTypeDef TxHeader;
 CAN_RxHeaderTypeDef RxHeader;
 uint16_t OwnID = 0x124;
+
+//Switch State 1 or 0
+GPIO_PinState SwitchStates[NUMBER_OF_SWITCHES]; //0:DRL 1:BlinkLeft 2:BlinkRight 3:Hazard 4:MC 5:SafeState 6:ForwardReverse 7:PowerEco
+GPIO_PinState PreviousSwitchStates[NUMBER_OF_SWITCHES];
+
 char message[8];
+
 char LCDArray[16][2];
 char batteryLevel[16];
 char batteryVoltage[16];
 char powerDrain[16];
 char temperature[16];
 char speed[16];
+
+
 
 /* USER CODE END PM */
 
@@ -117,6 +127,8 @@ void ToggleSafeStateLED();
 void ToggleForwardReverseLED();
 void TogglePowerEcoLED();
 void ToggleOnOffLED();
+
+void SwitchStateChanged(int8_t switchId, GPIO_PinState newState)
 
 /* USER CODE END PFP */
 
@@ -496,6 +508,24 @@ static void MX_GPIO_Init(void)
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+	/*Configure GPIO pins : SwitchDRL_Pin SwitchBlinkLeft_Pin */
+	GPIO_InitStruct.Pin = SwitchDRL_Pin|SwitchBlinkLeft_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+	/*Configure GPIO pins : SwitchBlinkRight_Pin SwitchHazardLights_Pin */
+	GPIO_InitStruct.Pin = SwitchBlinkRight_Pin|SwitchHazardLights_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+	/*Configure GPIO pins : SwitchMC_Pin SwitchSafeState_Pin SwitchForwardReverse_Pin SwitchPowerEco_Pin */
+	GPIO_InitStruct.Pin = SwitchMC_Pin|SwitchSafeState_Pin|SwitchForwardReverse_Pin|SwitchPowerEco_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
 	/*Configure GPIO pins : ButtonLCDMenuSelect_Pin ButtonLCDMenuDown_Pin ButtonLCDMenuUp_Pin */
 	GPIO_InitStruct.Pin = ButtonLCDMenuSelect_Pin|ButtonLCDMenuDown_Pin|ButtonLCDMenuUp_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
@@ -650,6 +680,59 @@ void DrawLCD(void){
 		}
 	}
 }
+
+void ReadSwitchStates(){
+	for (int8_t i = 0; i < NUMBER_OF_SWITCHES; i++)
+	{
+		PreviousSwitchStates[i] = SwitchStates[i];
+	}
+
+	SwitchStates[0] = HAL_GPIO_ReadPin(SwitchDRL_GPIO_Port, SwitchDRL_Pin);
+	SwitchStates[1] = HAL_GPIO_ReadPin(SwitchBlinkLeft_GPIO_Port, SwitchBlinkLeft_Pin);
+	SwitchStates[2] = HAL_GPIO_ReadPin(SwitchBlinkRight_GPIO_Port, SwitchBlinkRight_Pin);
+	SwitchStates[3] = HAL_GPIO_ReadPin(SwitchHazardLights_GPIO_Port, SwitchHazardLights_Pin);
+	SwitchStates[4] = HAL_GPIO_ReadPin(SwitchMC_GPIO_Port, SwitchMC_Pin);
+	SwitchStates[5] = HAL_GPIO_ReadPin(SwitchSafeState_GPIO_Port, SwitchSafeState_Pin);
+	SwitchStates[6] = HAL_GPIO_ReadPin(SwitchForwardReverse_GPIO_Port, SwitchForwardReverse_Pin);
+	SwitchStates[7] = HAL_GPIO_ReadPin(SwitchPowerEco_GPIO_Port, SwitchPowerEco_Pin);
+		for (int8_t i = 0; i < NUMBER_OF_SWITCHES; i++)
+	{
+		if(PreviousSwitchStates[i] != SwitchStates[i]){
+			SwitchStateChanged(i, SwitchStates[i]);
+		}
+	}
+}
+
+void SwitchStateChanged(int8_t switchId, GPIO_PinState newState){
+	switch(switchId){
+		case 0:		//DRL
+
+			break;
+		case 1:		//BlinkLeft
+		
+			break;
+		case 2:		//BlinkRight
+
+			break;
+		case 3:		//HazardLights
+
+			break;
+		case 4:		//MC
+
+			break;
+		case 5:		//SafeState
+
+			break;
+		case 6:		//ForwardReverse
+
+			break;
+		case 7:		//PowerEco
+
+			break;
+	}
+}
+
+
 void ButtonCruiseControll(){
 	//int carVel = GetCarVelocity();
 	//StartCruiseControll(carVel);
