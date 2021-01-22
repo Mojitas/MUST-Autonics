@@ -56,6 +56,7 @@ GPIO_PinState SwitchStates[NUMBER_OF_SWITCHES]; //0:DRL 1:BlinkLeft 2:BlinkRight
 GPIO_PinState PreviousSwitchStates[NUMBER_OF_SWITCHES];
 
 char message[8];
+char sMsg[50];
 
 char LCDArray[16][2];
 char batteryLevel[16];
@@ -731,7 +732,6 @@ void ReadSwitchStates(){
 	{
 		PreviousSwitchStates[i] = SwitchStates[i];
 	}
-
 	SwitchStates[0] = HAL_GPIO_ReadPin(SwitchDRL_GPIO_Port, SwitchDRL_Pin);
 	SwitchStates[1] = HAL_GPIO_ReadPin(SwitchBlinkLeft_GPIO_Port, SwitchBlinkLeft_Pin);
 	SwitchStates[2] = HAL_GPIO_ReadPin(SwitchBlinkRight_GPIO_Port, SwitchBlinkRight_Pin);
@@ -749,6 +749,18 @@ void ReadSwitchStates(){
 }
 
 void SwitchStateChanged(int8_t switchId, GPIO_PinState newState){
+	if(DEBUG_MODE)
+	{
+		if(newState == GPIO_PIN_SET){
+			sprintf(&sMsg, "Switch id: %i, changed state to: HIGH\n\r", switchId);
+		}
+		else{
+			sprintf(&sMsg, "Switch id: %i, changed state to: LOW\n\r", switchId);
+		}
+		
+		serialMsg(sMsg);
+	}
+
 	switch(switchId){
 	case 0:		//DRL
 		SetDRLLED(newState);
