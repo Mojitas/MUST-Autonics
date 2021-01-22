@@ -265,14 +265,5 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	}
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	if(htim == &htim16){
-		ToggleBlinkRightLED();
-	}
-	if(htim == &htim17){
-		ToggleBlinkRightLED();
-	}
-}
-
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

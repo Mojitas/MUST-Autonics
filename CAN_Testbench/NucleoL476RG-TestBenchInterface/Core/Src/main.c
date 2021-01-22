@@ -109,37 +109,6 @@ void CAN_filterConfig(void);
 void CAN_Tx(char msg[]);
 void CAN_Rx(void);
 
-void ReadSensorValues(void);
-void UpdateLCDValues(void);
-void DrawLCD(void);
-
-int GetRandomInt(int max);
-
-//Buttons
-void ButtonCruiseControll(void);
-void ButtonReset(void);
-void ButtonLCDMenuUp(void);
-void ButtonLCDMenuDown(void);
-void ButtonLCDMenuSelect(void);
-
-//LED Toggle
-void ToggleHazzardLED();
-void ToggleDRLLED();
-void ToggleBlinkRightLED();
-void ToggleBlinkLeftLED();
-void ToggleBrakeLED();
-void ToggleMCLED();
-void ToggleSafeStateLED();
-void ToggleForwardReverseLED();
-void TogglePowerEcoLED();
-void ToggleOnOffLED();
-
-//LED Set
-void SetDRLLED(GPIO_PinState pinState);
-
-
-void SwitchStateChanged(int8_t switchId, GPIO_PinState newState);
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -572,13 +541,13 @@ static void MX_GPIO_Init(void)
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 
 	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin(GPIOA, LD2_Pin|BlinkRightLED_Pin|DRLLED_Pin|HazardLED_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, LD2_Pin|BlinkRightLED_Pin|DRLLED_Pin|MCLED_Pin, GPIO_PIN_RESET);
 
 	/*Configure GPIO pin Output Level */
 	HAL_GPIO_WritePin(GPIOC, SafeStateLED_Pin|BrakeLED_Pin|BlinkLeftLED_Pin, GPIO_PIN_RESET);
 
-	/*Configure GPIO pins : LD2_Pin BlinkRightLED_Pin DRLLED_Pin HazardLED_Pin */
-	GPIO_InitStruct.Pin = LD2_Pin|BlinkRightLED_Pin|DRLLED_Pin|HazardLED_Pin;
+	/*Configure GPIO pins : LD2_Pin BlinkRightLED_Pin DRLLED_Pin MCLED_Pin */
+	GPIO_InitStruct.Pin = LD2_Pin|BlinkRightLED_Pin|DRLLED_Pin|MCLED_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -785,21 +754,35 @@ void SwitchStateChanged(int8_t switchId, GPIO_PinState newState){
 		SetDRLLED(newState);
 		break;
 	case 1:		//BlinkLeft
-		if(newState == GPIO_PIN_SET)
+		if(newState == GPIO_PIN_SET){
 			HAL_TIM_Base_Start_IT(&htim17);
-		else
+		}
+		else{
 			HAL_TIM_Base_Stop_IT(&htim17);
 			HAL_GPIO_WritePin(BlinkLeftLED_GPIO_Port, BlinkLeftLED_Pin, GPIO_PIN_RESET);
+		}
+
 		break;
 	case 2:		//BlinkRight
-		if(newState == GPIO_PIN_SET)
+		if(newState == GPIO_PIN_SET){
 			HAL_TIM_Base_Start_IT(&htim16);
-		else
+		}
+		else{
 			HAL_TIM_Base_Stop_IT(&htim16);
 			HAL_GPIO_WritePin(BlinkRightLED_GPIO_Port, BlinkRightLED_Pin, GPIO_PIN_RESET);
+		}
 		break;
 	case 3:		//HazardLights
-
+		if(newState == GPIO_PIN_SET){
+			HAL_TIM_Base_Start_IT(&htim17);
+			HAL_TIM_Base_Start_IT(&htim16);
+		}
+		else{
+			HAL_TIM_Base_Stop_IT(&htim17);
+			HAL_TIM_Base_Stop_IT(&htim16);
+			HAL_GPIO_WritePin(BlinkLeftLED_GPIO_Port, BlinkLeftLED_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(BlinkRightLED_GPIO_Port, BlinkRightLED_Pin, GPIO_PIN_RESET);
+		}
 		break;
 	case 4:		//MC
 
@@ -840,10 +823,16 @@ void SetDRLLED(GPIO_PinState pinState){
 	HAL_GPIO_WritePin(DRLLED_GPIO_Port, DRLLED_Pin, pinState);
 }
 
+void SetMCLED(GPIO_PinState pinState){
+	HAL_GPIO_WritePin(MCLED_GPIO_Port, MCLED_Pin, pinState);
+}
 
 //Toggle
 void ToggleHazzardLED(){
-	HAL_GPIO_TogglePin(HazardLED_GPIO_Port, HazardLED_Pin);
+	//Hazard LED = Left and Right Blink
+	//HAL_GPIO_TogglePin(HazardLED_GPIO_Port, HazardLED_Pin);
+	HAL_GPIO_TogglePin(BlinkRightLED_GPIO_Port, BlinkRightLED_Pin);
+	HAL_GPIO_TogglePin(BlinkLeftLED_GPIO_Port, BlinkLeftLED_Pin);
 }
 void ToggleDRLLED(){
 	HAL_GPIO_TogglePin(DRLLED_GPIO_Port, DRLLED_Pin);
@@ -858,7 +847,7 @@ void ToggleBrakeLED(){
 	HAL_GPIO_TogglePin(BrakeLED_GPIO_Port, BrakeLED_Pin);
 }
 void ToggleMCLED(){
-	//HAL_GPIO_TogglePin(MCLED_GPIO_Port, MCLED_Pin);
+	HAL_GPIO_TogglePin(MCLED_GPIO_Port, MCLED_Pin);
 }
 void ToggleSafeStateLED(){
 	HAL_GPIO_TogglePin(SafeStateLED_GPIO_Port, SafeStateLED_Pin);
@@ -911,7 +900,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		HAL_IncTick();
 	}
 	/* USER CODE BEGIN Callback 1 */
-
+	if(htim == &htim16){
+		ToggleBlinkRightLED();
+	}
+	if(htim == &htim17){
+		ToggleBlinkRightLED();
+	}
 	/* USER CODE END Callback 1 */
 }
 

@@ -55,6 +55,37 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 
+void ReadSensorValues(void);
+void UpdateLCDValues(void);
+void DrawLCD(void);
+
+int GetRandomInt(int max);
+
+//Buttons
+void ButtonCruiseControll(void);
+void ButtonReset(void);
+void ButtonLCDMenuUp(void);
+void ButtonLCDMenuDown(void);
+void ButtonLCDMenuSelect(void);
+
+//LED Toggle
+void ToggleHazzardLED();
+void ToggleDRLLED();
+void ToggleBlinkRightLED();
+void ToggleBlinkLeftLED();
+void ToggleBrakeLED();
+void ToggleMCLED();
+void ToggleSafeStateLED();
+void ToggleForwardReverseLED();
+void TogglePowerEcoLED();
+void ToggleOnOffLED();
+
+//LED Set
+void SetDRLLED(GPIO_PinState pinState);
+void SetMCLED(GPIO_PinState pinState);
+
+void SwitchStateChanged(int8_t switchId, GPIO_PinState newState);
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -102,8 +133,8 @@ void Error_Handler(void);
 #define BlinkRightLED_GPIO_Port GPIOA
 #define DRLLED_Pin GPIO_PIN_9
 #define DRLLED_GPIO_Port GPIOA
-#define HazardLED_Pin GPIO_PIN_10
-#define HazardLED_GPIO_Port GPIOA
+#define MCLED_Pin GPIO_PIN_10
+#define MCLED_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
