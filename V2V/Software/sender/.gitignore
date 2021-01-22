@@ -1,2 +1,5 @@
 # Ignore platformio folder .pio
 /.pio/
+
+# Ignore for Doxygen generated files
+/output/

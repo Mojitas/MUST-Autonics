@@ -1,5 +1,10 @@
 #include "data_builder.h"
 
+/*!
+ * \file data_builder.cpp
+ * \brief Implements the functions found in data_builder.h
+ */
+
 ble::AdvertisingDataBuilder initialize(BLE &_ble)
 {
   ble_error_t error;
