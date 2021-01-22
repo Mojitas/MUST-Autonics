@@ -83,6 +83,7 @@ void ToggleOnOffLED();
 //LED Set
 void SetDRLLED(GPIO_PinState pinState);
 void SetMCLED(GPIO_PinState pinState);
+void SetSafeStateLED(GPIO_PinState pinState);
 
 void SwitchStateChanged(int8_t switchId, GPIO_PinState newState);
 

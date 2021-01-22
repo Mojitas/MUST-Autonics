@@ -785,13 +785,26 @@ void SwitchStateChanged(int8_t switchId, GPIO_PinState newState){
 		}
 		break;
 	case 4:		//MC
-
+		SetMCLED(newState);
 		break;
 	case 5:		//SafeState
-
+		if(newState == GPIO_PIN_SET){
+			//Enter safe state
+			SetSafeStateLED(newState);
+		}
+		else{
+			//Allow return from safe state
+		}
 		break;
 	case 6:		//ForwardReverse
-
+		if(newState == GPIO_PIN_SET){
+			//Put motor in Reverse
+			//SetForwardReverseLED(newState);
+		}
+		else{
+			//Put motor in Forward
+			//SetForwardReverseLED(newState);
+		}
 		break;
 	case 7:		//PowerEco
 
@@ -825,6 +838,13 @@ void SetDRLLED(GPIO_PinState pinState){
 
 void SetMCLED(GPIO_PinState pinState){
 	HAL_GPIO_WritePin(MCLED_GPIO_Port, MCLED_Pin, pinState);
+}
+void SetSafeStateLED(GPIO_PinState pinState){
+	HAL_GPIO_WritePin(SafeStateLED_GPIO_Port, SafeStateLED_Pin, pinState);
+}
+
+void SetForwardReverseLED(GPIO_PinState pinState){
+	//HAL_GPIO_WritePin(ForwardReverseLED_GPIO_Port, ForwardReverseLED_Pin, pinState);
 }
 
 //Toggle
