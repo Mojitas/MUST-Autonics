@@ -4,6 +4,7 @@
 
 /*!
  * \file sensor.h
+ * \brief Headerfile for replicating a sensor
  */
 
 /*!
@@ -29,8 +30,18 @@ class Sensor
     uint8_t sensor_info();
 
   public:
+    /*!
+     * \fn Sensor(ble::AdvertisingDataBuilder adv, int it, int type)
+     * \brief Constructor for the sensor class
+     */
     Sensor(ble::AdvertisingDataBuilder adv, int id, int type);
+    
+    /*!
+     * \fn virtual ~Sensor()
+     * \brief Destructor for the sensor class
+     */
     virtual ~Sensor();
+    
     /*!
      * \fn ble::AdvertisingDataBuilder addSensorData(ble::AdvertisingDataBuilder adv)
      * \brief Modifies and updates an existing databuilder with information from a sensor, this tries to reflect a temperature sensor going crazy from 0 to 40 degrees Celsius

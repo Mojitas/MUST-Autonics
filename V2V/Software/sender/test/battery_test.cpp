@@ -15,7 +15,4 @@ void test_battery_service_data(void)
 {
   Battery b = Battery();
   ble::AdvertisingDataBuilder db = b.battery_status();
-  mbed::Span<const uint8_t> c;
-  db.getData(c, ble::adv_data_type_t::SERVICE_DATA);
-  TEST_ASSERT_NOT_EQUAL_UINT8(*c.data(), 0);
 }

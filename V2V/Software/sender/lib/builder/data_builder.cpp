@@ -5,7 +5,15 @@
  * \brief Implements the functions found in data_builder.h
  */
 
-ble::AdvertisingDataBuilder initialize(BLE &_ble)
+DataBuilder::DataBuilder()
+{
+}
+
+DataBuilder::~DataBuilder()
+{
+}
+
+ble::AdvertisingDataBuilder DataBuilder::initialize(BLE &_ble)
 {
   ble_error_t error;
 

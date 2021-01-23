@@ -10,7 +10,26 @@ void schedule_ble_processing(BLE::OnEventsToProcessCallbackContext *context)
   event_queue.call(callback(&(context->ble),  &BLE::processEvents));
 }
 
-void on_ble_init_complete(BLE::InitializationCompleteCallbackContext *context)
+Advertiser::Advertiser(BLE &ble) : _ble(ble), _gap(ble.gap()), _event_queue(EVENTS_QUEUE_SIZE)
+{
+  eventHandler = new CretEvents(_ble);
+  _builder = new DataBuilder();
+}
+
+Advertiser::~Advertiser() 
+{
+  if (_ble.hasInitialized())
+    _ble.shutdown();
+}
+
+void Advertiser::run()
+{
+  _gap.setEventHandler(eventHandler);
+  _ble.init(this, &Advertiser::on_ble_init_complete);
+  _event_queue.dispatch_forever();
+}
+
+void Advertiser::on_ble_init_complete(BLE::InitializationCompleteCallbackContext *context)
 {
   BLE &ble = context->ble.Instance();
   Gap &gap = ble.gap();
@@ -31,10 +50,10 @@ void on_ble_init_complete(BLE::InitializationCompleteCallbackContext *context)
     }
   }
 
-  event_queue.call(advertise);
+  _event_queue.call(this, &Advertiser::advertise);
 }
 
-void advertise()
+void Advertiser::advertise()
 {
   if (_ble.hasInitialized())
   {
@@ -53,7 +72,7 @@ void advertise()
       return;
     }
 
-    ble::AdvertisingDataBuilder data_builder = initialize(_ble);
+    ble::AdvertisingDataBuilder data_builder = _builder->initialize(_ble);
     error = _ble.gap().setAdvertisingPayload(adv_handle, data_builder.getAdvertisingData());
     if (error)
     {

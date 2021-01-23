@@ -15,7 +15,16 @@
 class Battery : private mbed::NonCopyable<Battery>
 {
   public:
+    /*!
+     * \fn Battery(ble::AdvertisingDataBuilder adv)
+     * \brief Constructor for the class
+     */
     Battery(ble::AdvertisingDataBuilder adv);
+
+    /*!
+     * \fn virtual ~Battery()
+     * \brief Destructor for the class
+     */
     virtual ~Battery();
     
     /*!
@@ -37,7 +46,16 @@ class Battery : private mbed::NonCopyable<Battery>
     ble::AdvertisingDataBuilder battery_status();
 
   private:
+    /*!
+     * \var level
+     * \brief Holds the current battery level
+     */
     uint8_t level = 160;
+
+    /*!
+     * \var _adv
+     * \brief Holds the advertising data builder that is sent on initialization of the class object.
+     */
     ble::AdvertisingDataBuilder _adv;
 };
 

@@ -2,15 +2,14 @@
 #define __BLE_CONN_H
 #include "user_headers.h"
 #include "data_builder.h"
+#include "returned_ble_events.h"
 
 /*!
  * \file ble_conn.h
  * \par Holds variables used in with BLE and the headers for functions implemented in ble_conn.cpp
  */
 
-static events::EventQueue event_queue(32 * EVENTS_EVENT_SIZE);
-static BLE &_ble = BLE::Instance();
-static ble::advertising_handle_t adv_handle = ble::INVALID_ADVERTISING_HANDLE;
+static events::EventQueue event_queue(EVENTS_QUEUE_SIZE);
 
 /*!
  * \fn void schedule_ble_processing(BLE::OnEventsToProcessCallbackContext *context)
@@ -20,19 +19,39 @@ static ble::advertising_handle_t adv_handle = ble::INVALID_ADVERTISING_HANDLE;
 void schedule_ble_processing(BLE::OnEventsToProcessCallbackContext *context);
 
 /*!
- * \fn void on_ble_init_complete(BLE::InitializationCompleteCallbackContext *context)
- * \brief When the ble has been initialized we check if it was sucessful and set the phy to use.
- *        We then call the advertising function that will send out a connectable ble signal.
- * \pre BLE has to be initialized successfully
- * \post We can start advertising on CODED_PHY
+ * \class Advertiser ble_conn.h "lib/connection/ble_conn.h"
  */
-void on_ble_init_complete(BLE::InitializationCompleteCallbackContext *context);
+class Advertiser : private mbed::NonCopyable<Advertiser>
+{
+  public:
+    Advertiser(BLE &ble);
+    virtual ~Advertiser();
+    void run();
 
-/*!
- * \fn void advertise()
- * \brief Advertise a connectable status to other devices nearby
- * \pre BLE is initialized
- * \post Advertising has been started and the handle is saved for later
- */
-void advertise();
+  public:
+    /*!
+     * \fn void on_ble_init_complete(BLE::InitializationCompleteCallbackContext *context)
+     * \brief When the ble has been initialized we check if it was sucessful and set the phy to use.
+     *        We then call the advertising function that will send out a connectable ble signal.
+     * \pre BLE has to be initialized successfully
+     * \post We can start advertising on CODED_PHY
+     */
+    void on_ble_init_complete(BLE::InitializationCompleteCallbackContext *context);
+
+    /*!
+     * \fn void advertise()
+     * \brief Advertise a connectable status to other devices nearby
+     * \pre BLE is initialized
+     * \post Advertising has been started and the handle is saved for later
+     */
+    void advertise();
+  private:
+    BLE &_ble;
+    Gap &_gap;
+    events::EventQueue _event_queue;
+    DataBuilder *_builder;
+    CretEvents *eventHandler;
+    ble::advertising_handle_t adv_handle = ble::INVALID_ADVERTISING_HANDLE;
+};
+
 #endif
