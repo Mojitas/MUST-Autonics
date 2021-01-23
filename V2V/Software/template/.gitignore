@@ -1,2 +1,8 @@
 # Ignore platformio folder .pio
 /.pio/
+
+# Ingnore output from doxygen
+/output/
+
+# Ignore macOS .DS_Store file
+/.DS_Store

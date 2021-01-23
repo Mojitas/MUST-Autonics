@@ -3,3 +3,6 @@
 
 # Ignore for Doxygen generated files
 /output/
+
+# Ignore .DS_Store from macOS
+/.DS_Store
