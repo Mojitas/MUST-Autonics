@@ -1,4 +1,4 @@
-19000811481754903
+19088984220006769
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -58666,13 +58666,6 @@ Mounting 4.5mm 9774100982
 0
 8
 1
-NUCLEO-F446RE
-MODULE_NUCLEO-F446RE
-
-
-0
-76
-76
 NetTie
 NetTie-2_SMD_Pad0.5mm
 Net tie, 2 pin, 0.5mm square SMD pads
@@ -76789,6 +76782,13 @@ MTS-102-A2
 0
 2
 2
+Solar_team
+RND-Slide-Switch
+
+
+0
+3
+3
 Solar_team
 SPST-NO_12mm^2
 
