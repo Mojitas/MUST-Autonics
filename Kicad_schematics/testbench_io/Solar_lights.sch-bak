@@ -14,202 +14,328 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	6750 3850 6750 3750
-Text Label 6750 3750 1    50   ~ 0
-Front_lights_pwr
-Text GLabel 6900 4300 2    50   Input ~ 0
+	5550 3200 5550 3100
+Text Label 5550 3100 1    50   ~ 0
+Front_lights_VSS
+Text GLabel 5700 3650 2    50   Input ~ 0
 GND
-Connection ~ 6750 4300
+Connection ~ 5550 3650
 Wire Wire Line
-	6750 4300 6900 4300
+	5550 3650 5700 3650
 Wire Wire Line
-	6750 4300 6750 4250
+	5550 3650 5550 3600
 Wire Wire Line
-	6600 4300 6750 4300
+	5400 3650 5550 3650
 Wire Wire Line
-	6400 4050 6400 4300
+	5200 3400 5200 3650
 Wire Wire Line
-	6450 4050 6400 4050
+	5250 3400 5200 3400
 $Comp
 L Device:R_Small R?
 U 1 1 60041E0C
-P 6500 4300
+P 5300 3650
 AR Path="/60041E0C" Ref="R?"  Part="1" 
 AR Path="/6001478F/60041E0C" Ref="R304"  Part="1" 
-F 0 "R304" V 6400 4300 50  0000 C CNN
-F 1 "100k" V 6600 4300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 6500 4300 50  0001 C CNN
-F 3 "~" H 6500 4300 50  0001 C CNN
-	1    6500 4300
+F 0 "R304" V 5200 3650 50  0000 C CNN
+F 1 "100k" V 5400 3650 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 5300 3650 50  0001 C CNN
+F 3 "~" H 5300 3650 50  0001 C CNN
+	1    5300 3650
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	5950 3850 5950 3750
-Text Label 5950 3750 1    50   ~ 0
-Right_indicator_pwr
-Text GLabel 6100 4300 2    50   Input ~ 0
+	4750 3200 4750 3100
+Text Label 4750 3100 1    50   ~ 0
+Right_indicator_VSS
+Text GLabel 4900 3650 2    50   Input ~ 0
 GND
-Connection ~ 5950 4300
+Connection ~ 4750 3650
 Wire Wire Line
-	5950 4300 6100 4300
+	4750 3650 4900 3650
 Wire Wire Line
-	5950 4300 5950 4250
+	4750 3650 4750 3600
 Wire Wire Line
-	5800 4300 5950 4300
+	4600 3650 4750 3650
 Wire Wire Line
-	5600 4050 5600 4300
+	4400 3400 4400 3650
 Wire Wire Line
-	5650 4050 5600 4050
+	4450 3400 4400 3400
 $Comp
 L Device:R_Small R?
 U 1 1 60041E22
-P 5700 4300
+P 4500 3650
 AR Path="/60041E22" Ref="R?"  Part="1" 
 AR Path="/6001478F/60041E22" Ref="R303"  Part="1" 
-F 0 "R303" V 5600 4300 50  0000 C CNN
-F 1 "10k" V 5800 4300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 5700 4300 50  0001 C CNN
-F 3 "~" H 5700 4300 50  0001 C CNN
-	1    5700 4300
+F 0 "R303" V 4400 3650 50  0000 C CNN
+F 1 "10k" V 4600 3650 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 4500 3650 50  0001 C CNN
+F 3 "~" H 4500 3650 50  0001 C CNN
+	1    4500 3650
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	5150 3850 5150 3750
-Text Label 5150 3750 1    50   ~ 0
-Left_indicator_pwr
-Text GLabel 5300 4300 2    50   Input ~ 0
+	3950 3200 3950 3100
+Text Label 3950 3100 1    50   ~ 0
+Left_indicator_VSS
+Text GLabel 4100 3650 2    50   Input ~ 0
 GND
-Connection ~ 5150 4300
+Connection ~ 3950 3650
 Wire Wire Line
-	5150 4300 5300 4300
+	3950 3650 4100 3650
 Wire Wire Line
-	5150 4300 5150 4250
+	3950 3650 3950 3600
 Wire Wire Line
-	5000 4300 5150 4300
+	3800 3650 3950 3650
 Wire Wire Line
-	4800 4050 4800 4300
+	3600 3400 3600 3650
 Wire Wire Line
-	4850 4050 4800 4050
+	3650 3400 3600 3400
 $Comp
 L Device:R_Small R?
 U 1 1 60041E38
-P 4900 4300
+P 3700 3650
 AR Path="/60041E38" Ref="R?"  Part="1" 
 AR Path="/6001478F/60041E38" Ref="R302"  Part="1" 
-F 0 "R302" V 4800 4300 50  0000 C CNN
-F 1 "10k" V 5000 4300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 4900 4300 50  0001 C CNN
-F 3 "~" H 4900 4300 50  0001 C CNN
-	1    4900 4300
+F 0 "R302" V 3600 3650 50  0000 C CNN
+F 1 "10k" V 3800 3650 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 3700 3650 50  0001 C CNN
+F 3 "~" H 3700 3650 50  0001 C CNN
+	1    3700 3650
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	4350 3850 4350 3750
-Text Label 4350 3750 1    50   ~ 0
-Brake_lights_pwr
-Text GLabel 4500 4300 2    50   Input ~ 0
+	5650 4550 5650 4450
+Text Label 5650 4450 1    50   ~ 0
+Brake_lights_VSS
+Text GLabel 5800 5000 2    50   Input ~ 0
 GND
-Connection ~ 4350 4300
+Connection ~ 5650 5000
 Wire Wire Line
-	4350 4300 4500 4300
+	5650 5000 5800 5000
 Wire Wire Line
-	4350 4300 4350 4250
+	5650 5000 5650 4950
 Wire Wire Line
-	4200 4300 4350 4300
+	5500 5000 5650 5000
 Wire Wire Line
-	4000 4050 4000 4300
+	5300 4750 5300 5000
 Wire Wire Line
-	4050 4050 4000 4050
+	5350 4750 5300 4750
 $Comp
 L Device:R_Small R?
 U 1 1 60041E4E
-P 4100 4300
+P 5400 5000
 AR Path="/60041E4E" Ref="R?"  Part="1" 
 AR Path="/6001478F/60041E4E" Ref="R301"  Part="1" 
-F 0 "R301" V 4000 4300 50  0000 C CNN
-F 1 "10k" V 4200 4300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 4100 4300 50  0001 C CNN
-F 3 "~" H 4100 4300 50  0001 C CNN
-	1    4100 4300
+F 0 "R301" V 5300 5000 50  0000 C CNN
+F 1 "10k" V 5500 5000 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 5400 5000 50  0001 C CNN
+F 3 "~" H 5400 5000 50  0001 C CNN
+	1    5400 5000
 	0    1    1    0   
 $EndComp
-Text HLabel 4000 4050 1    50   Input ~ 0
+Text HLabel 5300 4750 1    50   Input ~ 0
 Brake_acti
-Text HLabel 4800 4050 1    50   Input ~ 0
+Text HLabel 3600 3400 1    50   Input ~ 0
 Left_acti
-Text HLabel 5600 4050 1    50   Input ~ 0
+Text HLabel 4400 3400 1    50   Input ~ 0
 Right_acti
-Text HLabel 6400 4050 1    50   Input ~ 0
+Text HLabel 5200 3400 1    50   Input ~ 0
 Front_acti
+Text Label 6800 4950 0    50   ~ 0
+Brake_lights_VSS
+Text Label 6800 4750 0    50   ~ 0
+Left_indicator_VSS
+Text Label 6800 4550 0    50   ~ 0
+Right_indicator_VSS
+Text Label 6800 4350 0    50   ~ 0
+Front_lights_VSS
+Wire Wire Line
+	6700 4350 6800 4350
+Wire Wire Line
+	6700 4550 6800 4550
 $Comp
-L Connector_Generic:Conn_01x04 J301
-U 1 1 60130D83
-P 7400 4200
-F 0 "J301" V 7364 3912 50  0000 R CNN
-F 1 "Conn_01x04" V 7273 3912 50  0000 R CNN
-F 2 "Connector_JST:JST_XH_S4B-XH-A-1_1x04_P2.50mm_Horizontal" H 7400 4200 50  0001 C CNN
-F 3 "~" H 7400 4200 50  0001 C CNN
-	1    7400 4200
+L Transistor_FET:IPD50R380CE Q301
+U 1 1 600FBD09
+P 5550 4750
+F 0 "Q301" H 5755 4796 50  0000 L CNN
+F 1 "IPD50R380CE" H 5755 4705 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 5750 4675 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 5550 4750 50  0001 L CNN
+	1    5550 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:IPD50R380CE Q302
+U 1 1 600FF05E
+P 3850 3400
+F 0 "Q302" H 4055 3446 50  0000 L CNN
+F 1 "IPD50R380CE" H 4055 3355 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 4050 3325 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 3850 3400 50  0001 L CNN
+	1    3850 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:IPD50R380CE Q303
+U 1 1 600FF654
+P 4650 3400
+F 0 "Q303" H 4855 3446 50  0000 L CNN
+F 1 "IPD50R380CE" H 4855 3355 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 4850 3325 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 4650 3400 50  0001 L CNN
+	1    4650 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:IPD50R380CE Q304
+U 1 1 600FFC56
+P 5450 3400
+F 0 "Q304" H 5655 3446 50  0000 L CNN
+F 1 "IPD50R380CE" H 5655 3355 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 5650 3325 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 5450 3400 50  0001 L CNN
+	1    5450 3400
+	1    0    0    -1  
+$EndComp
+Text GLabel 7650 4050 2    50   Input ~ 0
+VDD_MCU
+Wire Wire Line
+	6700 4750 6800 4750
+Wire Wire Line
+	6700 4950 6800 4950
+Wire Wire Line
+	7650 4450 7650 4650
+Wire Wire Line
+	6700 4650 7650 4650
+Connection ~ 7650 4650
+Wire Wire Line
+	6700 4850 7650 4850
+Wire Wire Line
+	7650 4650 7650 4850
+Wire Wire Line
+	7650 4850 7650 5050
+Wire Wire Line
+	6700 5050 7650 5050
+Connection ~ 7650 4850
+Wire Wire Line
+	4800 4550 4800 4450
+Text GLabel 4950 5000 2    50   Input ~ 0
+GND
+Connection ~ 4800 5000
+Wire Wire Line
+	4800 5000 4950 5000
+Wire Wire Line
+	4800 5000 4800 4950
+Wire Wire Line
+	4650 5000 4800 5000
+Wire Wire Line
+	4450 4750 4450 5000
+Wire Wire Line
+	4500 4750 4450 4750
+$Comp
+L Device:R_Small R?
+U 1 1 601B6BDF
+P 4550 5000
+AR Path="/601B6BDF" Ref="R?"  Part="1" 
+AR Path="/6001478F/601B6BDF" Ref="R305"  Part="1" 
+F 0 "R305" V 4450 5000 50  0000 C CNN
+F 1 "R_Small" V 4650 5000 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 4550 5000 50  0001 C CNN
+F 3 "~" H 4550 5000 50  0001 C CNN
+	1    4550 5000
+	0    1    1    0   
+$EndComp
+$Comp
+L Transistor_FET:IPD50R380CE Q305
+U 1 1 601B6BE6
+P 4700 4750
+AR Path="/6001478F/601B6BE6" Ref="Q305"  Part="1" 
+AR Path="/601B6BE6" Ref="Q?"  Part="1" 
+F 0 "Q305" H 4905 4796 50  0000 L CNN
+F 1 "IPD50R380CE" V 5150 4600 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 4900 4675 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 4700 4750 50  0001 L CNN
+	1    4700 4750
+	1    0    0    -1  
+$EndComp
+Text HLabel 4450 4750 1    50   Input ~ 0
+Fan_acti
+Wire Wire Line
+	7650 4250 7650 4450
+Connection ~ 7650 4450
+Text Label 4800 4450 1    50   ~ 0
+Fan_VSS
+Wire Wire Line
+	6700 4450 7650 4450
+Text Label 6800 4150 0    50   ~ 0
+Fan_VSS
+Wire Wire Line
+	6800 4150 6700 4150
+Wire Wire Line
+	6700 4250 7650 4250
+Wire Wire Line
+	3900 4600 3900 4500
+Text GLabel 4050 5050 2    50   Input ~ 0
+GND
+Connection ~ 3900 5050
+Wire Wire Line
+	3900 5050 4050 5050
+Wire Wire Line
+	3900 5050 3900 5000
+Wire Wire Line
+	3750 5050 3900 5050
+Wire Wire Line
+	3550 4800 3550 5050
+Wire Wire Line
+	3600 4800 3550 4800
+$Comp
+L Device:R_Small R?
+U 1 1 603A50A6
+P 3650 5050
+AR Path="/603A50A6" Ref="R?"  Part="1" 
+AR Path="/6001478F/603A50A6" Ref="R306"  Part="1" 
+F 0 "R306" V 3550 5050 50  0000 C CNN
+F 1 "R_Small" V 3750 5050 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 3650 5050 50  0001 C CNN
+F 3 "~" H 3650 5050 50  0001 C CNN
+	1    3650 5050
+	0    1    1    0   
+$EndComp
+$Comp
+L Transistor_FET:IPD50R380CE Q306
+U 1 1 603A50AC
+P 3800 4800
+AR Path="/6001478F/603A50AC" Ref="Q306"  Part="1" 
+AR Path="/603A50AC" Ref="Q?"  Part="1" 
+F 0 "Q306" H 4005 4846 50  0000 L CNN
+F 1 "IPD50R380CE" V 4250 4650 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 4000 4725 50  0001 L CIN
+F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 3800 4800 50  0001 L CNN
+	1    3800 4800
+	1    0    0    -1  
+$EndComp
+Text HLabel 3550 4800 1    50   Input ~ 0
+Horn_acti
+Text Label 3900 4500 1    50   ~ 0
+Horn_VSS
+$Comp
+L Connector_Generic:Conn_01x12 J301
+U 1 1 603A60EB
+P 6500 4550
+F 0 "J301" H 6418 3725 50  0000 C CNN
+F 1 "Conn_01x12" H 6418 3816 50  0000 C CNN
+F 2 "Connector_JST:JST_XH_S12B-XH-A-1_1x12_P2.50mm_Horizontal" H 6500 4550 50  0001 C CNN
+F 3 "~" H 6500 4550 50  0001 C CNN
+	1    6500 4550
 	-1   0    0    1   
 $EndComp
-Text Label 7700 4300 0    50   ~ 0
-Brake_lights_pwr
-Text Label 7700 4200 0    50   ~ 0
-Left_indicator_pwr
-Text Label 7700 4100 0    50   ~ 0
-Right_indicator_pwr
-Text Label 7700 4000 0    50   ~ 0
-Front_lights_pwr
+Text Label 6800 3950 0    50   ~ 0
+Horn_VSS
 Wire Wire Line
-	7600 4300 7700 4300
+	6700 4050 7650 4050
 Wire Wire Line
-	7600 4000 7700 4000
+	7650 4050 7650 4250
+Connection ~ 7650 4250
 Wire Wire Line
-	7600 4100 7700 4100
-Wire Wire Line
-	7600 4200 7700 4200
-$Comp
-L Transistor_FET:IPD50R380CE Q?
-U 1 1 600FBD09
-P 4250 4050
-F 0 "Q?" H 4455 4096 50  0000 L CNN
-F 1 "IPD50R380CE" H 4455 4005 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 4450 3975 50  0001 L CIN
-F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 4250 4050 50  0001 L CNN
-	1    4250 4050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Transistor_FET:IPD50R380CE Q?
-U 1 1 600FF05E
-P 5050 4050
-F 0 "Q?" H 5255 4096 50  0000 L CNN
-F 1 "IPD50R380CE" H 5255 4005 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 5250 3975 50  0001 L CIN
-F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 5050 4050 50  0001 L CNN
-	1    5050 4050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Transistor_FET:IPD50R380CE Q?
-U 1 1 600FF654
-P 5850 4050
-F 0 "Q?" H 6055 4096 50  0000 L CNN
-F 1 "IPD50R380CE" H 6055 4005 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 6050 3975 50  0001 L CIN
-F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 5850 4050 50  0001 L CNN
-	1    5850 4050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Transistor_FET:IPD50R380CE Q?
-U 1 1 600FFC56
-P 6650 4050
-F 0 "Q?" H 6855 4096 50  0000 L CNN
-F 1 "IPD50R380CE" H 6855 4005 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 6850 3975 50  0001 L CIN
-F 3 "https://www.infineon.com/dgdl/Infineon-IPD50R380CE-DS-v02_01-en.pdf?fileId=db3a30433ecb86d4013ed0a2ef580f38" H 6650 4050 50  0001 L CNN
-	1    6650 4050
-	1    0    0    -1  
-$EndComp
+	6800 3950 6700 3950
 $EndSCHEMATC
