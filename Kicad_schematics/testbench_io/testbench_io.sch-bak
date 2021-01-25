@@ -1193,56 +1193,56 @@ Horn_acti
 Wire Wire Line
 	1600 5700 1700 5700
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H101
 U 1 1 60650EDA
 P 7000 3950
-F 0 "H?" V 6954 4100 50  0000 L CNN
+F 0 "H101" V 6954 4100 50  0000 L CNN
 F 1 "MountingHole_Pad" V 7045 4100 50  0000 L CNN
-F 2 "" H 7000 3950 50  0001 C CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 7000 3950 50  0001 C CNN
 F 3 "~" H 7000 3950 50  0001 C CNN
 	1    7000 3950
 	0    1    1    0   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H102
 U 1 1 6065DA9C
 P 7000 4150
-F 0 "H?" V 6954 4300 50  0000 L CNN
+F 0 "H102" V 6954 4300 50  0000 L CNN
 F 1 "MountingHole_Pad" V 7045 4300 50  0000 L CNN
-F 2 "" H 7000 4150 50  0001 C CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 7000 4150 50  0001 C CNN
 F 3 "~" H 7000 4150 50  0001 C CNN
 	1    7000 4150
 	0    1    1    0   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H103
 U 1 1 6065DD09
 P 7000 4350
-F 0 "H?" V 6954 4500 50  0000 L CNN
+F 0 "H103" V 6954 4500 50  0000 L CNN
 F 1 "MountingHole_Pad" V 7045 4500 50  0000 L CNN
-F 2 "" H 7000 4350 50  0001 C CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 7000 4350 50  0001 C CNN
 F 3 "~" H 7000 4350 50  0001 C CNN
 	1    7000 4350
 	0    1    1    0   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H104
 U 1 1 6065DFA5
 P 7000 4550
-F 0 "H?" V 6954 4700 50  0000 L CNN
+F 0 "H104" V 6954 4700 50  0000 L CNN
 F 1 "MountingHole_Pad" V 7045 4700 50  0000 L CNN
-F 2 "" H 7000 4550 50  0001 C CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 7000 4550 50  0001 C CNN
 F 3 "~" H 7000 4550 50  0001 C CNN
 	1    7000 4550
 	0    1    1    0   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H105
 U 1 1 6065E101
 P 7000 4750
-F 0 "H?" V 6954 4900 50  0000 L CNN
+F 0 "H105" V 6954 4900 50  0000 L CNN
 F 1 "MountingHole_Pad" V 7045 4900 50  0000 L CNN
-F 2 "" H 7000 4750 50  0001 C CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 7000 4750 50  0001 C CNN
 F 3 "~" H 7000 4750 50  0001 C CNN
 	1    7000 4750
 	0    1    1    0   

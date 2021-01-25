@@ -17,8 +17,8 @@ $Comp
 L MCU_Module:NUCLEO64-F411RE U101
 U 1 1 5FF2E5E7
 P 2800 4900
-F 0 "U101" H 2800 7081 50  0000 C CNN
-F 1 "NUCLEO64-F476RG" H 2800 6990 50  0000 C CNN
+F 0 "U101" H 2800 4900 50  0000 C CNN
+F 1 "NUCLEO64-F476RG" H 2800 4800 50  0000 C CNN
 F 2 "Solar_team:MODULE_NUCLEO-F476RG" H 3350 3000 50  0001 L CNN
 F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/data_brief/DM00105918.pdf" H 1900 3500 50  0001 C CNN
 	1    2800 4900
@@ -750,10 +750,10 @@ Wire Wire Line
 	4000 4900 3900 4900
 Wire Wire Line
 	4000 4800 3900 4800
-Text GLabel 2200 2800 1    50   Input ~ 0
+Text GLabel 2700 2600 1    50   Input ~ 0
 VDD_MCU
 Wire Wire Line
-	2200 2800 2200 2900
+	2700 2600 2700 2900
 Text GLabel 2200 7000 0    50   Input ~ 0
 GND_MCU
 $Sheet
@@ -791,8 +791,8 @@ NoConn ~ 1700 6500
 NoConn ~ 3900 5500
 NoConn ~ 3900 4400
 Wire Wire Line
-	2600 2800 2600 2900
-Text GLabel 2600 2800 1    50   Input ~ 0
+	2600 2600 2600 2900
+Text GLabel 2600 2600 1    50   Input ~ 0
 MCU_5V
 Text GLabel 7100 3000 0    50   Input ~ 0
 MCU_5V
@@ -837,7 +837,7 @@ NoConn ~ 10500 3550
 NoConn ~ 3300 2900
 NoConn ~ 2900 2900
 NoConn ~ 2800 2900
-NoConn ~ 2700 2900
+NoConn ~ 2200 2900
 NoConn ~ 2500 2900
 NoConn ~ 2400 2900
 NoConn ~ 2300 2900
