@@ -12,7 +12,6 @@ void schedule_ble_processing(BLE::OnEventsToProcessCallbackContext *context)
 
 Advertiser::Advertiser(BLE &ble) : _ble(ble), _gap(ble.gap()), _event_queue(EVENTS_QUEUE_SIZE)
 {
-  eventHandler = new CretEvents(_ble);
   _builder = new DataBuilder();
 }
 
@@ -24,7 +23,6 @@ Advertiser::~Advertiser()
 
 void Advertiser::run()
 {
-  _gap.setEventHandler(eventHandler);
   _ble.init(this, &Advertiser::on_ble_init_complete);
   _event_queue.dispatch_forever();
 }
@@ -33,7 +31,7 @@ void Advertiser::on_ble_init_complete(BLE::InitializationCompleteCallbackContext
 {
   BLE &ble = context->ble.Instance();
   Gap &gap = ble.gap();
-  ble_error_t error = context->error;
+  error = context->error;
 
   if (error)
   {
@@ -57,7 +55,6 @@ void Advertiser::advertise()
 {
   if (_ble.hasInitialized())
   {
-    ble_error_t error;
     ble::AdvertisingParameters advparams(
         ble::advertising_type_t::CONNECTABLE_NON_SCANNABLE_UNDIRECTED,
         ble::adv_interval_t(ble::millisecond_t(100))

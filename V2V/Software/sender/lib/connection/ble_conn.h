@@ -2,7 +2,6 @@
 #define __BLE_CONN_H
 #include "user_headers.h"
 #include "data_builder.h"
-#include "returned_ble_events.h"
 
 /*!
  * \file ble_conn.h
@@ -23,7 +22,7 @@ void schedule_ble_processing(BLE::OnEventsToProcessCallbackContext *context);
  */
 class Advertiser : private mbed::NonCopyable<Advertiser>
 {
-  public:
+  protected:
     Advertiser(BLE &ble);
     virtual ~Advertiser();
     void run();
@@ -45,13 +44,15 @@ class Advertiser : private mbed::NonCopyable<Advertiser>
      * \post Advertising has been started and the handle is saved for later
      */
     void advertise();
-  private:
+  
+  protected:
     BLE &_ble;
     Gap &_gap;
     events::EventQueue _event_queue;
+    ble::connection_handle_t _handle;
     DataBuilder *_builder;
-    CretEvents *eventHandler;
     ble::advertising_handle_t adv_handle = ble::INVALID_ADVERTISING_HANDLE;
+    ble_error_t error;
 };
 
 #endif
