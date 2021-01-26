@@ -150,8 +150,8 @@ uint8_t mcp2515_init(uint8_t speed)
 	
 	// load CNF1..3 Register
 	RESET(MCP2515_CS);
-	spi_putc(SPI_WRITE);
-	spi_putc(CNF3);
+	spi_putc(SPI_WRITE); //WRITE instruction
+	spi_putc(CNF3);	//Register Address 0010 1000
 	
 /*	spi_putc((1<<PHSEG21));		// Bitrate 125 kbps at 16 MHz
 	spi_putc((1<<BTLMODE)|(1<<PHSEG11));
@@ -162,10 +162,46 @@ uint8_t mcp2515_init(uint8_t speed)
 	spi_putc((1<<BTLMODE)|(1<<PHSEG11));
 	spi_putc((1<<BRP1)|(1<<BRP0));
 */	
-	spi_putc((1<<PHSEG21));		// Bitrate 250 kbps at 16 MHz
-	spi_putc((1<<BTLMODE)|(1<<PHSEG11));
+
+	/*
+	Tq - time quanta
+
+	CNF1:
+		SJW[1:0] Synchronizations Jump Width Length = SJW[1:0] * Tq
+		BRP[5:0] Baud Rate Prescaler bits set Tq = 2*(BRP[5:0] + 1)/Fosc
+	
+	CNF2:
+		BTLMODE PS2 Bit Time Length bit: 1/0 - PS2 length determined by PHSEG2 bits/max(PS1, IPT)
+		SAM Sample Point Configuration bit: 1/0 - 3/1 samples made at sample point
+		PHSEG1[2:0] PS1 Length = (PHSEG1[2:0] + 1) * Tq
+		PRSEG[2:0] Propagation Segment Length = (PRSEG[2:0] + 1) * Tq
+
+	CNF3:
+		SOF Start-of-Frame signal bit
+		WAKFIL enable/disable wake-up filter
+		PHSEG2[2:0] set PhaseSeg2 length (in Tq) = (PHSEG2[2:0] + 1) * Tq
+
+	*/
+	
+	//CNF3
+	//DAFAULT
+	//PHSEG21 = 2^1
+	//	PhaseSeg2 length = (2 + 1) * Tq = 3 Tq 
+	//NEW PhaseSeg2 = 1
+	spi_putc((1<<PHSEG20));
+	
+	//CNF2
+	//BTLMODE => PhaseSeg2 length determined by the PHSEG2[2:0] bits
+	//DEFAULT
+	//PHSEG11 = 2^1
+	//	PhaseSeg1 length = (2 + 1) * Tq = 3 Tq
+	//nEW PhaseSeg1 = (2^2+2^0) + 1 = 6
+	spi_putc((1<<BTLMODE)|(1<<PHSEG12)|(1<<PHSEG10));
 	//spi_putc(1<<BRP0);
-    spi_putc(speed);
+    
+	//CNF1
+	// Tq = 2 * BRP * Tosc = 2 * BRP / Fosc
+	spi_putc(speed);
 
 	// activate interrupts
 	spi_putc((1<<RX1IE)|(1<<RX0IE));

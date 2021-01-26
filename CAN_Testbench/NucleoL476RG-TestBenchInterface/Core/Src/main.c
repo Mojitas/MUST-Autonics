@@ -42,7 +42,7 @@
 /* USER CODE BEGIN PM */
 CAN_TxHeaderTypeDef TxHeader;
 CAN_RxHeaderTypeDef RxHeader;
-uint16_t OwnID = 0x124;
+uint16_t OwnID = 0x122;
 char message[8];
 /* USER CODE END PM */
 
@@ -127,8 +127,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_CAN1_Init();
-  /* USER CODE BEGIN 2 */
 
+  /* USER CODE BEGIN 2 */
+  serialMsg("\033[2J");
+  serialMsg("\rInit!\n\r");
+  //CAN_filterConfig();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -250,10 +253,10 @@ static void MX_CAN1_Init(void)
 
   /* USER CODE END CAN1_Init 1 */
   hcan1.Instance = CAN1;
-  hcan1.Init.Prescaler = 53;
+  hcan1.Init.Prescaler = 1000;
   hcan1.Init.Mode = CAN_MODE_NORMAL;
   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan1.Init.TimeSeg1 = CAN_BS1_1TQ;
+  hcan1.Init.TimeSeg1 = CAN_BS1_6TQ;
   hcan1.Init.TimeSeg2 = CAN_BS2_1TQ;
   hcan1.Init.TimeTriggeredMode = DISABLE;
   hcan1.Init.AutoBusOff = DISABLE;
@@ -266,7 +269,7 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
-  //CAN_filterConfig();
+  CAN_filterConfig();
   /* USER CODE END CAN1_Init 2 */
 
 }
@@ -355,11 +358,12 @@ void thread_transmit(void){
 	while(HAL_CAN_Start(&hcan1)!=HAL_OK){}
 
 	TickType_t pxLastWaketime = xTaskGetTickCount();
-	TickType_t xTimeIncrement = 1000;
+	TickType_t xTimeIncrement = 100;
 
 	int iter = 0;
 	char someString[] = "Iter i";
 
+	for( ;; ){}
 
 	for( ;; ){
 		someString[5] = iter+48;
@@ -387,7 +391,7 @@ void thread_receive(void){
 
 
 	for( ;; ){
-		CAN_Rx();
+		//CAN_Rx();
 		vTaskDelayUntil(&pxLastWaketime, xTimeIncrement);
 	}
 }
@@ -402,7 +406,8 @@ void CAN_Tx(char msg[]){
 
 	if(sizeof(*msg)<=8){
 		TxHeader.DLC = 8;                         //Specifies the length of the frame that will be transmitted.
-		TxHeader.IDE = CAN_ID_STD;                //Specifies the type of identifier for the message that will be transmitted.
+		//TxHeader.IDE = CAN_ID_EXT;                //Specifies the type of identifier for the message that will be transmitted.
+		TxHeader.IDE = CAN_ID_STD;
 		TxHeader.RTR = CAN_RTR_DATA;              //Specifies the type of frame for the message that will be transmitted.
 		TxHeader.StdId = OwnID;                   //Specifies the standard identifier.
 		TxHeader.TransmitGlobalTime = DISABLE;    
@@ -436,7 +441,8 @@ void CAN_Rx(void){
 
 	uint8_t receivedData[8];
 	RxHeader.DLC = 8;             //Specifies the length of the frame that will be received.
-	RxHeader.IDE = CAN_ID_STD;    //Specifies the type of identifier for the message that will be received.
+	//RxHeader.IDE = CAN_ID_EXT;    //Specifies the type of identifier for the message that will be received.
+	RxHeader.IDE = CAN_ID_STD;
 	RxHeader.RTR = CAN_RTR_DATA;  //Specifies the type of frame for the message that will be received.
 	RxHeader.StdId = 0x0;         //Specifies the standard identifier. Has no use when receiving. 
 
@@ -490,6 +496,9 @@ void StartDefaultTask(void *argument)
 	/* Infinite loop */
   for(;;)
   {
+
+	  CAN_Tx("Yeet");
+	  serialMsg("Yeet\n\r");
 	  osDelay(100);
   }
   /* USER CODE END 5 */
