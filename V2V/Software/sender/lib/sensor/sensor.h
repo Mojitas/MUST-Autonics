@@ -1,6 +1,6 @@
 #ifndef __SENSOR_H
 #define __SENSOR_H
-#include "user_headers.h"
+#include <ble/BLE.h>
 
 /*!
  * \file sensor.h

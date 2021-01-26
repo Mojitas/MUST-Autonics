@@ -1,6 +1,6 @@
 #ifndef __BATTERY_H
 #define __BATTERY_H
-#include "user_headers.h"
+#include <ble/BLE.h>
 
 /*!
  * \file battery.h

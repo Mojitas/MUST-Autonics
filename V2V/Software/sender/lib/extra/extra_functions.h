@@ -1,6 +1,6 @@
 #ifndef __EXTRA_FUNCTIONS_H
 #define __EXTRA_FUNCTIONS_H
-#include "user_headers.h"
+#include <ble/BLE.h>
 
 /*!
  * \file extra_functions.h

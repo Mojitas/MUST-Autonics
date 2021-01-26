@@ -20,7 +20,7 @@
  * However, the super class has to be initialized before using it or running the application. That way when we create this class, it will automatically initialize its super class so that we can run the application.
  * On running the application it will set the event handler to this class so we can control what happens when the different events fire. We can also access the super class functions and queue them for calling, depending on what event got triggered.
  */
-class CretEvents : private mbed::NonCopyable<CretEvents>, public Advertiser, public ble::Gap::EventHandler {
+class CretEvents : private mbed::NonCopyable<CretEvents>, public ble::Gap::EventHandler {
   public:
     /*!
      * \fn CretEvents(BLE &ble)
@@ -37,9 +37,6 @@ class CretEvents : private mbed::NonCopyable<CretEvents>, public Advertiser, pub
      * \brief Sets the event handler to this class and runs the advertising super class. It's also the entry point when starting the application.
      */
     void run();
-    /*!
-     */
-    BLE &getBleVariable();
 
   public:
     /*!
@@ -75,6 +72,9 @@ class CretEvents : private mbed::NonCopyable<CretEvents>, public Advertiser, pub
     /*!
      * @}
      */
+    
+  private:
+    Advertiser _advertiser;
 };
 
 
