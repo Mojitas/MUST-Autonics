@@ -678,11 +678,9 @@ Wire Wire Line
 Wire Wire Line
 	3900 5700 4000 5700
 Wire Wire Line
-	1700 5200 1600 5200
+	3900 6100 4000 6100
 Wire Wire Line
 	3900 5300 4000 5300
-Wire Wire Line
-	3900 6500 4000 6500
 Wire Wire Line
 	3900 6300 4000 6300
 Wire Wire Line
@@ -699,12 +697,10 @@ Text Label 4000 5700 0    50   ~ 0
 Up
 Text Label 4000 5300 0    50   ~ 0
 MC_sw
-Text Label 1550 4600 2    50   ~ 0
+Text Label 4050 4200 0    50   ~ 0
 Left_LED
-Text Label 1600 5200 2    50   ~ 0
+Text Label 4000 6100 0    50   ~ 0
 Right_LED
-Text Label 4000 6500 0    50   ~ 0
-Brake_vol
 Text Label 4000 6300 0    50   ~ 0
 F-R_sw
 Text Label 4000 6400 0    50   ~ 0
@@ -729,16 +725,12 @@ Text Label 1600 6300 2    50   ~ 0
 HL_sw
 Text Label 1600 5900 2    50   ~ 0
 Select
-Text Label 1600 5300 2    50   ~ 0
+Text Label 4000 5500 0    50   ~ 0
 Brake_LED
 Text Label 4000 4900 0    50   ~ 0
 Left_sw
-Text Label 4000 4800 0    50   ~ 0
-Right_sw
 Wire Wire Line
 	4000 4900 3900 4900
-Wire Wire Line
-	4000 4800 3900 4800
 Text GLabel 2700 2600 1    50   Input ~ 0
 VDD_MCU
 Wire Wire Line
@@ -759,25 +751,13 @@ NoConn ~ 1700 4800
 NoConn ~ 1700 6200
 NoConn ~ 3900 5800
 NoConn ~ 1700 6100
-NoConn ~ 3900 6100
 NoConn ~ 3900 4700
-NoConn ~ 3900 4200
-NoConn ~ 2300 6900
-NoConn ~ 2400 6900
-NoConn ~ 2500 6900
-NoConn ~ 2600 6900
-NoConn ~ 2700 6900
-NoConn ~ 2800 6900
-NoConn ~ 2900 6900
-NoConn ~ 3000 6900
-NoConn ~ 3100 6900
-NoConn ~ 3300 6900
+NoConn ~ 1700 5300
 NoConn ~ 3900 3500
 NoConn ~ 3900 3400
 NoConn ~ 3900 4300
 NoConn ~ 1700 6000
 NoConn ~ 1700 6500
-NoConn ~ 3900 5500
 NoConn ~ 3900 4400
 Wire Wire Line
 	2600 2600 2600 2900
@@ -1009,7 +989,7 @@ DRL_LED
 Wire Wire Line
 	3900 5100 4000 5100
 Wire Wire Line
-	1700 5300 1600 5300
+	3900 5500 4000 5500
 Text Label 4000 4600 0    50   ~ 0
 Right_acti
 Wire Wire Line
@@ -1164,7 +1144,7 @@ Wire Wire Line
 Wire Wire Line
 	2950 1100 3200 1100
 Wire Wire Line
-	1550 4600 1700 4600
+	4050 4200 3900 4200
 Text GLabel 10850 650  2    50   Input ~ 0
 GND
 Wire Wire Line
@@ -1260,4 +1240,41 @@ F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/da
 	1    2800 4900
 	1    0    0    -1  
 $EndComp
+NoConn ~ 1700 5200
+Wire Wire Line
+	4000 4800 3900 4800
+Text Label 4000 4800 0    50   ~ 0
+Right_sw
+NoConn ~ 1700 4600
+Text Label 4000 6500 0    50   ~ 0
+Brake_vol
+Wire Wire Line
+	3900 6500 4000 6500
+Wire Wire Line
+	2200 6900 2300 6900
+Connection ~ 2200 6900
+Connection ~ 2300 6900
+Wire Wire Line
+	2300 6900 2400 6900
+Connection ~ 2400 6900
+Wire Wire Line
+	2400 6900 2500 6900
+Connection ~ 2500 6900
+Wire Wire Line
+	2500 6900 2600 6900
+Connection ~ 2600 6900
+Wire Wire Line
+	2600 6900 2700 6900
+Connection ~ 2700 6900
+Wire Wire Line
+	2700 6900 2800 6900
+Connection ~ 2800 6900
+Wire Wire Line
+	2800 6900 2900 6900
+Connection ~ 2900 6900
+Wire Wire Line
+	2900 6900 3000 6900
+Connection ~ 3000 6900
+Wire Wire Line
+	3000 6900 3100 6900
 $EndSCHEMATC
