@@ -51,10 +51,11 @@ class BLEScanner : ble::Gap::EventHandler {
     DigitalOut _led1, _led2, _led3, _led4;
     ble_error_t error;
     int cancel_handles[4] = { 0 };
-    bool is_connecting = false, is_syncing = false, is_connected = false;
+    bool is_syncing = false, is_connected = false;
     ble::advertising_handle_t _handle = ble::INVALID_ADVERTISING_HANDLE;
     uint8_t adv_buffer[MAX_PAYLOAD_SIZE] = { 0 };
     ble::AdvertisingDataBuilder _databuilder;
+    uint8_t battery_level = 100;
 
     /** Callback triggered when the ble initialization process has finished */
     void on_init_complete(BLE::InitializationCompleteCallbackContext *params) {
@@ -65,14 +66,8 @@ class BLEScanner : ble::Gap::EventHandler {
         return;
       }
 
-      blink(4);                     // LED4  lights up and means that there was a successful init
-      ThisThread::sleep_for(100ms);
-
       if (_gap.isFeatureSupported(ble::controller_supported_features_t::LE_CODED_PHY))
       {
-        blink(4);
-        blink(3);                   // LED3 lights up because it supports CODED_PHY
-        ThisThread::sleep_for(100ms);
 
         ble::phy_set_t phySet(ble::phy_t::LE_CODED);
         error = _gap.setPreferredPhys(&phySet, &phySet);
@@ -80,18 +75,13 @@ class BLEScanner : ble::Gap::EventHandler {
         if (error)
         {
           printf("%lld: %s - setPreferredPhys failed!\r\n", time(NULL), BLE::errorToString(error));
-          blink(3);
-          blink(2);                 // LED3 turns off and LED2 lights up because it could not set CODED_PHY so it is using 1M instead.
         } else
         {
-          blink(3);
-          blink(4);                 // LED4 lights up again and LED3 turns off, this means that we have set CODED_PHY as preferred phy.
           printf("%lld: setPreferredPhys succeeded!\r\n", time(NULL));
         }
       }
       
-      ThisThread::sleep_for(100ms);
-      cancel_handles[0] = _event_queue.call_every(BLINKING_RATE_1_MS, this, &BLEScanner::blink, 2);
+      cancel_handles[0] = _event_queue.call_every(BLINKING_RATE_2_MS, this, &BLEScanner::blink, 2);
       _event_queue.call(this, &BLEScanner::start_advertising);
     }
 
@@ -157,46 +147,6 @@ class BLEScanner : ble::Gap::EventHandler {
           break;
       }
     }
-
-    void onAdvertisingReport(const ble::AdvertisingReportEvent &event) 
-    {
-      if (is_connecting) 
-      {
-        return;
-      }
-
-      ble::rssi_t rssi = event.getRssi();
-      if (-60 > rssi)
-        return;
-
-      ble::address_t address = event.getPeerAddress();
-      ble::peer_address_type_t type = event.getPeerAddressType();
-      bool is_connectable = event.getType().connectable();
- 
-      printf("%lld: RSSI: %d, Address: %02x:%02x:%02x:%02x:%02x:%02x, Type: %d, Connectable: %d\r\n", time(NULL), rssi, address[5], address[4], address[3], address[2], address[1], address[0], type, is_connectable);
-
-      ble::AdvertisingDataParser dataParser(event.getPayload());
-      while (dataParser.hasNext())
-      {
-        ble::AdvertisingDataParser::element_t field = dataParser.next();
-
-        if (field.type == ble::adv_data_type_t::COMPLETE_LOCAL_NAME &&
-            field.value.size() == strlen(PEER_DEVICE_NAME) &&
-            (memcmp(field.value.data(), PEER_DEVICE_NAME, field.value.size()) == 0))
-        {
-          printf("%lld: Peer device found! Connecting...\r\n", time(NULL));
-          error = _gap.connect(type, address, ble::ConnectionParameters());
-          if (error)
-          {
-            printf("%lld: %s - connect failed!\r\n", time(NULL), BLE::errorToString(error));
-            return;
-          } else
-          {
-            is_connecting = true;
-          }
-        }
-      }
-    }
     
     void onConnectionComplete(const ble::ConnectionCompleteEvent &event)
     {
@@ -207,6 +157,7 @@ class BLEScanner : ble::Gap::EventHandler {
         return;
       }
       
+      is_connected = true;
       printf("%lld: Connection successful, changing symbols per bit to 8.\r\n", time(NULL));
       ble::connection_handle_t handle = event.getConnectionHandle();
       ble::coded_symbol_per_bit_t symbols(ble::coded_symbol_per_bit_t::S8);
@@ -220,7 +171,91 @@ class BLEScanner : ble::Gap::EventHandler {
 
       printf("%lld: Changed to 8 symbols per bit, meaning 125kbit/s transfer speed.\r\n", time(NULL));
       _event_queue.cancel(cancel_handles[0]);
-      blink(1);
+      blink(3);
+    }
+
+    void onAdvertisingEnd(const ble::AdvertisingEndEvent &event)
+    {
+      if (event.isConnected())
+      {
+        printf("%lld: If you didn't know that we where connected, then you know it now!\r\n", time(NULL));
+        _event_queue.call(this, &BLEScanner::start_periodic_advertising);
+      }
+    }
+    
+    void start_periodic_advertising()
+    {
+      ble::AdvertisingParameters adv_params(
+          ble::advertising_type_t::NON_CONNECTABLE_UNDIRECTED,
+          ble::adv_interval_t(ble::millisecond_t(200))
+          );
+
+      error = _gap.setAdvertisingParameters(_handle, adv_params);
+      if (error)
+      {
+        printf("%lld: %s - setAdvertisingParameters failed!\r\n", time(NULL), BLE::errorToString(error));
+        return;
+      }
+
+      error = _gap.startAdvertising(_handle);
+      if (error)
+      {
+        printf("%lld: %s - startAdvertising failed!\r\n", time(NULL), BLE::errorToString(error));
+        return;
+      }
+
+      printf("%lld: Advertising restarted with non connectable parameter!\r\n", time(NULL));
+    }
+
+    void onAdvertisingStart(const ble::AdvertisingStartEvent &event)
+    {
+      if (is_connected)
+      {
+        error = _gap.setPeriodicAdvertisingParameters(_handle, 
+          ble::periodic_interval_t(ble::millisecond_t(100)), 
+          ble::periodic_interval_t(ble::millisecond_t(1000)),
+          true);
+
+        if (error)
+        {
+          printf("%lld: %s - Could not set periodic advertising parameters!\r\n", time(NULL), BLE::errorToString(error));
+          return;
+        }
+
+        printf("%lld: Periodic advertising parameters has been set!\r\n", time(NULL));
+
+        error = _gap.startPeriodicAdvertising(_handle);
+        if (error)
+        {
+          printf("%lld: %s - startPeriodicAdvertising failed!\r\n", time(NULL), BLE::errorToString(error));
+          return;
+        }
+
+        _event_queue.call_every(1000ms, this, &BLEScanner::update_periodic_advertising_set);
+        printf("%lld: Periodic advertising started!\r\n", time(NULL));
+      }
+    }
+
+    void update_periodic_advertising_set()
+    {
+      battery_level -= 5;
+      if (battery_level < 5)
+        battery_level = 100;
+
+      error = _databuilder.setServiceData(GattService::UUID_BATTERY_SERVICE, mbed::make_Span(&battery_level, 1));
+      if (error)
+      {
+        printf("%lld: %s - setServiceData failed!\r\n", time(NULL), BLE::errorToString(error));
+        return;
+      }
+
+      printf("%lld: Battery level %d %%\r\n", time(NULL), battery_level);
+
+      error = _gap.setPeriodicAdvertisingPayload(_handle, _databuilder.getAdvertisingData());
+      if (error)
+      {
+        printf("%lld: %s - setPeriodicAdvertisingPayload failed!\r\n", time(NULL), BLE::errorToString(error));
+      }
     }
 };
 

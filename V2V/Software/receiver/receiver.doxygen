@@ -44,7 +44,7 @@ PROJECT_NUMBER         = 1.0.0
 # for a project that appears at the top of each page and should give viewer a
 # quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = "The code for the central device that receives data from the device that is marked as peripheral"
+PROJECT_BRIEF          = "The code documentation for the device that is used with role CENTRAL and is receiving information from the solar car via BLE 5.2"
 
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55

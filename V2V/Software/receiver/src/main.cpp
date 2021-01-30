@@ -50,6 +50,7 @@ class BLEScanner : ble::Gap::EventHandler {
     ble_error_t error;
     int cancel_handles[4] = { 0 };
     bool is_connecting = false, is_syncing = false, is_connected = false;
+    ble::periodic_sync_handle_t _sync_handle;
 
     /** Callback triggered when the ble initialization process has finished */
     void on_init_complete(BLE::InitializationCompleteCallbackContext *params) {
@@ -60,39 +61,26 @@ class BLEScanner : ble::Gap::EventHandler {
         return;
       }
 
-      blink(4);                     // LED4  lights up and means that there was a successful init
-      ThisThread::sleep_for(100ms);
-
       if (_gap.isFeatureSupported(ble::controller_supported_features_t::LE_CODED_PHY))
       {
-        blink(4);
-        blink(3);                   // LED3 lights up because it supports CODED_PHY
-        ThisThread::sleep_for(100ms);
-
         ble::phy_set_t phySet(ble::phy_t::LE_CODED);
         error = _gap.setPreferredPhys(&phySet, &phySet);
         
         if (error)
         {
           printf("%lld: %s - setPreferredPhys failed!\r\n", time(NULL), BLE::errorToString(error));
-          blink(3);
-          blink(2);                 // LED3 turns off and LED2 lights up because it could not set CODED_PHY so it is using 1M instead.
         } else
         {
-          blink(3);
-          blink(4);                 // LED4 lights up again and LED3 turns off, this means that we have set CODED_PHY as preferred phy.
           printf("%lld: setPreferredPhys succeeded!\r\n", time(NULL));
         }
       }
       
-      ThisThread::sleep_for(100ms);
       cancel_handles[0] = _event_queue.call_every(BLINKING_RATE_1_MS, this, &BLEScanner::blink, 1);
       _event_queue.call(this, &BLEScanner::start_scan);
     }
 
     void start_scan()
     {
-      blink(4);
       ble::ScanParameters scan_params;
       scan_params.setOwnAddressType(ble::own_address_type_t::RANDOM);
       scan_params.setCodedPhyConfiguration(SCAN_INTERVAL, SCAN_WINDOW, ACTIVE_SCANNING);
@@ -110,9 +98,6 @@ class BLEScanner : ble::Gap::EventHandler {
         printf("%lld: startScan failed!\r\n", time(NULL));
         return;
       }
-
-      _event_queue.cancel(cancel_handles[0]);
-      cancel_handles[0] = _event_queue.call_every(BLINKING_RATE_1_MS / 2, this, &BLEScanner::blink, 1);
     }
 
     // Blink the alive LED
@@ -152,7 +137,7 @@ class BLEScanner : ble::Gap::EventHandler {
       ble::peer_address_type_t type = event.getPeerAddressType();
       bool is_connectable = event.getType().connectable();
  
-      printf("%lld: RSSI: %d, Address: %02x:%02x:%02x:%02x:%02x:%02x, Type: %d, Connectable: %d\r\n", time(NULL), rssi, address[5], address[4], address[3], address[2], address[1], address[0], type, is_connectable);
+      printf("%lld: RSSI: %d, Address: %02x:%02x:%02x:%02x:%02x:%02x, Type: %d, Connectable: %d\r\n", time(NULL), rssi, address[5], address[4], address[3], address[2], address[1], address[0], type.value(), is_connectable);
 
       ble::AdvertisingDataParser dataParser(event.getPayload());
       while (dataParser.hasNext())
@@ -169,14 +154,17 @@ class BLEScanner : ble::Gap::EventHandler {
           {
             printf("%lld: %s - connect failed!\r\n", time(NULL), BLE::errorToString(error));
             return;
-          } else
+          }
+          else
           {
+            _event_queue.cancel(cancel_handles[0]);
+            cancel_handles[2] = _event_queue.call_every(BLINKING_RATE_3_MS, this, &BLEScanner::blink, 3);
             is_connecting = true;
           }
         }
       }
     }
-    
+
     void onConnectionComplete(const ble::ConnectionCompleteEvent &event)
     {
       error = event.getStatus();
@@ -185,7 +173,8 @@ class BLEScanner : ble::Gap::EventHandler {
         printf("%lld: %s - Failed to connect!\r\n", time(NULL), BLE::errorToString(error));
         return;
       }
-      
+
+      is_connected = true;
       printf("%lld: Connection successful, changing symbols per bit to 8.\r\n", time(NULL));
       ble::connection_handle_t handle = event.getConnectionHandle();
       ble::coded_symbol_per_bit_t symbols(ble::coded_symbol_per_bit_t::S8);
@@ -198,8 +187,66 @@ class BLEScanner : ble::Gap::EventHandler {
       }
 
       printf("%lld: Changed to 8 symbols per bit, meaning 125kbit/s transfer speed.\r\n", time(NULL));
-      _event_queue.cancel(cancel_handles[0]);
-      blink(1);
+      printf("%lld: My role in this connection is CENTRAL\r\n", time(NULL));
+      printf("%lld: I will synchronize with periodic advertising\r\n", time(NULL));
+      
+      error = _gap.createSync(5, ble::sync_timeout_t(ble::millisecond_t(500)));
+      if (error)
+      {
+        printf("%lld: %s - createSync failed!\r\n", time(NULL), BLE::errorToString(error));
+        return;
+      }
+
+      printf("%lld: Created sync with the other device!\r\n", time(NULL));
+      _event_queue.cancel(cancel_handles[2]);
+      blink(3);
+    }
+
+    void onPeriodicAdvertisingSyncEstablished(const ble::PeriodicAdvertisingSyncEstablishedEvent &event)
+    {
+      error = event.getStatus();
+      if (error)
+      {
+        printf("%lld: %s - Failed to establish sync\r\n", time(NULL), BLE::errorToString(error));
+        return;
+      }
+
+      printf("%lld: Sync established!\r\n", time(NULL));
+      _sync_handle = event.getSyncHandle();
+      error = _gap.addDeviceToPeriodicAdvertiserList(event.getPeerAddressType(), event.getPeerAddress(), event.getSid());
+      if (error)
+      {
+        printf("%lld: %s - Failed to add to periodic advertiser list!\r\n", time(NULL), BLE::errorToString(error));
+      }
+    }
+
+    void onPeriodicAdvertisingReport(const ble::PeriodicAdvertisingReportEvent &event)
+    {
+      ble::rssi_t rssi = event.getRssi();
+      printf("%lld: RSSI value: %d dBm, ", time(NULL), rssi);
+
+      ble::AdvertisingDataParser dataParser(event.getPayload());
+      while (dataParser.hasNext())
+      {
+        ble::AdvertisingDataParser::element_t field = dataParser.next();
+
+        if (field.type == ble::adv_data_type_t::SERVICE_DATA) 
+        {
+          if (*((uint16_t *)field.value.data()) == GattService::UUID_BATTERY_SERVICE)
+          {
+            const uint8_t *level = field.value.data() + sizeof(uint16_t);
+            printf("Battery level => %d\r\n", *level);
+          }
+        }
+      }
+    }
+
+    void onScanTimeout(const ble::ScanTimeoutEvent&)
+    {
+      if (is_connecting || is_connected || is_syncing)
+      {
+        printf("%lld: Scanning stopped because we are either connecting, connected or syncing.\r\n", time(NULL));
+      }
     }
 };
 
