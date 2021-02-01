@@ -58,12 +58,34 @@ GPIO_PinState PreviousSwitchStates[NUMBER_OF_SWITCHES];
 char message[8];
 char sMsg[50];
 
-char LCDArray[16][2];
-char batteryLevel[16];
-char batteryVoltage[16];
-char powerDrain[16];
-char temperature[16];
-char speed[16];
+char* LCDPointerArray[2];
+
+
+char batteryLevel[17];
+char batteryVoltage[17];
+char powerDrain[17];
+char temperature[17];
+char speed[17];
+
+int selectModeActive = 0;
+int rowIndex = 0;
+int lcdCurrentSelection = 0;
+
+/*
+  0: Speed
+  1: Power drain
+  2: Battery Voltages
+  3: Battery level
+  4: Temperatures
+ */
+
+int lcdSelection1 = 0; //Default Selection
+int lcdSelection2 = 1; //Default Selection
+
+char dataPresets[5][17] = {"Speed           ", "Power drain     ", "Battery Voltage ", "Battery level   ", "Temperature     "};
+char selectionText[] = "Select Data     ";
+
+
 
 int8_t cruiseControl = 0;
 
@@ -88,7 +110,7 @@ osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
 		.name = "defaultTask",
 		.priority = (osPriority_t) osPriorityNormal,
-		.stack_size = 128 * 4
+		.stack_size = 512 * 4
 };
 /* Definitions for cruiseControl */
 osThreadId_t cruiseControlHandle;
@@ -163,13 +185,15 @@ int main(void)
 	MX_TIM17_Init();
 	/* USER CODE BEGIN 2 */
 	//Init LCD array
+	/*
 	for (int i = 0; i < 16; i++)
 	{
 		for (int j = 0; j < 2; j++)
 		{
 			LCDArray[i][j] = ' ';
 		}
-	}
+	}*/
+
 	lcd_init();
 
 	lcd_send_string("LCD Init");
@@ -177,7 +201,7 @@ int main(void)
 	HAL_Delay(1000);
 
 	lcd_clear();
-	HAL_Delay(100);
+	HAL_Delay(500);
 	/* USER CODE END 2 */
 
 	/* Init scheduler */
@@ -458,7 +482,7 @@ static void MX_TIM16_Init(void)
 	htim16.Instance = TIM16;
 	htim16.Init.Prescaler = 8000-1;
 	htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim16.Init.Period = 10000-1;
+	htim16.Init.Period = 5000-1;
 	htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim16.Init.RepetitionCounter = 0;
 	htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -490,7 +514,7 @@ static void MX_TIM17_Init(void)
 	htim17.Instance = TIM17;
 	htim17.Init.Prescaler = 8000-1;
 	htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim17.Init.Period = 10000-1;
+	htim17.Init.Period = 5000-1;
 	htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim17.Init.RepetitionCounter = 0;
 	htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -697,47 +721,81 @@ int GetRandomInt(int max){
 void UpdateLCDValues(void){
 	//update LCDArray here
 	/*
-  Speed
-  Battery level
-  Temperatures
-  Power drain
-  Battery Voltages
+  1: Speed
+  2: Power drain
+  3: Battery Voltages
+  4: Battery level
+  5: Temperatures
 	 */
+	if(DEBUG_MODE){
+		sprintf(sMsg, "LCD Selection %i : %i\n\r", lcdSelection1, lcdSelection2);
+		serialMsg(sMsg);
+	}
+	if(selectModeActive == 0){
 
-	for (int i = 0; i < 16; i++)
-	{
-		for (int j = 0; j < 2; j++)
+		//Fill with random values, replace with real values later
+		sprintf(speed, "Vel:%-3i km/h    ", GetRandomInt(110));
+		sprintf(powerDrain, "Pow Dra:%-4iW   ", GetRandomInt(2000));
+		sprintf(batteryVoltage, "Bat Volt:%-3iV   ", GetRandomInt(120));
+		sprintf(batteryLevel, "Bat Level:%i-3%%  ", GetRandomInt(100));
+		sprintf(temperature, "Temp:%-2iC        ", GetRandomInt(50));
+
+		//First row
+		switch (lcdSelection1)
 		{
-			LCDArray[i][j] = ' ';
+		case 0:
+			LCDPointerArray[0] = speed;
+			break;
+		case 1:
+			LCDPointerArray[0] = powerDrain;
+			break;
+		case 2:
+			LCDPointerArray[0] = batteryVoltage;
+			break;
+		case 3:
+			LCDPointerArray[0] = batteryLevel;
+			break;
+		case 4:
+			LCDPointerArray[0] = temperature;
+			break;
+		}
+		//Second row
+		switch (lcdSelection2)
+		{
+		case 0:
+			LCDPointerArray[1] = speed;
+			break;
+		case 1:
+			LCDPointerArray[1] = powerDrain;
+			break;
+		case 2:
+			LCDPointerArray[1] = batteryVoltage;
+			break;
+		case 3:
+			LCDPointerArray[1] = batteryLevel;
+			break;
+		case 4:
+			LCDPointerArray[1] = temperature;
+			break;
 		}
 	}
-	sprintf(speed, "Vel:%i km/h", GetRandomInt(110));
-	sprintf(powerDrain, "Power Cons:%i W", GetRandomInt(2000));
-	sprintf(batteryVoltage, "Bat Volt:%i V", GetRandomInt(120));
-	sprintf(batteryLevel, "Bat Level:%i %%", GetRandomInt(100));
-	sprintf(temperature, "temp:%i C", GetRandomInt(50));
-	for (int i = 0; i < strlen(speed); i++)
-	{
-		LCDArray[i][0] = speed[i];
-	}
-	for (int i = 0; i < strlen(batteryLevel); i++)
-	{
-		LCDArray[i][1] = batteryLevel[i];
+	else{
+
+		LCDPointerArray[0] = selectionText;
+		LCDPointerArray[1] = dataPresets[lcdCurrentSelection];
 	}
 }
 
 void DrawLCD(void){
-	//lcd_clear();
-	for (int i = 0; i < 16; i++)
-	{
-		for (int j = 0; j < 2; j++)
-		{
-			HAL_Delay(1);
-			lcd_put_cur(j, i);
-			HAL_Delay(1);
-			lcd_send_data(LCDArray[i][j]);
-		}
-	}
+	//LCDClear
+	lcd_put_cur(0, 0);
+	HAL_Delay(2);
+	lcd_send_string(LCDPointerArray[0]);
+	HAL_Delay(2);
+	lcd_put_cur(1, 0);
+	HAL_Delay(2);
+	lcd_send_string(LCDPointerArray[1]);
+	HAL_Delay(2);
 }
 
 void ReadSwitchStates(){
@@ -755,13 +813,15 @@ void ReadSwitchStates(){
 	SwitchStates[7] = HAL_GPIO_ReadPin(SwitchPowerEco_GPIO_Port, SwitchPowerEco_Pin);
 	for (int8_t i = 0; i < NUMBER_OF_SWITCHES; i++)
 	{
-		if(PreviousSwitchStates[i] != SwitchStates[i]){
+		if(PreviousSwitchStates[i] != SwitchStates[i])
+		{
 			SwitchStateChanged(i, SwitchStates[i]);
 		}
 	}
 }
 
-void SwitchStateChanged(int8_t switchId, GPIO_PinState newState){
+void SwitchStateChanged(int8_t switchId, GPIO_PinState newState)
+{
 	if(DEBUG_MODE)
 	{
 		if(newState == GPIO_PIN_SET){
@@ -850,13 +910,36 @@ void ButtonReset(){
 	//Reset();
 }
 void ButtonLCDMenuUp(){
-	HAL_GPIO_TogglePin(DRLLED_GPIO_Port, DRLLED_Pin);
+	lcdCurrentSelection = (5 + lcdCurrentSelection - 1) % 5;
 }
 void ButtonLCDMenuDown(){
-	HAL_GPIO_TogglePin(DRLLED_GPIO_Port, DRLLED_Pin);
+	lcdCurrentSelection = (lcdCurrentSelection + 1) % 5;
 }
 void ButtonLCDMenuSelect(){
-	HAL_GPIO_TogglePin(DRLLED_GPIO_Port, DRLLED_Pin);
+	if(selectModeActive)
+	{
+		if(rowIndex == 1){
+			lcdSelection1 = lcdCurrentSelection;
+			rowIndex = 2;
+			lcdCurrentSelection = lcdSelection2;
+			//serialMsg("Selected 1\n\r");
+		}
+		else if(rowIndex == 2){
+			lcdSelection2 = lcdCurrentSelection;
+			selectModeActive = 0;
+			if(DEBUG_MODE){
+				sprintf(sMsg, "LCD Selection %i : %i\n\r", lcdSelection1, lcdSelection2);
+				serialMsg(sMsg);
+			}
+		}
+	}
+	else{
+		selectModeActive = 1;
+		rowIndex = 1;
+		lcdCurrentSelection = lcdSelection1;
+
+		//serialMsg("Activate Selection\n\r");
+	}
 }
 //Set
 void SetDRLLED(GPIO_PinState pinState){
@@ -926,7 +1009,7 @@ void StartDefaultTask(void *argument)
 		UpdateLCDValues();
 		DrawLCD();
 		ReadSwitchStates();
-		osDelay(1000);
+		osDelay(500);
 	}
 	/* USER CODE END 5 */
 }
@@ -980,7 +1063,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		ToggleBlinkRightLED();
 	}
 	if(htim == &htim17){
-		ToggleBlinkRightLED();
+		ToggleBlinkLeftLED();
 	}
 	/* USER CODE END Callback 1 */
 }
