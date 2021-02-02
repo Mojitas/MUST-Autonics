@@ -69,7 +69,7 @@ void ButtonLCDMenuDown(void);
 void ButtonLCDMenuSelect(void);
 
 //LED Toggle
-void ToggleHazzardLED();
+void ToggleHazardLED();
 void ToggleDRLLED();
 void ToggleBlinkRightLED();
 void ToggleBlinkLeftLED();
@@ -90,6 +90,8 @@ void SwitchStateChanged(int8_t switchId, GPIO_PinState newState);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define ADC_POT1_Pin GPIO_PIN_0
+#define ADC_POT1_GPIO_Port GPIOC
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
