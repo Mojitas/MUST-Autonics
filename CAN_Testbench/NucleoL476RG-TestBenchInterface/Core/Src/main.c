@@ -66,7 +66,7 @@ char message[8];
 char sMsg[50];
 
 float cpuTemp;
-char LCDArray[2][16];
+char LCDArray[2][17];
 
 int selectModeActive = 0;
 int rowIndex = 0;
@@ -149,6 +149,7 @@ void CAN_filterConfig(void);
 void CAN_Tx(char msg[]);
 void CAN_Rx(void);
 
+void LcdSendString(int8_t row, char string[]);
 
 float get_Temp(int16_t variable);
 
@@ -815,23 +816,18 @@ void UpdateLCDValues(void)
 	}
 }
 
-//Draw whatever is in the LCDPointerArray
+//Draw whatever is in the LCDArray
 void DrawLCD(void)
 {
-	//A delay is necesary between each command to the LCD 
-	//otherwise it creates weird artifacts. 
+	LcdSendString(0, LCDArray[0]);
+	LcdSendString(1, LCDArray[1]);
+}
 
-	//Put cursor at first row
-	lcd_put_cur(0, 0);
+void LcdSendString(int8_t row, char* string){
+	sprintf(string, "%-16s", string);
+	lcd_put_cur(row, 0);
 	HAL_Delay(2);
-	//Write first line
-	lcd_send_string(LCDArray[0]);
-	HAL_Delay(2);
-	//Put cursor on second row
-	lcd_put_cur(1, 0);
-	HAL_Delay(2);
-	//Write second line
-	lcd_send_string(LCDArray[1]);
+	lcd_send_string(string);
 	HAL_Delay(2);
 }
 
