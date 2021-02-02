@@ -772,60 +772,47 @@ void UpdateLCDValues(void)
 		//First row
 		{
 		case 0:
-			LCDPointerArray[0] = speed;
+			sprintf(LCDArray[0], "Vel:%i km/h", GetRandomInt(110));
 			break;
 		case 1:
-			LCDPointerArray[0] = powerDrain;
+			sprintf(LCDArray[0], "Power Cons:%i W", GetRandomInt(2000));
 			break;
 		case 2:
-			LCDPointerArray[0] = batteryVoltage;
+			sprintf(LCDArray[0], "Bat Volt:%i V", GetRandomInt(120));
 			break;
 		case 3:
-			LCDPointerArray[0] = batteryLevel;
+			sprintf(LCDArray[0], "Bat Level:%i %%", GetRandomInt(100));
 			break;
 		case 4:
-			LCDPointerArray[0] = temperature;
+			sprintf(LCDArray[0], "Temp:%i C", (int)cpuTemp);
 			break;
 		}
 		//Second row
 		switch (lcdSelection2)
 		{
 		case 0:
-			LCDPointerArray[1] = speed;
+			sprintf(LCDArray[1], "Vel:%i km/h", GetRandomInt(110));
 			break;
 		case 1:
-			LCDPointerArray[1] = powerDrain;
+			sprintf(LCDArray[1], "Power Cons:%i W", GetRandomInt(2000));
 			break;
 		case 2:
-			LCDPointerArray[1] = batteryVoltage;
+			sprintf(LCDArray[1], "Bat Volt:%i V", GetRandomInt(120));
 			break;
 		case 3:
-			LCDPointerArray[1] = batteryLevel;
+			sprintf(LCDArray[1], "Bat Level:%i %%", GetRandomInt(100));
 			break;
 		case 4:
-			LCDPointerArray[1] = temperature;
+			sprintf(LCDArray[1], "Temp:%i C", (int)cpuTemp);
 			break;
 		}
 	}
 	else//Display Values from Select Mode
 	{
-		LCDPointerArray[0] = selectionText;
-		LCDPointerArray[1] = dataPresets[lcdCurrentSelection];
+
+		memcpy(LCDArray[0], selectionText, strlen(selectionText));
+		memcpy(LCDArray[1], dataPresets[lcdCurrentSelection], strlen(dataPresets[lcdCurrentSelection]));
 	}
-
-
-//	sprintf(speed, "Vel:%i km/h", GetRandomInt(110));
-//	sprintf(powerDrain, "Power Cons:%i W", GetRandomInt(2000));
-//	sprintf(batteryVoltage, "Bat Volt:%i V", GetRandomInt(120));
-//	sprintf(batteryLevel, "Bat Level:%i %%", GetRandomInt(100));
-//	sprintf(temperature, "temp:%i C", GetRandomInt(50));
-
-
-	sprintf(LCDBuffer, "Temp:%i C", (int)cpuTemp);
-	memcpy(LCDArray[0], LCDBuffer, strlen(LCDBuffer));
-
-	sprintf(LCDBuffer, "Bat Level:%i %%", GetRandomInt(100));
-	memcpy(LCDArray[1], LCDBuffer, strlen(LCDBuffer));
 }
 
 //Draw whatever is in the LCDPointerArray
@@ -838,13 +825,13 @@ void DrawLCD(void)
 	lcd_put_cur(0, 0);
 	HAL_Delay(2);
 	//Write first line
-	lcd_send_string(LCDPointerArray[0]);
+	lcd_send_string(LCDArray[0]);
 	HAL_Delay(2);
 	//Put cursor on second row
 	lcd_put_cur(1, 0);
 	HAL_Delay(2);
 	//Write second line
-	lcd_send_string(LCDPointerArray[1]);
+	lcd_send_string(LCDArray[1]);
 	HAL_Delay(2);
 }
 
