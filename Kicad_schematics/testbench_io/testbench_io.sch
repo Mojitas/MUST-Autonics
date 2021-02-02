@@ -14,17 +14,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L MCU_Module:NUCLEO64-F411RE U101
-U 1 1 5FF2E5E7
-P 2800 4900
-F 0 "U101" H 2800 7081 50  0000 C CNN
-F 1 "NUCLEO64-F476RG" H 2800 6990 50  0000 C CNN
-F 2 "Solar_team:MODULE_NUCLEO-F476RG" H 3350 3000 50  0001 L CNN
-F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/data_brief/DM00105918.pdf" H 1900 3500 50  0001 C CNN
-	1    2800 4900
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R_POT RV103
 U 1 1 5FF4F47D
 P 8850 1150
@@ -654,7 +643,7 @@ U 1 1 6002D616
 P 7500 2550
 F 0 "J103" H 7450 2700 50  0000 L CNN
 F 1 "Conn_01x02" H 7250 2350 50  0000 L CNN
-F 2 "Connector_JST:JST_XH_S2B-XH-A-1_1x02_P2.50mm_Horizontal" H 7500 2550 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_S2B-XH-A_1x02_P2.50mm_Horizontal" H 7500 2550 50  0001 C CNN
 F 3 "~" H 7500 2550 50  0001 C CNN
 	1    7500 2550
 	1    0    0    -1  
@@ -665,7 +654,7 @@ U 1 1 6002CD07
 P 6200 2400
 F 0 "J101" H 6100 2550 50  0000 L CNN
 F 1 "Conn_01x02" H 6000 2200 50  0000 L CNN
-F 2 "Connector_JST:JST_XH_S2B-XH-A-1_1x02_P2.50mm_Horizontal" H 6200 2400 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_S2B-XH-A_1x02_P2.50mm_Horizontal" H 6200 2400 50  0001 C CNN
 F 3 "~" H 6200 2400 50  0001 C CNN
 	1    6200 2400
 	1    0    0    -1  
@@ -689,11 +678,9 @@ Wire Wire Line
 Wire Wire Line
 	3900 5700 4000 5700
 Wire Wire Line
-	1700 5200 1600 5200
+	3900 6100 4000 6100
 Wire Wire Line
 	3900 5300 4000 5300
-Wire Wire Line
-	3900 6500 4000 6500
 Wire Wire Line
 	3900 6300 4000 6300
 Wire Wire Line
@@ -710,12 +697,10 @@ Text Label 4000 5700 0    50   ~ 0
 Up
 Text Label 4000 5300 0    50   ~ 0
 MC_sw
-Text Label 1550 4600 2    50   ~ 0
+Text Label 4050 4200 0    50   ~ 0
 Left_LED
-Text Label 1600 5200 2    50   ~ 0
+Text Label 4000 6100 0    50   ~ 0
 Right_LED
-Text Label 4000 6500 0    50   ~ 0
-Brake_vol
 Text Label 4000 6300 0    50   ~ 0
 F-R_sw
 Text Label 4000 6400 0    50   ~ 0
@@ -740,20 +725,16 @@ Text Label 1600 6300 2    50   ~ 0
 HL_sw
 Text Label 1600 5900 2    50   ~ 0
 Select
-Text Label 1600 5300 2    50   ~ 0
+Text Label 4000 5500 0    50   ~ 0
 Brake_LED
 Text Label 4000 4900 0    50   ~ 0
 Left_sw
-Text Label 4000 4800 0    50   ~ 0
-Right_sw
 Wire Wire Line
 	4000 4900 3900 4900
-Wire Wire Line
-	4000 4800 3900 4800
-Text GLabel 2200 2800 1    50   Input ~ 0
+Text GLabel 2700 2600 1    50   Input ~ 0
 VDD_MCU
 Wire Wire Line
-	2200 2800 2200 2900
+	2700 2600 2700 2900
 Text GLabel 2200 7000 0    50   Input ~ 0
 GND_MCU
 $Sheet
@@ -770,29 +751,17 @@ NoConn ~ 1700 4800
 NoConn ~ 1700 6200
 NoConn ~ 3900 5800
 NoConn ~ 1700 6100
-NoConn ~ 3900 6100
 NoConn ~ 3900 4700
-NoConn ~ 3900 4200
-NoConn ~ 2300 6900
-NoConn ~ 2400 6900
-NoConn ~ 2500 6900
-NoConn ~ 2600 6900
-NoConn ~ 2700 6900
-NoConn ~ 2800 6900
-NoConn ~ 2900 6900
-NoConn ~ 3000 6900
-NoConn ~ 3100 6900
-NoConn ~ 3300 6900
+NoConn ~ 1700 5300
 NoConn ~ 3900 3500
 NoConn ~ 3900 3400
 NoConn ~ 3900 4300
 NoConn ~ 1700 6000
 NoConn ~ 1700 6500
-NoConn ~ 3900 5500
 NoConn ~ 3900 4400
 Wire Wire Line
-	2600 2800 2600 2900
-Text GLabel 2600 2800 1    50   Input ~ 0
+	2600 2600 2600 2900
+Text GLabel 2600 2600 1    50   Input ~ 0
 MCU_5V
 Text GLabel 7100 3000 0    50   Input ~ 0
 MCU_5V
@@ -837,7 +806,7 @@ NoConn ~ 10500 3550
 NoConn ~ 3300 2900
 NoConn ~ 2900 2900
 NoConn ~ 2800 2900
-NoConn ~ 2700 2900
+NoConn ~ 2200 2900
 NoConn ~ 2500 2900
 NoConn ~ 2400 2900
 NoConn ~ 2300 2900
@@ -1020,7 +989,7 @@ DRL_LED
 Wire Wire Line
 	3900 5100 4000 5100
 Wire Wire Line
-	1700 5300 1600 5300
+	3900 5500 4000 5500
 Text Label 4000 4600 0    50   ~ 0
 Right_acti
 Wire Wire Line
@@ -1094,7 +1063,7 @@ U 1 1 60157786
 P 3400 1000
 F 0 "J102" H 3480 992 50  0000 L CNN
 F 1 "Conn_01x02" H 3480 901 50  0000 L CNN
-F 2 "Connector_JST:JST_XH_S2B-XH-A-1_1x02_P2.50mm_Horizontal" H 3400 1000 50  0001 C CNN
+F 2 "Connector_JST:JST_XH_S2B-XH-A_1x02_P2.50mm_Horizontal" H 3400 1000 50  0001 C CNN
 F 3 "~" H 3400 1000 50  0001 C CNN
 	1    3400 1000
 	1    0    0    -1  
@@ -1175,7 +1144,7 @@ Wire Wire Line
 Wire Wire Line
 	2950 1100 3200 1100
 Wire Wire Line
-	1550 4600 1700 4600
+	4050 4200 3900 4200
 Text GLabel 10850 650  2    50   Input ~ 0
 GND
 Wire Wire Line
@@ -1260,4 +1229,52 @@ Wire Wire Line
 	6900 4550 6900 4750
 Text GLabel 6900 4750 0    50   Input ~ 0
 GND
+$Comp
+L Solarteam:NUCLEO64-F476RG U101
+U 1 1 601A040E
+P 2800 4900
+F 0 "U101" H 2800 7081 50  0000 C CNN
+F 1 "NUCLEO64-F476RG" H 2800 6990 50  0000 C CNN
+F 2 "Solar_team:MODULE_NUCLEO-F476RG" H 3350 3000 50  0001 L CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/data_brief/DM00105918.pdf" H 1900 3500 50  0001 C CNN
+	1    2800 4900
+	1    0    0    -1  
+$EndComp
+NoConn ~ 1700 5200
+Wire Wire Line
+	4000 4800 3900 4800
+Text Label 4000 4800 0    50   ~ 0
+Right_sw
+NoConn ~ 1700 4600
+Text Label 4000 6500 0    50   ~ 0
+Brake_vol
+Wire Wire Line
+	3900 6500 4000 6500
+Wire Wire Line
+	2200 6900 2300 6900
+Connection ~ 2200 6900
+Connection ~ 2300 6900
+Wire Wire Line
+	2300 6900 2400 6900
+Connection ~ 2400 6900
+Wire Wire Line
+	2400 6900 2500 6900
+Connection ~ 2500 6900
+Wire Wire Line
+	2500 6900 2600 6900
+Connection ~ 2600 6900
+Wire Wire Line
+	2600 6900 2700 6900
+Connection ~ 2700 6900
+Wire Wire Line
+	2700 6900 2800 6900
+Connection ~ 2800 6900
+Wire Wire Line
+	2800 6900 2900 6900
+Connection ~ 2900 6900
+Wire Wire Line
+	2900 6900 3000 6900
+Connection ~ 3000 6900
+Wire Wire Line
+	3000 6900 3100 6900
 $EndSCHEMATC
