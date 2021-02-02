@@ -31,8 +31,9 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef struct {
-	GPIO_TypeDef* GPIOx;
+typedef struct
+{
+	GPIO_TypeDef *GPIOx;
 	uint16_t GPIO_Pin;
 } sensor;
 /* USER CODE END PTD */
@@ -58,8 +59,7 @@ GPIO_PinState PreviousSwitchStates[NUMBER_OF_SWITCHES];
 char message[8];
 char sMsg[50];
 
-char* LCDPointerArray[2];
-
+char *LCDPointerArray[2];
 
 char batteryLevel[17];
 char batteryVoltage[17];
@@ -83,13 +83,9 @@ int lcdSelection1 = 0; //Default Selection
 int lcdSelection2 = 1; //Default Selection
 
 char dataPresets[5][17] = {"Speed           ", "Power drain     ", "Battery Voltage ", "Battery level   ", "Temperature     "};
-char selectionText[] = "Select Data     ";
-
-
+char selectionText[17];
 
 int8_t cruiseControl = 0;
-
-
 
 /* USER CODE END PM */
 
@@ -108,17 +104,15 @@ UART_HandleTypeDef huart2;
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
-		.name = "defaultTask",
-		.priority = (osPriority_t) osPriorityNormal,
-		.stack_size = 512 * 4
-};
+	.name = "defaultTask",
+	.priority = (osPriority_t)osPriorityNormal,
+	.stack_size = 512 * 4};
 /* Definitions for cruiseControl */
 osThreadId_t cruiseControlHandle;
 const osThreadAttr_t cruiseControl_attributes = {
-		.name = "cruiseControl",
-		.priority = (osPriority_t) osPriorityHigh,
-		.stack_size = 128 * 4
-};
+	.name = "cruiseControl",
+	.priority = (osPriority_t)osPriorityHigh,
+	.stack_size = 128 * 4};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -282,8 +276,7 @@ void SystemClock_Config(void)
 	}
 	/** Initializes the CPU, AHB and APB buses clocks
 	 */
-	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-			|RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
 	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
 	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
 	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -293,8 +286,7 @@ void SystemClock_Config(void)
 	{
 		Error_Handler();
 	}
-	PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_I2C1
-			|RCC_PERIPHCLK_ADC;
+	PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_I2C1 | RCC_PERIPHCLK_ADC;
 	PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
 	PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
 	PeriphClkInit.AdcClockSelection = RCC_ADCCLKSOURCE_PLLSAI1;
@@ -378,7 +370,6 @@ static void MX_ADC1_Init(void)
 	/* USER CODE BEGIN ADC1_Init 2 */
 
 	/* USER CODE END ADC1_Init 2 */
-
 }
 
 /**
@@ -415,7 +406,6 @@ static void MX_CAN1_Init(void)
 	/* USER CODE BEGIN CAN1_Init 2 */
 	CAN_filterConfig();
 	/* USER CODE END CAN1_Init 2 */
-
 }
 
 /**
@@ -461,7 +451,6 @@ static void MX_I2C1_Init(void)
 	/* USER CODE BEGIN I2C1_Init 2 */
 
 	/* USER CODE END I2C1_Init 2 */
-
 }
 
 /**
@@ -480,9 +469,9 @@ static void MX_TIM16_Init(void)
 
 	/* USER CODE END TIM16_Init 1 */
 	htim16.Instance = TIM16;
-	htim16.Init.Prescaler = 8000-1;
+	htim16.Init.Prescaler = 8000 - 1;
 	htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim16.Init.Period = 5000-1;
+	htim16.Init.Period = 5000 - 1;
 	htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim16.Init.RepetitionCounter = 0;
 	htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -493,7 +482,6 @@ static void MX_TIM16_Init(void)
 	/* USER CODE BEGIN TIM16_Init 2 */
 
 	/* USER CODE END TIM16_Init 2 */
-
 }
 
 /**
@@ -512,9 +500,9 @@ static void MX_TIM17_Init(void)
 
 	/* USER CODE END TIM17_Init 1 */
 	htim17.Instance = TIM17;
-	htim17.Init.Prescaler = 8000-1;
+	htim17.Init.Prescaler = 8000 - 1;
 	htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim17.Init.Period = 5000-1;
+	htim17.Init.Period = 5000 - 1;
 	htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim17.Init.RepetitionCounter = 0;
 	htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -525,7 +513,6 @@ static void MX_TIM17_Init(void)
 	/* USER CODE BEGIN TIM17_Init 2 */
 
 	/* USER CODE END TIM17_Init 2 */
-
 }
 
 /**
@@ -560,7 +547,6 @@ static void MX_USART2_UART_Init(void)
 	/* USER CODE BEGIN USART2_Init 2 */
 
 	/* USER CODE END USART2_Init 2 */
-
 }
 
 /**
@@ -579,38 +565,38 @@ static void MX_GPIO_Init(void)
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 
 	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin(GPIOA, LD2_Pin|BlinkRightLED_Pin|DRLLED_Pin|MCLED_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, LD2_Pin | BlinkRightLED_Pin | DRLLED_Pin | MCLED_Pin, GPIO_PIN_RESET);
 
 	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin(GPIOC, SafeStateLED_Pin|BrakeLED_Pin|BlinkLeftLED_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOC, SafeStateLED_Pin | BrakeLED_Pin | BlinkLeftLED_Pin, GPIO_PIN_RESET);
 
 	/*Configure GPIO pins : LD2_Pin BlinkRightLED_Pin DRLLED_Pin MCLED_Pin */
-	GPIO_InitStruct.Pin = LD2_Pin|BlinkRightLED_Pin|DRLLED_Pin|MCLED_Pin;
+	GPIO_InitStruct.Pin = LD2_Pin | BlinkRightLED_Pin | DRLLED_Pin | MCLED_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 	/*Configure GPIO pins : SwitchDRL_Pin SwitchBlinkLeft_Pin */
-	GPIO_InitStruct.Pin = SwitchDRL_Pin|SwitchBlinkLeft_Pin;
+	GPIO_InitStruct.Pin = SwitchDRL_Pin | SwitchBlinkLeft_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 	/*Configure GPIO pins : SwitchBlinkRight_Pin SwitchHazardLights_Pin */
-	GPIO_InitStruct.Pin = SwitchBlinkRight_Pin|SwitchHazardLights_Pin;
+	GPIO_InitStruct.Pin = SwitchBlinkRight_Pin | SwitchHazardLights_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 	/*Configure GPIO pins : SwitchMC_Pin SwitchSafeState_Pin SwitchForwardReverse_Pin SwitchPowerEco_Pin */
-	GPIO_InitStruct.Pin = SwitchMC_Pin|SwitchSafeState_Pin|SwitchForwardReverse_Pin|SwitchPowerEco_Pin;
+	GPIO_InitStruct.Pin = SwitchMC_Pin | SwitchSafeState_Pin | SwitchForwardReverse_Pin | SwitchPowerEco_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 	/*Configure GPIO pins : ButtonLCDMenuSelect_Pin ButtonLCDMenuDown_Pin ButtonLCDMenuUp_Pin */
-	GPIO_InitStruct.Pin = ButtonLCDMenuSelect_Pin|ButtonLCDMenuDown_Pin|ButtonLCDMenuUp_Pin;
+	GPIO_InitStruct.Pin = ButtonLCDMenuSelect_Pin | ButtonLCDMenuDown_Pin | ButtonLCDMenuUp_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -622,7 +608,7 @@ static void MX_GPIO_Init(void)
 	HAL_GPIO_Init(ButtonCruiseControll_GPIO_Port, &GPIO_InitStruct);
 
 	/*Configure GPIO pins : SafeStateLED_Pin BrakeLED_Pin BlinkLeftLED_Pin */
-	GPIO_InitStruct.Pin = SafeStateLED_Pin|BrakeLED_Pin|BlinkLeftLED_Pin;
+	GPIO_InitStruct.Pin = SafeStateLED_Pin | BrakeLED_Pin | BlinkLeftLED_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -634,105 +620,106 @@ static void MX_GPIO_Init(void)
 
 	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 5, 0);
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-
 }
 
 /* USER CODE BEGIN 4 */
 
 //Send message on USART2 (USB 115200)
-void serialMsg(char msg[]){
-	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+void serialMsg(char msg[])
+{
+	HAL_UART_Transmit(&huart2, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
 }
 
-void CAN_Tx(char msg[]){
+void CAN_Tx(char msg[])
+{
 
-	if(sizeof(*msg)<=8){
-		TxHeader.DLC = 8;                         //Specifies the length of the frame that will be transmitted.
-		TxHeader.IDE = CAN_ID_STD;                //Specifies the type of identifier for the message that will be transmitted.
-		TxHeader.RTR = CAN_RTR_DATA;              //Specifies the type of frame for the message that will be transmitted.
-		TxHeader.StdId = OwnID;                   //Specifies the standard identifier.
-		TxHeader.TransmitGlobalTime = DISABLE;    
-		TxHeader.ExtId = 1;                       //Specifies the extended identifier. 
-		uint32_t TxMailBox;                       //Outgoing mail box
+	if (sizeof(*msg) <= 8)
+	{
+		TxHeader.DLC = 8;			 //Specifies the length of the frame that will be transmitted.
+		TxHeader.IDE = CAN_ID_STD;	 //Specifies the type of identifier for the message that will be transmitted.
+		TxHeader.RTR = CAN_RTR_DATA; //Specifies the type of frame for the message that will be transmitted.
+		TxHeader.StdId = OwnID;		 //Specifies the standard identifier.
+		TxHeader.TransmitGlobalTime = DISABLE;
+		TxHeader.ExtId = 1; //Specifies the extended identifier.
+		uint32_t TxMailBox; //Outgoing mail box
 
-		if(HAL_CAN_AddTxMessage(&hcan1, &TxHeader, (uint8_t*)msg, &TxMailBox) != HAL_OK) {
+		if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader, (uint8_t *)msg, &TxMailBox) != HAL_OK)
+		{
 			Error_Handler();
 		}
 
-		while(HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox));//Wait for message to be sent. 
-		//serialMsg("Message transmitted!\n\r");//Debug
+		while (HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox))
+			; //Wait for message to be sent.
+			  //serialMsg("Message transmitted!\n\r");//Debug
 	}
-	else{
+	else
+	{
 		//Throw ERROR "CAN Packet size to large"
-		if(DEBUG_MODE){
+		if (DEBUG_MODE)
+		{
 			serialMsg("CAN Packet size to large. Packet size ");
-			serialMsg((char*)sizeof(*msg));
+			serialMsg((char *)sizeof(*msg));
 			serialMsg(" Bytes.\n\r");
 		}
 	}
 }
 
-void CAN_Rx(void){
+void CAN_Rx(void)
+{
 
 	uint8_t receivedData[8];
-	RxHeader.DLC = 8;             //Specifies the length of the frame that will be received.
-	RxHeader.IDE = CAN_ID_STD;    //Specifies the type of identifier for the message that will be received.
-	RxHeader.RTR = CAN_RTR_DATA;  //Specifies the type of frame for the message that will be received.
-	RxHeader.StdId = 0x0;         //Specifies the standard identifier. Has no use when receiving. 
+	RxHeader.DLC = 8;			 //Specifies the length of the frame that will be received.
+	RxHeader.IDE = CAN_ID_STD;	 //Specifies the type of identifier for the message that will be received.
+	RxHeader.RTR = CAN_RTR_DATA; //Specifies the type of frame for the message that will be received.
+	RxHeader.StdId = 0x0;		 //Specifies the standard identifier. Has no use when receiving.
 
 	//Receive the messsage
-	if(HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, receivedData) != HAL_OK){
+	if (HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, receivedData) != HAL_OK)
+	{
 		Error_Handler();
 		return;
 	}
 	HAL_Delay(1);
-	if(DEBUG_MODE){
+	if (DEBUG_MODE)
+	{
 		serialMsg("Received message: ");
-		serialMsg((char*)receivedData);
+		serialMsg((char *)receivedData);
 		serialMsg("\n\r");
 	}
 }
 
-void CAN_filterConfig(void){
+void CAN_filterConfig(void)
+{
 	CAN_FilterTypeDef filterConfig;
-	filterConfig.FilterBank = 0;                              //Specifies the filter bank which will be initialized.
-	filterConfig.FilterActivation = ENABLE;                   //Enable or disable the filter.
-	filterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;     //Specifies the FIFO (0 or 1U) which will be assigned to the filter.
-	filterConfig.FilterIdHigh = 0x0000;                       //Specifies the filter identification number. 
-	filterConfig.FilterIdLow = 0x0000;                        //Specifies the filter identification number. 
-	filterConfig.FilterMaskIdHigh = 0x0000;                   //Specifies the filter mask number or identification number, according to the mode.
-	filterConfig.FilterMaskIdLow = 0x0000;                    //Specifies the filter mask number or identification number, according to the mode.
-	filterConfig.FilterMode = CAN_FILTERMODE_IDMASK;          //Specifies the filter mode to be initialized.
-	filterConfig.FilterScale = CAN_FILTERSCALE_16BIT;         //Specifies the filter scale.
+	filterConfig.FilterBank = 0;						  //Specifies the filter bank which will be initialized.
+	filterConfig.FilterActivation = ENABLE;				  //Enable or disable the filter.
+	filterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0; //Specifies the FIFO (0 or 1U) which will be assigned to the filter.
+	filterConfig.FilterIdHigh = 0x0000;					  //Specifies the filter identification number.
+	filterConfig.FilterIdLow = 0x0000;					  //Specifies the filter identification number.
+	filterConfig.FilterMaskIdHigh = 0x0000;				  //Specifies the filter mask number or identification number, according to the mode.
+	filterConfig.FilterMaskIdLow = 0x0000;				  //Specifies the filter mask number or identification number, according to the mode.
+	filterConfig.FilterMode = CAN_FILTERMODE_IDMASK;	  //Specifies the filter mode to be initialized.
+	filterConfig.FilterScale = CAN_FILTERSCALE_16BIT;	  //Specifies the filter scale.
 
 	HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
 }
 
-void ReadSensorValues(void){
+void ReadSensorValues(void)
+{
 	//uint16_t value1 = GetRandomuint16();
 	//uint16_t value2 = GetRandomuint16();
 	//uint16_t value3 = GetRandomuint16();
 }
 
-int GetRandomInt(int max){
-	return (int) rand() % max;
+int GetRandomInt(int max)
+{
+	return (int)rand() % max;
 }
-
-void UpdateLCDValues(void){
-	//update LCDArray here
-	/*
-  1: Speed
-  2: Power drain
-  3: Battery Voltages
-  4: Battery level
-  5: Temperatures
-	 */
-	if(DEBUG_MODE){
-		sprintf(sMsg, "LCD Selection %i : %i\n\r", lcdSelection1, lcdSelection2);
-		serialMsg(sMsg);
-	}
-	if(selectModeActive == 0){
-
+//Update LCD values
+void UpdateLCDValues(void)
+{
+	if (selectModeActive == 0)
+	{
 		//Fill with random values, replace with real values later
 		sprintf(speed, "Vel:%-3i km/h    ", GetRandomInt(110));
 		sprintf(powerDrain, "Pow Dra:%-4iW   ", GetRandomInt(2000));
@@ -779,26 +766,36 @@ void UpdateLCDValues(void){
 			break;
 		}
 	}
-	else{
-
+	else//Display Values from Select Mode
+	{
 		LCDPointerArray[0] = selectionText;
 		LCDPointerArray[1] = dataPresets[lcdCurrentSelection];
 	}
 }
 
-void DrawLCD(void){
-	//LCDClear
+//Draw whatever is in the LCDPointerArray
+void DrawLCD(void)
+{
+	//A delay is necesary between each command to the LCD 
+	//otherwise it creates weird artifacts. 
+
+	//Put cursor at first row
 	lcd_put_cur(0, 0);
 	HAL_Delay(2);
+	//Write first line
 	lcd_send_string(LCDPointerArray[0]);
 	HAL_Delay(2);
+	//Put cursor on second row
 	lcd_put_cur(1, 0);
 	HAL_Delay(2);
+	//Write second line
 	lcd_send_string(LCDPointerArray[1]);
 	HAL_Delay(2);
 }
 
-void ReadSwitchStates(){
+//Reads and saves Switch states
+void ReadSwitchStates()
+{
 	for (int8_t i = 0; i < NUMBER_OF_SWITCHES; i++)
 	{
 		PreviousSwitchStates[i] = SwitchStates[i];
@@ -811,9 +808,10 @@ void ReadSwitchStates(){
 	SwitchStates[5] = HAL_GPIO_ReadPin(SwitchSafeState_GPIO_Port, SwitchSafeState_Pin);
 	SwitchStates[6] = HAL_GPIO_ReadPin(SwitchForwardReverse_GPIO_Port, SwitchForwardReverse_Pin);
 	SwitchStates[7] = HAL_GPIO_ReadPin(SwitchPowerEco_GPIO_Port, SwitchPowerEco_Pin);
+
 	for (int8_t i = 0; i < NUMBER_OF_SWITCHES; i++)
 	{
-		if(PreviousSwitchStates[i] != SwitchStates[i])
+		if (PreviousSwitchStates[i] != SwitchStates[i])
 		{
 			SwitchStateChanged(i, SwitchStates[i]);
 		}
@@ -822,173 +820,211 @@ void ReadSwitchStates(){
 
 void SwitchStateChanged(int8_t switchId, GPIO_PinState newState)
 {
-	if(DEBUG_MODE)
+	if (DEBUG_MODE)
 	{
-		if(newState == GPIO_PIN_SET){
+		if (newState == GPIO_PIN_SET)
+		{
 			sprintf(sMsg, "Switch id: %i, changed state to: HIGH\n\r", switchId);
 		}
-		else{
+		else
+		{
 			sprintf(sMsg, "Switch id: %i, changed state to: LOW\n\r", switchId);
 		}
-
 		serialMsg(sMsg);
 	}
 
-	switch(switchId){
-	case 0:		//DRL
+	switch (switchId)
+	{
+	case 0: //DRL
 		SetDRLLED(newState);
 		break;
-	case 1:		//BlinkLeft
-		if(newState == GPIO_PIN_SET){
+	case 1: //BlinkLeft
+		if (newState == GPIO_PIN_SET)
+		{
 			HAL_TIM_Base_Start_IT(&htim17);
 		}
-		else{
+		else
+		{
 			HAL_TIM_Base_Stop_IT(&htim17);
 			HAL_GPIO_WritePin(BlinkLeftLED_GPIO_Port, BlinkLeftLED_Pin, GPIO_PIN_RESET);
 		}
 
 		break;
-	case 2:		//BlinkRight
-		if(newState == GPIO_PIN_SET){
+	case 2: //BlinkRight
+		if (newState == GPIO_PIN_SET)
+		{
 			HAL_TIM_Base_Start_IT(&htim16);
 		}
-		else{
+		else
+		{
 			HAL_TIM_Base_Stop_IT(&htim16);
 			HAL_GPIO_WritePin(BlinkRightLED_GPIO_Port, BlinkRightLED_Pin, GPIO_PIN_RESET);
 		}
 		break;
-	case 3:		//HazardLights
-		if(newState == GPIO_PIN_SET){
+	case 3: //HazardLights
+		if (newState == GPIO_PIN_SET)
+		{
 			HAL_TIM_Base_Start_IT(&htim17);
 			HAL_TIM_Base_Start_IT(&htim16);
 		}
-		else{
+		else
+		{
 			HAL_TIM_Base_Stop_IT(&htim17);
 			HAL_TIM_Base_Stop_IT(&htim16);
 			HAL_GPIO_WritePin(BlinkLeftLED_GPIO_Port, BlinkLeftLED_Pin, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(BlinkRightLED_GPIO_Port, BlinkRightLED_Pin, GPIO_PIN_RESET);
 		}
 		break;
-	case 4:		//MC
+	case 4: //MC
 		SetMCLED(newState);
 		break;
-	case 5:		//SafeState
-		if(newState == GPIO_PIN_SET){
+	case 5: //SafeState
+		if (newState == GPIO_PIN_SET)
+		{
 			//Enter safe state
 			SetSafeStateLED(newState);
 		}
-		else{
+		else
+		{
 			//Allow return from safe state
 		}
 		break;
-	case 6:		//ForwardReverse
-		if(newState == GPIO_PIN_SET){
+	case 6: //ForwardReverse
+		if (newState == GPIO_PIN_SET)
+		{
 			//Put motor in Reverse
 			//SetForwardReverseLED(newState);
 		}
-		else{
+		else
+		{
 			//Put motor in Forward
 			//SetForwardReverseLED(newState);
 		}
 		break;
-	case 7:		//PowerEco
-
+	case 7: //PowerEco
+		if (newState == GPIO_PIN_SET)
+		{
+			//Set car in Eco mode
+		}
+		else
+		{
+			//Set car in Power mode
+		}
 		break;
 	}
 }
 
-
-void ButtonCruiseControll(){
-	if(!cruiseControl)
+void ButtonCruiseControll()
+{
+	if (!cruiseControl)
 		cruiseControl = 1; //Start Cruise Control
 	else
 		cruiseControl = 0; //End Cruise Control
 }
-void ButtonReset(){
+void ButtonReset()
+{
 	//Restart Nucleo Safe
-	//if(car in safe idle state)
+	//if(car in idle state)
 	//Reset();
 }
-void ButtonLCDMenuUp(){
+void ButtonLCDMenuUp()
+{
 	lcdCurrentSelection = (5 + lcdCurrentSelection - 1) % 5;
 }
-void ButtonLCDMenuDown(){
+void ButtonLCDMenuDown()
+{
 	lcdCurrentSelection = (lcdCurrentSelection + 1) % 5;
 }
-void ButtonLCDMenuSelect(){
-	if(selectModeActive)
+void ButtonLCDMenuSelect()
+{
+	if (selectModeActive)
 	{
-		if(rowIndex == 1){
+		if (rowIndex == 1)
+		{
 			lcdSelection1 = lcdCurrentSelection;
 			rowIndex = 2;
 			lcdCurrentSelection = lcdSelection2;
-			//serialMsg("Selected 1\n\r");
+			sprintf(selectionText, "Display Row:%i   ", rowIndex);
 		}
-		else if(rowIndex == 2){
+		else if (rowIndex == 2)
+		{
 			lcdSelection2 = lcdCurrentSelection;
 			selectModeActive = 0;
-			if(DEBUG_MODE){
+			if (DEBUG_MODE)
+			{
 				sprintf(sMsg, "LCD Selection %i : %i\n\r", lcdSelection1, lcdSelection2);
 				serialMsg(sMsg);
 			}
 		}
 	}
-	else{
+	else
+	{
 		selectModeActive = 1;
 		rowIndex = 1;
 		lcdCurrentSelection = lcdSelection1;
-
-		//serialMsg("Activate Selection\n\r");
+		sprintf(selectionText, "Display Row:%i   ", rowIndex);
 	}
 }
 //Set
-void SetDRLLED(GPIO_PinState pinState){
+void SetDRLLED(GPIO_PinState pinState)
+{
 	HAL_GPIO_WritePin(DRLLED_GPIO_Port, DRLLED_Pin, pinState);
 }
 
-void SetMCLED(GPIO_PinState pinState){
+void SetMCLED(GPIO_PinState pinState)
+{
 	HAL_GPIO_WritePin(MCLED_GPIO_Port, MCLED_Pin, pinState);
 }
-void SetSafeStateLED(GPIO_PinState pinState){
+void SetSafeStateLED(GPIO_PinState pinState)
+{
 	HAL_GPIO_WritePin(SafeStateLED_GPIO_Port, SafeStateLED_Pin, pinState);
 }
 
-void SetForwardReverseLED(GPIO_PinState pinState){
+void SetForwardReverseLED(GPIO_PinState pinState)
+{
 	//HAL_GPIO_WritePin(ForwardReverseLED_GPIO_Port, ForwardReverseLED_Pin, pinState);
 }
 
 //Toggle
-void ToggleHazzardLED(){
-	//Hazard LED = Left and Right Blink
-	//HAL_GPIO_TogglePin(HazardLED_GPIO_Port, HazardLED_Pin);
+void ToggleHazzardLED()
+{
 	HAL_GPIO_TogglePin(BlinkRightLED_GPIO_Port, BlinkRightLED_Pin);
 	HAL_GPIO_TogglePin(BlinkLeftLED_GPIO_Port, BlinkLeftLED_Pin);
 }
-void ToggleDRLLED(){
+void ToggleDRLLED()
+{
 	HAL_GPIO_TogglePin(DRLLED_GPIO_Port, DRLLED_Pin);
 }
-void ToggleBlinkRightLED(){
+void ToggleBlinkRightLED()
+{
 	HAL_GPIO_TogglePin(BlinkRightLED_GPIO_Port, BlinkRightLED_Pin);
 }
-void ToggleBlinkLeftLED(){
+void ToggleBlinkLeftLED()
+{
 	HAL_GPIO_TogglePin(BlinkLeftLED_GPIO_Port, BlinkLeftLED_Pin);
 }
-void ToggleBrakeLED(){
+void ToggleBrakeLED()
+{
 	HAL_GPIO_TogglePin(BrakeLED_GPIO_Port, BrakeLED_Pin);
 }
-void ToggleMCLED(){
+void ToggleMCLED()
+{
 	HAL_GPIO_TogglePin(MCLED_GPIO_Port, MCLED_Pin);
 }
-void ToggleSafeStateLED(){
+void ToggleSafeStateLED()
+{
 	HAL_GPIO_TogglePin(SafeStateLED_GPIO_Port, SafeStateLED_Pin);
 }
-void ToggleForwardReverseLED(){
+void ToggleForwardReverseLED()
+{
 	//HAL_GPIO_TogglePin(ForwardReverseLED_GPIO_Port, ForwardReverseLED_Pin);
 }
-void TogglePowerEcoLED(){
+void TogglePowerEcoLED()
+{
 	//HAL_GPIO_TogglePin(PowerEcoLED_GPIO_Port, PowerEcoLED_Pin);
 }
-void ToggleOnOffLED(){
+void ToggleOnOffLED()
+{
 	//HAL_GPIO_TogglePin(OnOffLED_GPIO_Port, OnOffLED_Pin);
 }
 /* USER CODE END 4 */
@@ -1004,7 +1040,7 @@ void StartDefaultTask(void *argument)
 {
 	/* USER CODE BEGIN 5 */
 	/* Infinite loop */
-	for(;;)
+	for (;;)
 	{
 		UpdateLCDValues();
 		DrawLCD();
@@ -1025,19 +1061,19 @@ void StartCruiseControl(void *argument)
 {
 	/* USER CODE BEGIN StartCruiseControl */
 	/* Infinite loop */
-	for(;;)
+	for (;;)
 	{
 		osDelay(100);
-		if(cruiseControl){
+		if (cruiseControl)
+		{
 			//initial code here
-			while(cruiseControl){
+			while (cruiseControl)
+			{
 				//continus code here
 				osDelay(100);
 			}
 			//end of loop code here
 		}
-
-
 	}
 	/* USER CODE END StartCruiseControl */
 }
@@ -1055,14 +1091,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	/* USER CODE BEGIN Callback 0 */
 
 	/* USER CODE END Callback 0 */
-	if (htim->Instance == TIM6) {
+	if (htim->Instance == TIM6)
+	{
 		HAL_IncTick();
 	}
 	/* USER CODE BEGIN Callback 1 */
-	if(htim == &htim16){
+	if (htim == &htim16)
+	{
 		ToggleBlinkRightLED();
 	}
-	if(htim == &htim17){
+	if (htim == &htim17)
+	{
 		ToggleBlinkLeftLED();
 	}
 	/* USER CODE END Callback 1 */
@@ -1083,7 +1122,7 @@ void Error_Handler(void)
 	/* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
  * @brief  Reports the name of the source file and the source line number
  *         where the assert_param error has occurred.

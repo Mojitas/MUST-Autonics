@@ -250,17 +250,22 @@ void TIM6_DAC_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-	if ( GPIO_Pin == ButtonCruiseControll_Pin){
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if (GPIO_Pin == ButtonCruiseControll_Pin)
+	{
 		ButtonCruiseControll();
 	}
-	else if( GPIO_Pin == ButtonLCDMenuUp_Pin){
+	else if (GPIO_Pin == ButtonLCDMenuUp_Pin)
+	{
 		ButtonLCDMenuUp();
 	}
-	else if( GPIO_Pin == ButtonLCDMenuDown_Pin){
+	else if (GPIO_Pin == ButtonLCDMenuDown_Pin)
+	{
 		ButtonLCDMenuDown();
 	}
-	else if( GPIO_Pin == ButtonLCDMenuSelect_Pin){
+	else if (GPIO_Pin == ButtonLCDMenuSelect_Pin)
+	{
 		ButtonLCDMenuSelect();
 	}
 }
