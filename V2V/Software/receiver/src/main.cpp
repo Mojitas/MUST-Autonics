@@ -7,11 +7,13 @@
 #define BLINKING_RATE_3_MS        300ms
 #define BLINKING_RATE_4_MS        400ms
 #define PEER_DEVICE_NAME          "MUST_SENDER"
+#define PEER_DEVICE_ADDR          "f9:80:1b:c4:5e:2a"
 #define OWN_DEVICE_NAME           "MUST_RECEIVER"
 
-#define ACTIVE_SCANNING         true  
+/*#define ACTIVE_SCANNING         true  
 #define SCAN_INTERVAL           ble::scan_interval_t(500)
 #define SCAN_WINDOW             ble::scan_window_t(250)
+*/
 
 static EventQueue event_queue(16 * EVENTS_EVENT_SIZE);
 
@@ -83,7 +85,6 @@ class BLEScanner : ble::Gap::EventHandler {
     {
       ble::ScanParameters scan_params;
       scan_params.setOwnAddressType(ble::own_address_type_t::RANDOM);
-      scan_params.setCodedPhyConfiguration(SCAN_INTERVAL, SCAN_WINDOW, ACTIVE_SCANNING);
 
       error = _gap.setScanParameters(scan_params);
       if (error)
@@ -92,7 +93,7 @@ class BLEScanner : ble::Gap::EventHandler {
         return;
       }
 
-      error = _gap.startScan();
+      error = _gap.startScan(ble::scan_duration_t(500));
       if (error)
       {
         printf("%lld: startScan failed!\r\n", time(NULL));
@@ -124,43 +125,71 @@ class BLEScanner : ble::Gap::EventHandler {
 
     void onAdvertisingReport(const ble::AdvertisingReportEvent &event) 
     {
-      if (is_connecting) 
+      if (is_connecting || is_syncing) 
       {
         return;
       }
 
-      ble::rssi_t rssi = event.getRssi();
+      //ble::rssi_t rssi = event.getRssi();
       //if (-60 > rssi)
       //  return;
+      
+      if (is_connected && event.getPeriodicInterval().valueInMs() == 0)
+      {
+        return;
+      }
 
       ble::address_t address = event.getPeerAddress();
       ble::peer_address_type_t type = event.getPeerAddressType();
       bool is_connectable = event.getType().connectable();
  
-      printf("%lld: RSSI: %d, Address: %02x:%02x:%02x:%02x:%02x:%02x, Type: %d, Connectable: %d\r\n", time(NULL), rssi, address[5], address[4], address[3], address[2], address[1], address[0], type.value(), is_connectable);
+      // printf("%lld: RSSI: %d, Address: %02x:%02x:%02x:%02x:%02x:%02x, Type: %d, Connectable: %d\r\n", time(NULL), rssi, address[5], address[4], address[3], address[2], address[1], address[0], type.value(), is_connectable);
 
-      ble::AdvertisingDataParser dataParser(event.getPayload());
-      while (dataParser.hasNext())
+      const int size = 18;
+      char peer[size] = { 0 };
+      int x = snprintf(peer, size, "%02x:%02x:%02x:%02x:%02x:%02x", address[5], address[4], address[3], address[2], address[1], address[0]);
+      if (x == 0)
       {
-        ble::AdvertisingDataParser::element_t field = dataParser.next();
-
-        if (field.type == ble::adv_data_type_t::COMPLETE_LOCAL_NAME &&
-            field.value.size() == strlen(PEER_DEVICE_NAME) &&
-            (memcmp(field.value.data(), PEER_DEVICE_NAME, field.value.size()) == 0))
+        printf("%lld: Something went wrong printing!\r\n", time(NULL));
+      } 
+      else if (strncmp(peer, PEER_DEVICE_ADDR, strlen(peer)) == 0 && is_connectable) 
+      {
+        if (is_connected)
         {
-          printf("%lld: Peer device found! Connecting...\r\n", time(NULL));
+          printf("%lld: Peer found, creating sync with periodic interval %ldms!\r\n", time(NULL), event.getPeriodicInterval().valueInMs());
+          error = _gap.createSync(type, address, event.getSID(), 5, ble::sync_timeout_t(ble::millisecond_t(500)));
+          if (error)
+          {
+            printf("%lld: %s createSync failed!\r\n", time(NULL), BLE::errorToString(error));
+            return;
+          }
+
+          is_syncing = true;
+          printf("%lld: Creating sync between devices!\r\n", time(NULL));
+          
+          error = _gap.addDeviceToPeriodicAdvertiserList(event.getPeerAddressType(), event.getPeerAddress(), event.getSID());
+          if (error)
+          {
+            printf("%lld: %s - Failed to add to periodic advertiser list!\r\n", time(NULL), BLE::errorToString(error));
+          }
+        }
+        else
+        {
+          printf("%lld: Peer device found by address %s\r\n", time(NULL), PEER_DEVICE_ADDR);
           error = _gap.connect(type, address, ble::ConnectionParameters());
           if (error)
           {
-            printf("%lld: %s - connect failed!\r\n", time(NULL), BLE::errorToString(error));
+            printf("%lld: %s - Gap::connect failed!\r\n", time(NULL), BLE::errorToString(error));
             return;
-          }
+          } 
           else
           {
-            _event_queue.cancel(cancel_handles[0]);
-            cancel_handles[2] = _event_queue.call_every(BLINKING_RATE_3_MS, this, &BLEScanner::blink, 3);
             is_connecting = true;
+            cancel_handles[2] = _event_queue.call_every(BLINKING_RATE_3_MS, this, &BLEScanner::blink, 3);
+            _event_queue.cancel(cancel_handles[0]);
           }
+
+          printf("%lld: Connecting to peer device!\r\n", time(NULL));
         }
       }
     }
@@ -175,6 +204,7 @@ class BLEScanner : ble::Gap::EventHandler {
       }
 
       is_connected = true;
+      is_connecting = false;
       printf("%lld: Connection successful, changing symbols per bit to 8.\r\n", time(NULL));
       ble::connection_handle_t handle = event.getConnectionHandle();
       ble::coded_symbol_per_bit_t symbols(ble::coded_symbol_per_bit_t::S8);
@@ -187,19 +217,26 @@ class BLEScanner : ble::Gap::EventHandler {
       }
 
       printf("%lld: Changed to 8 symbols per bit, meaning 125kbit/s transfer speed.\r\n", time(NULL));
-      printf("%lld: My role in this connection is CENTRAL\r\n", time(NULL));
-      printf("%lld: I will synchronize with periodic advertising\r\n", time(NULL));
       
-      error = _gap.createSync(5, ble::sync_timeout_t(ble::millisecond_t(500)));
+      _event_queue.cancel(cancel_handles[2]);
+      event_queue.call_in(500ms, this, &BLEScanner::periodic_scan);
+      blink(3);
+    }
+
+    void periodic_scan()
+    {
+      is_connected = true;
+      is_syncing = false;
+      is_connecting = false;
+
+      error = _gap.startScan();
       if (error)
       {
-        printf("%lld: %s - createSync failed!\r\n", time(NULL), BLE::errorToString(error));
+        printf("%lld: %s - start periodic scan failed!\r\n", time(NULL), BLE::errorToString(error));
         return;
       }
 
-      printf("%lld: Created sync with the other device!\r\n", time(NULL));
-      _event_queue.cancel(cancel_handles[2]);
-      blink(3);
+      printf("%lld: Periodic scan started!\r\n", time(NULL));
     }
 
     void onPeriodicAdvertisingSyncEstablished(const ble::PeriodicAdvertisingSyncEstablishedEvent &event)
@@ -211,13 +248,10 @@ class BLEScanner : ble::Gap::EventHandler {
         return;
       }
 
+      is_syncing = true;
+      is_connected = false;
       printf("%lld: Sync established!\r\n", time(NULL));
       _sync_handle = event.getSyncHandle();
-      error = _gap.addDeviceToPeriodicAdvertiserList(event.getPeerAddressType(), event.getPeerAddress(), event.getSid());
-      if (error)
-      {
-        printf("%lld: %s - Failed to add to periodic advertiser list!\r\n", time(NULL), BLE::errorToString(error));
-      }
     }
 
     void onPeriodicAdvertisingReport(const ble::PeriodicAdvertisingReportEvent &event)
@@ -240,13 +274,11 @@ class BLEScanner : ble::Gap::EventHandler {
         }
       }
     }
-
-    void onScanTimeout(const ble::ScanTimeoutEvent&)
+    
+    void onPeriodicAdvertisingSyncLoss(const ble::PeriodicAdvertisingSyncLoss &event)
     {
-      if (is_connecting || is_connected || is_syncing)
-      {
-        printf("%lld: Scanning stopped because we are either connecting, connected or syncing.\r\n", time(NULL));
-      }
+      printf("%lld: Sync was lost!\r\n", time(NULL));
+      _gap.startScan();
     }
 };
 

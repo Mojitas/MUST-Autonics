@@ -168,8 +168,16 @@ class BLEScanner : ble::Gap::EventHandler {
         printf("%lld: %s - setPhy for connection failed!\r\n", time(NULL), BLE::errorToString(error));
         return;
       }
-
       printf("%lld: Changed to 8 symbols per bit, meaning 125kbit/s transfer speed.\r\n", time(NULL));
+
+      error = _gap.createSync(5, ble::sync_timeout_t(ble::millisecond_t(5000)));
+      if (error)
+      {
+        printf("%lld: %s - createSync failed!\r\n", time(NULL), BLE::errorToString(error));
+        return;
+      }
+      printf("%lld: creating sync between devices!\r\n", time(NULL));
+
       _event_queue.cancel(cancel_handles[0]);
       blink(3);
     }
