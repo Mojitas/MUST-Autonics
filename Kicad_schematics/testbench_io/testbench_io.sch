@@ -477,26 +477,26 @@ Horn_sw
 Text Label 10300 1150 2    50   ~ 0
 Reset
 $Sheet
-S 8600 900  850  350 
+S 8600 850  850  350 
 U 605DCA87
 F0 "Power_&_safe_state" 50
 F1 "Power_&_safe_state.sch" 50
 $EndSheet
-Text Label 8800 1650 2    50   ~ 0
+Text Label 8800 1600 2    50   ~ 0
 CTX
-Text Label 8800 1550 2    50   ~ 0
+Text Label 8800 1500 2    50   ~ 0
 CRX
 Wire Wire Line
-	8900 1650 8800 1650
+	8900 1600 8800 1600
 Wire Wire Line
-	8900 1550 8800 1550
+	8900 1500 8800 1500
 $Sheet
-S 8900 1500 550  250 
+S 8900 1450 550  250 
 U 605E5633
 F0 "CAN" 50
 F1 "CAN.sch" 50
-F2 "CRX" I L 8900 1550 50 
-F3 "CTX" I L 8900 1650 50 
+F2 "CRX" I L 8900 1500 50 
+F3 "CTX" I L 8900 1600 50 
 $EndSheet
 $Sheet
 S 10050 3700 1050 700 
