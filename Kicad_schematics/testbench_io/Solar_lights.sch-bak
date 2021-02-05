@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 3
+Sheet 3 7
 Title ""
 Date ""
 Rev ""
@@ -339,10 +339,10 @@ F 3 "~" H 6500 3900 50  0001 C CNN
 $EndComp
 Connection ~ 7650 4450
 $Comp
-L Connector_Generic:Conn_01x04 J?
+L Connector_Generic:Conn_01x04 J302
 U 1 1 601C60D2
 P 6500 4550
-F 0 "J?" H 6418 4125 50  0000 C CNN
+F 0 "J302" H 6418 4125 50  0000 C CNN
 F 1 "Conn_01x04" H 6418 4216 50  0000 C CNN
 F 2 "Connector_JST:JST_XH_S4B-XH-A_1x04_P2.50mm_Horizontal" H 6500 4550 50  0001 C CNN
 F 3 "~" H 6500 4550 50  0001 C CNN
@@ -350,10 +350,10 @@ F 3 "~" H 6500 4550 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x04 J?
+L Connector_Generic:Conn_01x04 J303
 U 1 1 601C67E7
 P 6500 5200
-F 0 "J?" H 6418 4775 50  0000 C CNN
+F 0 "J303" H 6418 4775 50  0000 C CNN
 F 1 "Conn_01x04" H 6418 4866 50  0000 C CNN
 F 2 "Connector_JST:JST_XH_S4B-XH-A_1x04_P2.50mm_Horizontal" H 6500 5200 50  0001 C CNN
 F 3 "~" H 6500 5200 50  0001 C CNN
