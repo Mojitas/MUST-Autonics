@@ -1,3 +1,4 @@
-.metadata/
-*bak
-*zip
+#ignore some stuff
+
+
+testbench_io/*bak
