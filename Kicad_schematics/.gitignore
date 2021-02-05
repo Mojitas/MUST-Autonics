@@ -1,7 +1,5 @@
-#ignore some stuff
+.metadata/
 
-
-testbench_io/*bak
-testbench_io/*cache
-testbench_io/*net
-testbench_io/*zip
+*/*bak
+*/*cache
+*/*zip
