@@ -2,3 +2,6 @@
 
 
 testbench_io/*bak
+testbench_io/*cache
+testbench_io/*net
+testbench_io/*zip
