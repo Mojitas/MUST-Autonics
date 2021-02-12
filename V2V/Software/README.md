@@ -2,30 +2,15 @@
 All the software developed for the external communication system is to be put in this folder.
 Currently the software includes a logger and code for the central device which is the receiver in the solar car.
 The software will include programs, ommunication, loggers, debuggers and other software developed for the external communication.
+The TODO folder is how it was supposed to be implemented, but is not since some things are wrong with the code and therefore it's put in TODO to be completed later by someone else.
 
 ## Structure
 ```
 root (this)
-   \| Central
-       \| include
-           \| *.h
-            | *.hpp
-        | lib
-        | src
-           \| *.c
-            | *.cpp
-        | test
-        | platformio.ini (configuration)
-    | Peripheral
-       \| include
-           \| *.h
-            | *.hpp
-        | lib
-        | src
-           \| *.c
-            | *.cpp
-        | test
-        | platformio.ini
+   \| embedded-code
+    | TODO
+       \| sender
+        | receiver
     | logger_nrf52840
        \| configs
         | logs
