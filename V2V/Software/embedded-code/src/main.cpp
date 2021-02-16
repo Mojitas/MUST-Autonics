@@ -1,42 +1,47 @@
-/* mbed Microcontroller Library
- * Copyright (c) 2006-2018 ARM Limited
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 #include <mbed.h>
 #include <events/mbed_events.h>
-#include "ble/BLE.h"
+#include <ble/BLE.h>
+#include <COMPONENT_SD/include/SD/SDBlockDevice.h>
+#include <FATFileSystem.h>
+#include <SPISlave.h>
 #include "user_config.h"
-#include "SDBlockDevice.h"
-
-/** This example demonstrates extended and periodic advertising
- */
 
 using namespace std::literals::chrono_literals;
 
 events::EventQueue event_queue;
+
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI,
+                 MBED_CONF_SD_SPI_MISO,
+                 MBED_CONF_SD_SPI_CLK,
+                 MBED_CONF_SD_SPI_CS);
+#endif
+
+static SPISlave master(D0, D1, D2, D3);
+#endif
 
 /** Demonstrate periodic advertising and scanning and syncing with the advertising
  */
 class PeriodicDemo : private mbed::NonCopyable<PeriodicDemo>, public ble::Gap::EventHandler
 {
 public:
+#if DEVICE_SCANNER == false
+    PeriodicDemo(BLE& ble, events::EventQueue& event_queue, FATFileSystem *fatFileSystem) :
+        _ble(ble),
+        _event_queue(event_queue),
+        _adv_data_builder(_adv_buffer),
+        _file_system(fatFileSystem)
+    {
+    }
+#else
     PeriodicDemo(BLE& ble, events::EventQueue& event_queue) :
         _ble(ble),
         _event_queue(event_queue),
         _adv_data_builder(_adv_buffer)
     {
     }
+#endif
 
     ~PeriodicDemo()
     {
@@ -53,6 +58,16 @@ public:
 
         ble_error_t error = _ble.init(this, &PeriodicDemo::on_init_complete);
         if (error) {
+            char buffer[] = "Error initializing bluetooth LE!\r\n";
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+            write_buffer_to_file(buffer, sizeof(buffer));
+#else
+            printf("%s", buffer);
+#endif
+#else
+            printf("%s", buffer);
+#endif
             return;
         }
 
@@ -65,13 +80,36 @@ private:
     void on_init_complete(BLE::InitializationCompleteCallbackContext *event)
     {
         if (event->error) {
+            char buffer[] = "Error on initialization of BLE\r\n";
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+            write_buffer_to_file(buffer, sizeof(buffer));
+#else
+            printf("%s", buffer);
+#endif
+#else
+            printf("%s", buffer);
+#endif
             return;
         }
 
         if (!_ble.gap().isFeatureSupported(ble::controller_supported_features_t::LE_EXTENDED_ADVERTISING) ||
             !_ble.gap().isFeatureSupported(ble::controller_supported_features_t::LE_PERIODIC_ADVERTISING)) {
-            printf("Periodic advertising not supported, cannot run example.\r\n");
+            printf("Periodic advertising not supported.\r\n");
             return;
+        }
+
+        if (_ble.gap().isFeatureSupported(ble::controller_supported_features_t::LE_CODED_PHY))
+        {
+            ble::phy_set_t phys(ble::phy_t::LE_CODED);
+            ble_error_t error = _ble.gap().setPreferredPhys(&phys, &phys);
+            if (error) {
+                const char *err = BLE::errorToString(error);
+#if DEVICE_SCANNER == false
+                write_buffer_to_file(err, sizeof(error));
+#endif
+
+            }
         }
 
         /* all calls are serialised on the user thread through the event queue */
@@ -118,6 +156,12 @@ private:
         );
 
         if (error) {
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+            char buffer[] = "Error creating advertising set!\r\n";
+            write_buffer_to_file(buffer, sizeof(buffer));
+#endif
+#endif
             return;
         }
 
@@ -131,6 +175,12 @@ private:
         );
 
         if (error) {
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+            char buf[] = "Error setting advertising payload!";
+            write_buffer_to_file(buf, sizeof(buf));
+#endif
+#endif
             return;
         }
 
@@ -146,9 +196,21 @@ private:
         );
 
         if (error) {
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+            char buff[] = "Error starting advertisment!";
+            write_buffer_to_file(buff, sizeof(buff));
+#endif
+#endif
             return;
         }
 
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+        char bu[] = "Advertising started!\r\n";
+        write_buffer_to_file(bu, sizeof(bu));
+#endif
+#endif
         printf("Advertising started for %ldms\r\n", random_duration_ms.valueInMs());
     }
 
@@ -164,6 +226,12 @@ private:
         ble_error_t error = _ble.gap().setAdvertisingParameters(_adv_handle, adv_parameters);
 
         if (error) {
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+            char buffer[] = "Set periodic advertising parameters failed!\r\n";
+            write_buffer_to_file(buffer, sizeof(buffer));
+#endif
+#endif
             return;
         }
 
@@ -172,6 +240,12 @@ private:
         error = _ble.gap().startAdvertising(_adv_handle);
 
         if (error) {
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+            char buf[] = "Error starting advertising!\r\n";
+            write_buffer_to_file(buf, sizeof(buf));
+#endif
+#endif
             return;
         }
 
@@ -217,11 +291,27 @@ private:
     /* also updates periodic advertising payload */
     void update_sensor_value()
     {
+#if DEVICE_SCANNER == false
+        master.reply(0x00);
+        if (master.receive())
+        {
+            _battery_level = master.read();
+        }
+#else
         /* simulate battery level */
         _battery_level--;
         if (_battery_level < 1) {
             _battery_level = 100;
         }
+#endif
+
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+        char b_level[50] = { 0 };
+        snprintf(b_level, 50, "Solar Car Battery Level: %d\r\n", _battery_level);
+        write_buffer_to_file(b_level, sizeof(b_level));
+#endif
+#endif
 
         /* update the level in the payload */
         ble_error_t error = _adv_data_builder.setServiceData(
@@ -230,6 +320,12 @@ private:
         );
 
         if (error) {
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+            char err[] = "Could not set service data on the advertising payload!\r\n";
+            write_buffer_to_file(err, sizeof(err));
+#endif
+#endif
             return;
         }
 
@@ -239,6 +335,16 @@ private:
             _adv_handle,
             _adv_data_builder.getAdvertisingData()
         );
+
+        if (error)
+        {
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+            char err[] = "Set periodic advertising payload failed!\r\n";
+            write_buffer_to_file(err, sizeof(err));
+#endif
+#endif
+        }
     }
 
 private:
@@ -292,8 +398,8 @@ private:
 
             /* identify peer by name */
             if (field.type == ble::adv_data_type_t::COMPLETE_LOCAL_NAME &&
-                field.value.size() == strlen(DEVICE_NAME) &&
-                (memcmp(field.value.data(), DEVICE_NAME, field.value.size()) == 0)) {
+                field.value.size() == strlen(OTHER_NAME) &&
+                (memcmp(field.value.data(), OTHER_NAME, field.value.size()) == 0)) {
                 /* if we haven't established our roles connect, otherwise sync with advertising */
                 if (_role_established) {
                     printf("We found the peer, syncing with SID %d"
@@ -417,6 +523,29 @@ private:
         _event_queue.call(this, &PeriodicDemo::scan_periodic);
     }
 
+#if DEVICE_SCANNER == false
+    void write_buffer_to_file(const char *buffer, size_t buf_size)
+    {
+        if (_fp.open(_file_system, "data.1.log", O_RDWR | O_CREAT | O_APPEND) < 0)
+        {
+            perror(strerror(errno));
+            return;
+        }
+
+        if (_fp.write(buffer, buf_size) < 0)
+        {
+            perror(strerror(errno));
+            return;
+        }
+
+        if (_fp.close() < 0)
+        {
+            perror(strerror(errno));
+            return;
+        }
+    }
+#endif
+
 private:
     BLE  &_ble;
     events::EventQueue &_event_queue;
@@ -429,9 +558,14 @@ private:
 
     uint8_t _battery_level = 100;
 
-    bool _is_scanner = DEVICE_SCANNER;
+    bool _is_scanner = !DEVICE_SCANNER;
     bool _is_connecting_or_syncing = false;
     bool _role_established = false;
+
+#if DEVICE_SCANNER == false
+    FATFileSystem *_file_system;
+    File _fp;
+#endif
 };
 
 /** Schedule processing of events from the BLE middleware in the event queue. */
@@ -442,6 +576,17 @@ void schedule_ble_events(BLE::OnEventsToProcessCallbackContext *context)
 
 int main()
 {
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+    FATFileSystem fatFileSystem("sd");
+    if (fatFileSystem.mount(&sd) < 0)
+    {
+        perror(strerror(errno));
+        return -1;
+    }
+#endif
+#endif
+
     BLE &ble = BLE::Instance();
 
     /* this will inform us off all events so we can schedule their handling
@@ -449,7 +594,15 @@ int main()
     ble.onEventsToProcess(schedule_ble_events);
 
     /* look for other device and then settle on a role and sync periodic advertising */
+#if DEVICE_SCANNER == false
+#ifdef MY_SD_DEFINITION
+    PeriodicDemo demo(ble, event_queue, &fatFileSystem);
+#else
+    PeriodicDemo demo(ble, event_queue, nullptr);
+#endif
+#else
     PeriodicDemo demo(ble, event_queue);
+#endif
 
     demo.run();
 

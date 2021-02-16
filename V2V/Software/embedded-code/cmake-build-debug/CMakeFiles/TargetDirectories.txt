@@ -1,0 +1,5 @@
+/Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/Z_DUMMY_TARGET.dir
+/Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/Debug.dir
+/Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/Production.dir

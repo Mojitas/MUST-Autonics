@@ -1,0 +1,98 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /Library/Developer/CommandLineTools/usr/bin/cc 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+ld: library not found for -lSystem
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /Library/Developer/CommandLineTools/usr/bin/CC 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+ld: library not found for -lSystem
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: /Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_e97a5/fast && /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_e97a5.dir/build.make CMakeFiles/cmTC_e97a5.dir/build
+Building C object CMakeFiles/cmTC_e97a5.dir/CMakeCCompilerABI.c.obj
+/Library/Developer/CommandLineTools/usr/bin/cc   -v -o CMakeFiles/cmTC_e97a5.dir/CMakeCCompilerABI.c.obj   -c "/Users/erikkamph/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/203.7148.70/CLion.app/Contents/bin/cmake/mac/share/cmake-3.17/Modules/CMakeCCompilerABI.c"
+Apple clang version 11.0.3 (clang-1103.0.32.29)
+Target: x86_64-apple-darwin20.3.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.16.0 -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mthread-model posix -mframe-pointer=all -fno-strict-return -masm-verbose -munwind-tables -target-cpu penryn -dwarf-column-info -debugger-tuning=lldb -target-linker-version 556.5 -v -coverage-notes-file /Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_e97a5.dir/CMakeCCompilerABI.c.gcno -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/11.0.3 -internal-isystem /usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/11.0.3/include -internal-externc-isystem /usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-objc-signed-char-bool-implicit-int-conversion -Wno-extra-semi-stmt -Wno-quoted-include-in-framework-header -fdebug-compilation-dir /Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/CMakeTmp -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fobjc-runtime=macosx-10.16.0 -fmax-type-align=16 -fdiagnostics-show-option -o CMakeFiles/cmTC_e97a5.dir/CMakeCCompilerABI.c.obj -x c "/Users/erikkamph/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/203.7148.70/CLion.app/Contents/bin/cmake/mac/share/cmake-3.17/Modules/CMakeCCompilerABI.c"
+clang -cc1 version 11.0.3 (clang-1103.0.32.29) default target x86_64-apple-darwin20.3.0
+ignoring nonexistent directory "/usr/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/local/include
+ /Library/Developer/CommandLineTools/usr/lib/clang/11.0.3/include
+ /Library/Developer/CommandLineTools/usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+Linking C executable cmTC_e97a5
+"/Users/erikkamph/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/203.7148.70/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E cmake_link_script CMakeFiles/cmTC_e97a5.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc     -v CMakeFiles/cmTC_e97a5.dir/CMakeCCompilerABI.c.obj  -o cmTC_e97a5 
+Apple clang version 11.0.3 (clang-1103.0.32.29)
+Target: x86_64-apple-darwin20.3.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 10.16.0 0.0.0 -o cmTC_e97a5 CMakeFiles/cmTC_e97a5.dir/CMakeCCompilerABI.c.obj -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/11.0.3/lib/darwin/libclang_rt.osx.a
+ld: library not found for -lSystem
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: *** [cmTC_e97a5] Error 1
+make: *** [cmTC_e97a5/fast] Error 2
+
+
+
+
+Detecting CXX compiler ABI info failed to compile with the following output:
+Change Dir: /Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_bc70d/fast && /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_bc70d.dir/build.make CMakeFiles/cmTC_bc70d.dir/build
+Building CXX object CMakeFiles/cmTC_bc70d.dir/CMakeCXXCompilerABI.cpp.obj
+/Library/Developer/CommandLineTools/usr/bin/CC    -v -o CMakeFiles/cmTC_bc70d.dir/CMakeCXXCompilerABI.cpp.obj -c "/Users/erikkamph/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/203.7148.70/CLion.app/Contents/bin/cmake/mac/share/cmake-3.17/Modules/CMakeCXXCompilerABI.cpp"
+Apple clang version 11.0.3 (clang-1103.0.32.29)
+Target: x86_64-apple-darwin20.3.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.16.0 -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mthread-model posix -mframe-pointer=all -fno-strict-return -masm-verbose -munwind-tables -target-cpu penryn -dwarf-column-info -debugger-tuning=lldb -target-linker-version 556.5 -v -coverage-notes-file /Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_bc70d.dir/CMakeCXXCompilerABI.cpp.gcno -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/11.0.3 -stdlib=libc++ -internal-isystem /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1 -internal-isystem /usr/include/c++/v1 -internal-isystem /usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/11.0.3/include -internal-externc-isystem /usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-objc-signed-char-bool-implicit-int-conversion -Wno-extra-semi-stmt -Wno-quoted-include-in-framework-header -fdeprecated-macro -fdebug-compilation-dir /Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-debug/CMakeFiles/CMakeTmp -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fobjc-runtime=macosx-10.16.0 -fcxx-exceptions -fexceptions -fmax-type-align=16 -fdiagnostics-show-option -o CMakeFiles/cmTC_bc70d.dir/CMakeCXXCompilerABI.cpp.obj -x c++ "/Users/erikkamph/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/203.7148.70/CLion.app/Contents/bin/cmake/mac/share/cmake-3.17/Modules/CMakeCXXCompilerABI.cpp"
+clang -cc1 version 11.0.3 (clang-1103.0.32.29) default target x86_64-apple-darwin20.3.0
+ignoring nonexistent directory "/usr/include/c++/v1"
+ignoring nonexistent directory "/usr/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1
+ /usr/local/include
+ /Library/Developer/CommandLineTools/usr/lib/clang/11.0.3/include
+ /Library/Developer/CommandLineTools/usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+Linking CXX executable cmTC_bc70d
+"/Users/erikkamph/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/203.7148.70/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E cmake_link_script CMakeFiles/cmTC_bc70d.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/CC      -v CMakeFiles/cmTC_bc70d.dir/CMakeCXXCompilerABI.cpp.obj  -o cmTC_bc70d 
+Apple clang version 11.0.3 (clang-1103.0.32.29)
+Target: x86_64-apple-darwin20.3.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 10.16.0 0.0.0 -o cmTC_bc70d CMakeFiles/cmTC_bc70d.dir/CMakeCXXCompilerABI.cpp.obj -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/11.0.3/lib/darwin/libclang_rt.osx.a
+ld: library not found for -lSystem
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: *** [cmTC_bc70d] Error 1
+make: *** [cmTC_bc70d/fast] Error 2
+
+
+
+

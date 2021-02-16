@@ -1,0 +1,5 @@
+/Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-nrf52840dk/CMakeFiles/rebuild_cache.dir
+/Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-nrf52840dk/CMakeFiles/edit_cache.dir
+/Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-nrf52840dk/CMakeFiles/Z_DUMMY_TARGET.dir
+/Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-nrf52840dk/CMakeFiles/Debug.dir
+/Users/erikkamph/GitHub/Team-Embedded/V2V/Software/embedded-code/cmake-build-nrf52840dk/CMakeFiles/Production.dir
