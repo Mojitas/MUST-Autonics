@@ -5,6 +5,7 @@
 #include <FATFileSystem.h>
 #include <SPISlave.h>
 #include "user_config.h"
+#include <PinNames.h>
 
 using namespace std::literals::chrono_literals;
 
@@ -18,7 +19,19 @@ SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI,
                  MBED_CONF_SD_SPI_CS);
 #endif
 
-static SPISlave master(D0, D1, D2, D3);
+/**
+ * TODO: Connect the cable according to the definitions for second SPI port below
+ * TODO: Pins are in following order
+ * TODO: P1_2 (MOSI) = D1
+ * TODO: P1_3 (MISO) = D2
+ * TODO: P1_1 (SSEL) = D0
+ * TODO: P1_4 (SCK) = D3
+ * TODO: Cables on the nucleo are from bottom, following: MISO, CS, SCK, MOSI and are
+ * TODO: correctly connected
+ * SPI is first defined here as a slave if needed change from it being a slave
+ * to a regular SPI object.
+ */
+static SPISlave master(SPI_PSELMOSI1, SPI_PSELMISO1, SPI_PSELSCK1, SPI_PSELSS1);
 #endif
 
 /** Demonstrate periodic advertising and scanning and syncing with the advertising
@@ -292,6 +305,14 @@ private:
     void update_sensor_value()
     {
 #if DEVICE_SCANNER == false
+        /**
+         * The _battery_level variable here is what is being updated when as a test that it works
+         * when connected properly.
+         * TODO: Make sure it receives data (The data it receives is both written to SD card and sent
+         * TODO: via BLE to another nRF-device) or modify the code for the sender so that it receives
+         * TODO: the data correctly. Finally push that changes to GitHub and I will write documentation
+         * TODO: for the code as well as a manual for the devices. // Erik Kamph
+         */
         master.reply(0x00);
         if (master.receive())
         {
