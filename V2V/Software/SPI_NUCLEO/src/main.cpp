@@ -2,11 +2,12 @@
 #include <COMPONENT_SD/include/SD/SDBlockDevice.h>
 #include <FATFileSystem.h>
 
-// Uncomment row below to enable writing to SD-Card
+/*!
+ * @def MY_SD_DEFINITION
+ * @brief A definition that controls the use of an SD-Card shield on a nucleo
+ */
 // #define MY_SD_DEFINITION
 
-// Create an SD Card block device with pin configuration
-// according to mbed_app.json
 #ifdef MY_SD_DEFINITION
 SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI,
                  MBED_CONF_SD_SPI_MISO,
