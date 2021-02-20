@@ -7,6 +7,10 @@
 #include "user_config.h"
 #include <PinNames.h>
 
+/**
+ * @file main.cpp
+ */
+
 using namespace std::literals::chrono_literals;
 
 events::EventQueue event_queue;
@@ -34,7 +38,10 @@ SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI,
 static SPISlave master(SPI_PSELMOSI1, SPI_PSELMISO1, SPI_PSELSCK1, SPI_PSELSS1);
 #endif
 
-/** Demonstrate periodic advertising and scanning and syncing with the advertising
+/**
+ * @class PeridoicDemo : private mbed::NonCopyable<PeriodicDemo>, public ble::Gap::EventHandler
+ * @brief Class for advertising and scanning for data to be run when connected to a complete
+ * system.
  */
 class PeriodicDemo : private mbed::NonCopyable<PeriodicDemo>, public ble::Gap::EventHandler
 {

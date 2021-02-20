@@ -2,11 +2,16 @@
 #include <COMPONENT_SD/include/SD/SDBlockDevice.h>
 #include <FATFileSystem.h>
 
+/**
+ * @file main.cpp
+ */
+
 /*!
  * @def MY_SD_DEFINITION
  * @brief A definition that controls the use of an SD-Card shield on a nucleo
  */
 // #define MY_SD_DEFINITION
+
 
 #ifdef MY_SD_DEFINITION
 SDBlockDevice sd(MBED_CONF_SD_SPI_MOSI,
