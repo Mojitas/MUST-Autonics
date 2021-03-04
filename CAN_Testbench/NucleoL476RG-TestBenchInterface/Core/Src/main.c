@@ -770,38 +770,38 @@ void UpdateLCDValues(void)
 		//First row
 		{
 		case 0:
-			sprintf(LCDArray[0], "Vel:%i km/h", GetRandomInt(110));
+			sprintf(LCDArray[0], "Vel:%3ikm/h", GetRandomInt(110));
 			break;
 		case 1:
-			sprintf(LCDArray[0], "Power Cons:%i W", GetRandomInt(2000));
+			sprintf(LCDArray[0], "Power Cons:%4iW", GetRandomInt(2000));
 			break;
 		case 2:
-			sprintf(LCDArray[0], "Bat Volt:%i V", GetRandomInt(120));
+			sprintf(LCDArray[0], "Bat Volt:%3iV", GetRandomInt(120));
 			break;
 		case 3:
-			sprintf(LCDArray[0], "Bat Level:%i %%", GetRandomInt(100));
+			sprintf(LCDArray[0], "Bat Level:%3i%%", GetRandomInt(100));
 			break;
 		case 4:
-			sprintf(LCDArray[0], "Temp:%i C", (int)cpuTemp);
+			sprintf(LCDArray[0], "Temp:%2iC", (int)cpuTemp);
 			break;
 		}
 		//Second row
 		switch (lcdSelection2)
 		{
 		case 0:
-			sprintf(LCDArray[1], "Vel:%i km/h", GetRandomInt(110));
+			sprintf(LCDArray[1], "Vel:%3ikm/h", GetRandomInt(110));
 			break;
 		case 1:
-			sprintf(LCDArray[1], "Power Cons:%i W", GetRandomInt(2000));
+			sprintf(LCDArray[1], "Power Cons:%4iW", GetRandomInt(2000));
 			break;
 		case 2:
-			sprintf(LCDArray[1], "Bat Volt:%i V", GetRandomInt(120));
+			sprintf(LCDArray[1], "Bat Volt:%3iV", GetRandomInt(120));
 			break;
 		case 3:
-			sprintf(LCDArray[1], "Bat Level:%i %%", GetRandomInt(100));
+			sprintf(LCDArray[1], "Bat Level:%3i%%", GetRandomInt(100));
 			break;
 		case 4:
-			sprintf(LCDArray[1], "Temp:%i C", (int)cpuTemp);
+			sprintf(LCDArray[1], "Temp:%2iC", (int)cpuTemp);
 			break;
 		}
 	}
