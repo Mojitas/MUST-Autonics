@@ -55,17 +55,89 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 
+void ReadSensorValues(void);
+void UpdateLCDValues(void);
+void DrawLCD(void);
+
+int GetRandomInt(int max);
+
+//Buttons
+void ButtonCruiseControll(void);
+void ButtonReset(void);
+void ButtonLCDMenuUp(void);
+void ButtonLCDMenuDown(void);
+void ButtonLCDMenuSelect(void);
+
+//LED Toggle
+void ToggleHazardLED();
+void ToggleDRLLED();
+void ToggleBlinkRightLED();
+void ToggleBlinkLeftLED();
+void ToggleBrakeLED();
+void ToggleMCLED();
+void ToggleSafeStateLED();
+void ToggleForwardReverseLED();
+void TogglePowerEcoLED();
+void ToggleOnOffLED();
+
+//LED Set
+void SetDRLLED(GPIO_PinState pinState);
+void SetMCLED(GPIO_PinState pinState);
+void SetSafeStateLED(GPIO_PinState pinState);
+
+void SwitchStateChanged(int8_t switchId, GPIO_PinState newState);
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define B1_Pin GPIO_PIN_13
-#define B1_GPIO_Port GPIOC
+#define ADC_POT1_Pin GPIO_PIN_0
+#define ADC_POT1_GPIO_Port GPIOC
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
 #define USART_RX_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
+#define SwitchDRL_Pin GPIO_PIN_6
+#define SwitchDRL_GPIO_Port GPIOA
+#define SwitchBlinkLeft_Pin GPIO_PIN_7
+#define SwitchBlinkLeft_GPIO_Port GPIOA
+#define SwitchBlinkRight_Pin GPIO_PIN_4
+#define SwitchBlinkRight_GPIO_Port GPIOC
+#define SwitchHazardLights_Pin GPIO_PIN_5
+#define SwitchHazardLights_GPIO_Port GPIOC
+#define SwitchMC_Pin GPIO_PIN_0
+#define SwitchMC_GPIO_Port GPIOB
+#define SwitchSafeState_Pin GPIO_PIN_1
+#define SwitchSafeState_GPIO_Port GPIOB
+#define SwitchForwardReverse_Pin GPIO_PIN_2
+#define SwitchForwardReverse_GPIO_Port GPIOB
+#define SwitchPowerEco_Pin GPIO_PIN_10
+#define SwitchPowerEco_GPIO_Port GPIOB
+#define ButtonLCDMenuSelect_Pin GPIO_PIN_13
+#define ButtonLCDMenuSelect_GPIO_Port GPIOB
+#define ButtonLCDMenuSelect_EXTI_IRQn EXTI15_10_IRQn
+#define ButtonLCDMenuDown_Pin GPIO_PIN_14
+#define ButtonLCDMenuDown_GPIO_Port GPIOB
+#define ButtonLCDMenuDown_EXTI_IRQn EXTI15_10_IRQn
+#define ButtonLCDMenuUp_Pin GPIO_PIN_15
+#define ButtonLCDMenuUp_GPIO_Port GPIOB
+#define ButtonLCDMenuUp_EXTI_IRQn EXTI15_10_IRQn
+#define ButtonCruiseControll_Pin GPIO_PIN_6
+#define ButtonCruiseControll_GPIO_Port GPIOC
+#define ButtonCruiseControll_EXTI_IRQn EXTI9_5_IRQn
+#define SafeStateLED_Pin GPIO_PIN_7
+#define SafeStateLED_GPIO_Port GPIOC
+#define BrakeLED_Pin GPIO_PIN_8
+#define BrakeLED_GPIO_Port GPIOC
+#define BlinkLeftLED_Pin GPIO_PIN_9
+#define BlinkLeftLED_GPIO_Port GPIOC
+#define BlinkRightLED_Pin GPIO_PIN_8
+#define BlinkRightLED_GPIO_Port GPIOA
+#define DRLLED_Pin GPIO_PIN_9
+#define DRLLED_GPIO_Port GPIOA
+#define MCLED_Pin GPIO_PIN_10
+#define MCLED_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
