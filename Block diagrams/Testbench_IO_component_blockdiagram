@@ -1,1 +1,19 @@
-<mxfile host="app.diagrams.net" modified="2021-03-14T10:32:51.909Z" agent="5.0 (X11)" version="14.2.4" etag="FBcuiX_57wO_MqTVn8F4" type="github"><diagram id="n_msi6FwX1lrRzssGDlr">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-03-14T10:55:46.256Z" agent="5.0 (X11)" etag="yGWt8nyMpPek55C22oC7" version="14.2.4" type="github">
+  <diagram id="n_msi6FwX1lrRzssGDlr" name="Page-1">
+    <mxGraphModel dx="1108" dy="492" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="yt0uqgQAWsiXjhTU-0zQ-1" value="Nucleo" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yt0uqgQAWsiXjhTU-0zQ-2" value="LCD" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="230" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yt0uqgQAWsiXjhTU-0zQ-3" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="210" width="250" height="200" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
