@@ -1,4 +1,4 @@
-update=16/02/2021 18:14:41
+update=05/03/2021 15:08:26
 version=1
 last_client=kicad
 [general]
@@ -42,7 +42,8 @@ TrackWidth1=0.25
 TrackWidth2=0.15
 TrackWidth3=0.2
 TrackWidth4=0.4
-TrackWidth5=0.6
+TrackWidth5=0.5
+TrackWidth6=0.6
 ViaDiameter1=0.8
 ViaDrill1=0.4
 ViaDiameter2=0.6
@@ -253,4 +254,15 @@ uViaDiameter=0.3
 uViaDrill=0.1
 dPairWidth=0.2
 dPairGap=0.25
+dPairViaGap=0.25
+[pcbnew/Netclasses/1]
+Name=CAN
+Clearance=0.2
+TrackWidth=0.55
+ViaDiameter=0.8
+ViaDrill=0.4
+uViaDiameter=0.3
+uViaDrill=0.1
+dPairWidth=0.854775
+dPairGap=0.60387
 dPairViaGap=0.25

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 7
+Sheet 5 7
 Title ""
 Date ""
 Rev ""
@@ -87,7 +87,7 @@ AR Path="/605DE7D4" Ref="SW?"  Part="1"
 AR Path="/605DCA87/605DE7D4" Ref="SW501"  Part="1" 
 F 0 "SW501" H 4850 3935 50  0000 C CNN
 F 1 "SW_SPST" H 4850 3844 50  0000 C CNN
-F 2 "Solar_team:RND-Slide-Switch" H 4850 3700 50  0001 C CNN
+F 2 "Solar_team:MFP120" H 4850 3700 50  0001 C CNN
 F 3 "~" H 4850 3700 50  0001 C CNN
 	1    4850 3700
 	1    0    0    -1  
@@ -100,7 +100,7 @@ AR Path="/605DE7DA" Ref="SW?"  Part="1"
 AR Path="/605DCA87/605DE7DA" Ref="SW502"  Part="1" 
 F 0 "SW502" H 6500 3685 50  0000 C CNN
 F 1 "SW_SPST" H 6500 3594 50  0000 C CNN
-F 2 "Solar_team:RND-Slide-Switch" H 6500 3450 50  0001 C CNN
+F 2 "Solar_team:MFP120" H 6500 3450 50  0001 C CNN
 F 3 "~" H 6500 3450 50  0001 C CNN
 	1    6500 3450
 	1    0    0    -1  

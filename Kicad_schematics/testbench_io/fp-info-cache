@@ -1,4 +1,4 @@
-19100274292717592
+19103506845984561
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -76797,6 +76797,13 @@ MTS-102-A2
 2
 2
 Solar_team
+Potentiometer_Bourns_PTV09A-1_Single_Vertical
+Potentiometer, vertical, Bourns PTV09A-1 Single, http://www.bourns.com/docs/Product-Datasheets/ptv09.pdf
+Potentiometer vertical Bourns PTV09A-1 Single
+0
+5
+3
+Solar_team
 RND-Slide-Switch
 
 
@@ -76845,6 +76852,13 @@ Wuerth__angeled_dsub_37_618037231321
 0
 39
 39
+Solar_team
+Wurth_Dsub_37_angled_male_8.08mm
+<b>WR-DSUB</b><br> 8.08mm Male Angled PCB Connector with Hex Screw, 37 Pins
+
+0
+39
+38
 Symbol
 CE-Logo_8.5x6mm_SilkScreen
 CE marking

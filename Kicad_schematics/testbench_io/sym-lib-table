@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name Solarteam)(type Legacy)(uri ${KIPRJMOD}/Solarteam.lib)(options "")(descr ""))
+  (lib (name testbench_io-rescue)(type Legacy)(uri ${KIPRJMOD}/testbench_io-rescue.lib)(options "")(descr ""))
 )
