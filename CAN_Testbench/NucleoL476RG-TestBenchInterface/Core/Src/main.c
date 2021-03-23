@@ -43,9 +43,9 @@
 
 #define NO_SENSOR_MSG 0x100
 
-#define T_1 0x101 //Sensor Description Here
-#define T_2 0x102 //Sensor Description Here
-#define T_3 0x103 //Sensor Description Here
+#define TEMP_1 0x101 //Sensor Description Here
+#define TEMP_2 0x102 //Sensor Description Here
+#define TEMP_3 0x103 //Sensor Description Here
 #define SENSOR_4 0x104 //Sensor Description Here
 #define SENSOR_5 0x105 //Sensor Description Here
 
@@ -1117,16 +1117,16 @@ void ReceiveSensorData(uint32_t sensorId, float data)
 	char s_data[20];
 	switch (sensorId)
 	{
-	case T_1:
-		sprintf(s_data, "Temp1: %f C", data);
+	case TEMP_1:
+		sprintf(s_data, "T1: %f C", data);
 		serialMsg(s_data);
 		break;
-	case T_2:
-		sprintf(s_data, "Temp2: %f C", data);
+	case TEMP_2:
+		sprintf(s_data, "T1: %f C", data);
 		serialMsg(s_data);
 		break;
-	case T_3:
-		sprintf(s_data, "Temp2: %f C", data);
+	case TEMP_3:
+		sprintf(s_data, "T1: %f C", data);
 		serialMsg(s_data);
 		break;
 	case SENSOR_4:
