@@ -435,4 +435,14 @@ Wire Wire Line
 	6800 4400 6800 4550
 Wire Wire Line
 	8800 3400 9050 3400
+Text Notes 6350 3700 0    50   ~ 0
+Signal transistor for backlight
+Text Notes 8950 5200 0    50   ~ 0
+LCD
+Text Notes 5600 5550 0    50   ~ 0
+IO-expander\n
+Text Notes 2800 6050 0    50   ~ 0
+I2C address jumpers\n
+Text Notes 8000 3000 0    50   ~ 0
+Manual backlight switch
 $EndSCHEMATC

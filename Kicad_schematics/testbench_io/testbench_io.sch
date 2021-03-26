@@ -493,8 +493,8 @@ Wire Wire Line
 $Sheet
 S 8900 1450 550  250 
 U 605E5633
-F0 "CAN" 50
-F1 "CAN.sch" 50
+F0 "CAN_power" 50
+F1 "CAN_Power.sch" 50
 F2 "CRX" I L 8900 1500 50 
 F3 "CTX" I L 8900 1600 50 
 $EndSheet
