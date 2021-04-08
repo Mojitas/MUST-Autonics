@@ -43,12 +43,6 @@
 
 #define NO_SENSOR_MSG 0x100
 
-#define TEMP_1 0x101 //Sensor Description Here
-#define TEMP_2 0x102 //Sensor Description Here
-#define TEMP_3 0x103 //Sensor Description Here
-#define SENSOR_4 0x104 //Sensor Description Here
-#define SENSOR_5 0x105 //Sensor Description Here
-
 #define VSCALER 3.0 / 3.3
 #define TS_CAL1 *(uint16_t *)(0x1FFF75A8) * VSCALER
 #define TS_CAL2 *(uint16_t *)(0x1FFF75CA) * VSCALER
@@ -61,6 +55,10 @@
 //CAN_TxHeaderTypeDef TxHeader;
 CAN_RxHeaderTypeDef RxHeader;
 uint16_t OwnID = 0x124;
+
+uint16_t TEMP_1 = 0x101; //Sensor Description Here
+uint16_t TEMP_2 = 0x102; //Sensor Description Here
+uint16_t TEMP_3 = 0x103; //Sensor Description Here
 
 //Switch State 1 or 0
 GPIO_PinState SwitchStates[NUMBER_OF_SWITCHES]; //0:DRL 1:BlinkLeft 2:BlinkRight 3:Hazard 4:MC 5:SafeState 6:ForwardReverse 7:PowerEco
@@ -218,6 +216,7 @@ int main(void)
 
 	lcd_clear();
 	HAL_Delay(500);
+	serialMsg("LCD Nucleo init\r\n");
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -701,8 +700,7 @@ void CAN_Tx(char msg[], CAN_TxHeaderTypeDef TxHeader)
 			Error_Handler();
 		}
 
-		while (HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox))
-			; //Wait for message to be sent.
+		while (HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox)); //Wait for message to be sent.
 			  //serialMsg("Message transmitted!\n\r");//Debug
 	}
 	else
@@ -724,7 +722,7 @@ void CAN_Rx(void)
 	RxHeader.DLC = 8;			 //Specifies the length of the frame that will be received.
 	RxHeader.IDE = CAN_ID_STD;	 //Specifies the type of identifier for the message that will be received.
 	RxHeader.RTR = CAN_RTR_DATA; //Specifies the type of frame for the message that will be received.
-	//RxHeader.StdId = 0x0;		 //Specifies the standard identifier. Has no use when receiving.
+	RxHeader.StdId = 0x0;		 //Specifies the standard identifier. Has no use when receiving.
 
 	//Receive the messsage
 	if (HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, receivedData) != HAL_OK)
@@ -1115,26 +1113,17 @@ void SendSensorData(uint16_t sensorId, float data)
 void ReceiveSensorData(uint32_t sensorId, float data)
 {
 	char s_data[20];
-	switch (sensorId)
-	{
-	case TEMP_1:
+	if(sensorId == TEMP_1){
 		sprintf(s_data, "T1: %f C", data);
 		serialMsg(s_data);
-		break;
-	case TEMP_2:
-		sprintf(s_data, "T1: %f C", data);
+	}
+	else if(sensorId == TEMP_2){
+		sprintf(s_data, "T2: %f C", data);
 		serialMsg(s_data);
-		break;
-	case TEMP_3:
-		sprintf(s_data, "T1: %f C", data);
+	}
+	else if(sensorId == TEMP_3){
+		sprintf(s_data, "T3: %f C", data);
 		serialMsg(s_data);
-		break;
-	case SENSOR_4:
-
-		break;
-	case SENSOR_5:
-
-		break;
 	}
 }
 
