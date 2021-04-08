@@ -2,3 +2,6 @@ CAN_Testbench/NucleoL476RG-TestBenchInterface/NucleoL476RG-TestBenchInterface.io
 CAN_Testbench/NucleoL476RG-TestBenchInterface/.cproject
 .vscode/c_cpp_properties.json
 /.metadata/
+CAN_Testbench/Nucleo-L476RG-ADC/.settings/language.settings.xml
+CAN_Testbench/NucleoL476RG-freeRTOS/.settings/language.settings.xml
+CAN_Testbench/NucleoL476RG-TestBenchInterface/.settings/language.settings.xml
